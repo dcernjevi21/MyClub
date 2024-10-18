@@ -12,8 +12,7 @@ Sav programski kod potrebno je verzionirati u glavnoj **master** grani i **obvez
 
 Nakon vaše prijave bit će vam dodijeljen mentor s kojim ćete tijekom semestra raditi na ovom projektu. Mentor će vam slati povratne informacije kroz sekciju Discussions također dostupnu na GitHubu vašeg projekta. A sada, vrijeme je da prijavite vaš projekt. Za prijavu vašeg projektnog prijedloga molimo vas koristite **predložak** koji je naveden u nastavku, a započnite tako da kliknete na *olovku* u desnom gornjem kutu ovoga dokumenta :) 
 
-# Naziv projekta
-(u redak iznad navedite kratki proizvoljni naziv projekta prikladan akademskoj zajednici, a ovaj tekst obrišite)
+# MyCLub
 
 ## Projektni tim
 
@@ -63,4 +62,17 @@ Udaljena baza podataka će služiti za pohranu svih bitnih podataka koji se kori
 Sigurnosni sloj će služiti za zaštitu baze od neovlaštenog pristupa. Svaki tip korisnika će moći pristupiti podacima koji su za njega namijenjeni nakon uspješne autorizacije. 
 
 ## Tehnologije i oprema
+
+Za implementaciju rješenja koristit ćemo sljedeće tehnologije i alate:
+
+* Razvojno okruženje: Visual Studio
+* Programsko okruženje: .NET Framework
+* Korisničko sučelje: WinForms
+* Baza podataka: SqLite i MySQL Workbench
+* Programski jezik: C#
+* Verzioniranje koda: Git i GitHub
+* Upravljanje zadacima: GitHub Projects
+* Dokumentacija: GitHub Wiki
+
+
 Umjesto ovih uputa jasno popišite sve tehnologije, alate i opremu koju ćete koristiti pri implementaciji vašeg rješenja. Projekti se razvijaju koristeći .Net Framework ili .Net Core razvojne okvire, a vrsta projekta može biti WinForms, WPF i UWP. Ne zaboravite planirati korištenje tehnologija u aktivnostima kao što su projektni menadžment ili priprema dokumentacije. Tehnologije koje ćete koristiti bi trebale biti javno dostupne, a ako ih ne budemo obrađivali na vježbama u vašoj dokumentaciji ćete morati navesti način preuzimanja, instaliranja i korištenja onih tehnologija koje su neopbodne kako bi se vaš programski proizvod preveo i pokrenuo. Pazite da svi alati koje ćete koristiti moraju imati odgovarajuću licencu. Što se tiče zahtjeva nastavnika, obvezno je koristiti git i GitHub za verzioniranje programskog koda, GitHub Wiki za pisanje tehničke i projektne dokumentacije, a projektne zadatke je potrebno planirati i pratiti u alatu GitHub projects. 
