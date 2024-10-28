@@ -22,14 +22,14 @@ Sportski klubovi često imaju problema s učinkovitim upravljanjem rasporedima t
 Oznaka | Naziv | Kratki opis | Odgovorni član tima
 ------ | ----- | ----------- | -------------------
 F01 | Registracija / Prijava | Kod prvog pristupa aplikaciji korisnik će morati poslati prijavnicu klubu. Korisnik će unijeti mail i lozinku te dodati kratak opis sebe te će to proslijediti klubu koji odlučuje o primitku ili odbijanju upisa u klub. Ako je korisnik primljen u klub pristupa aplikaciji pomoću e-mail adrese i lozinke koju je sam definirao prilikom registracije u aplikaciju. | Fran Kundih
-F02 | Unos i uređivanje profila sportaša i trenera | Korisnici će upisati svoju dob i dodati sliku profila da bi stvorili svoj korisnički račun. Klub upravlja profilom trenera. | Dominik Černjević
-F03 | Upravljanje terminima treninga | Treneri će moći zakazati treninge ili odgoditi iste. | Emanuel Valec
-F04 | Prikaz treninga i utakmica | Korisnici kao i treneri imat će prikaz svih prošlih i nadolazećih treninga i utakmica. | Dominik Černjević
-F05 | Evidencija dolazaka | Treneri će voditi evidenciju dolaska te će korisnici imati pregled svojih dolazaka | Emanuel Valec
+F02 | Unos i uređivanje profila sportaša i trenera | Sportaši će moći ažurirati osnovne podatke o sebi, uključujući i težinu, visinu, sliku i sl. Osim toga ovdje mogu i promijeniti lozinku, te vidjeti popis zadnjih 10 prijava u aplikaciju. Klub upravlja profilom trenera.	 | Dominik Černjević
+F03 | Upravljanje terminima treninga | Treneri će moći pregledati treninge, zakazati treninge ili odgoditi iste. Zakazivanje i otkazivanje treninga uključuje i slanje emaila korisnicima. | Emanuel Valec
+F04 | Pregled treninga i potvrda dolaska | Korisnici kao i treneri imat će prikaz svih prošlih i nadolazećih treninga. Osim toga, korisnici mogu potvrditi i otkazati dolazak na trening. | Dominik Černjević
+F05 | Evidencija dolazaka | Treneri će voditi evidenciju dolaska te će korisnici imati pregled svojih dolazaka. Osim toga, treneri će moći izraditi izvještaje o redovitosti članova. | Emanuel Valec
 F06 | Evidencija članarina i plaćanja | Klub će voditi evidenciju o plaćenim i neplaćenim članarinama te ostalim troškovima. | Fran Kundih
-F07 | Izvještaji o financijskom stanju kluba | Klub će moći stvarati financijske izvještaje za željeno razdoblje. | Dominik Černjević
-F08 | Statistike momčadi | Cijeli klub će imati pregled međusobne statistike momčadi (rezultati natjecanja). | Emanuel Valec
-F09 | Notifikacije sportašima | Aplikacija će korisnicima slati obavijesti o nadolazećim treninzima ili utakmicama. | Fran Kundih
+F07 | Upravljanje službenim utakmicama | Treneri će moći pregledati, zakazati i odgoditi službene utakmice. Zakazivanje i otkazivanje utakmice uključuje i slanje emaila korisnicima. | Dominik Černjević
+F08 | Izrada izvještaja sa utakmice | Treneri će moći evidentirati rezultat utakmice, kao i informacije sa utakmice bitne za daljnje odluke (npr. kartoni, performanse igrača. i sl.). Na kraju treneri mogu izraditi i izvještaj sa utakmice koji prikazuje navedene informacije. | Emanuel Valec
+F09 | Ocjenjivanje sportaša	 | Treneri na tjednoj bazi ocjenjuju sportaše i njihov napredak. Ocjenjivanje se sastoji od brojčane ocjene ali i opisnog dijela (izvještaja). A sportaši mogu vidjeti svoje dosadašnje ocjene. | Fran Kundih
 
 Arhitektura programskog proizvoda će biti troslojna. Slojevi su sljedeći:
 * Korisnički sloj (UI - WPF)
