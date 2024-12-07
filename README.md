@@ -27,7 +27,7 @@ F03 | Upravljanje terminima treninga | Treneri će moći pregledati treninge, za
 F04 | Pregled treninga, utakmica i potvrda dolaska | Korisnici kao i treneri imat će prikaz svih prošlih i nadolazećih treninga kao i utakmica. Osim toga, korisnici mogu potvrditi i otkazati dolazak na trening i utakmicu. | Dominik Černjević
 F05 | Evidencija dolazaka | Treneri će voditi evidenciju dolaska te će korisnici imati pregled svojih dolazaka. Osim toga, treneri će moći izraditi izvještaje o redovitosti članova. | Emanuel Valec
 F06 | Evidencija članarina i plaćanja | Klub će voditi evidenciju o plaćenim i neplaćenim članarinama te ostalim troškovima. | Fran Kundih
-F07 | Upravljanje utakmicama | Treneri će moći pregledati, zakazati i odgoditi utakmice. Zakazivanje i otkazivanje utakmice uključuje i slanje emaila korisnicima. | Dominik Černjević
+F07 | Upravljanje utakmicama i treninzima | Treneri će moći pregledati, zakazati i odgoditi utakmice i treninge. Zakazivanje i otkazivanje utakmica i treninga uključuje i slanje emaila korisnicima. | Dominik Černjević
 F08 | Izrada izvještaja sa utakmice | Treneri će moći evidentirati rezultat utakmice, kao i informacije sa utakmice bitne za daljnje odluke (npr. kartoni, performanse igrača. i sl.). Na kraju treneri mogu izraditi i izvještaj sa utakmice koji prikazuje navedene informacije. | Emanuel Valec
 F09 | Ocjenjivanje sportaša	 | Treneri na tjednoj bazi ocjenjuju sportaše i njihov napredak. Ocjenjivanje se sastoji od brojčane ocjene ali i opisnog dijela (izvještaja). A sportaši mogu vidjeti svoje dosadašnje ocjene. | Fran Kundih
 
