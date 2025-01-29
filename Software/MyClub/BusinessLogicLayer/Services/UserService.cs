@@ -1,10 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.EntityRepositories;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Services
 {
@@ -12,14 +9,46 @@ namespace BusinessLogicLayer.Services
     {
         private readonly UserRepository _userRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService()
         {
-            _userRepository = userRepository;
+            _userRepository = new UserRepository(); 
         }
 
-        public int RegisterUser(User user)
+        public bool RegisterUser(User user)
         {
-            return 1;
+            if (IsValidRegistration(user))
+            {
+                if (_userRepository.GetUserByEmail(user.Email).Any())
+                {
+                    return false; // Email already exists
+                }
+
+                user.StatusID = (int)UserStatus.Pending;
+                return _userRepository.AddUser(user) > 0;
+            }
+            return false; // Invalid registration
+        }
+
+        public User AuthenticateUser(string email, string password)
+        {
+            var user = _userRepository.GetUserByEmail(email).FirstOrDefault();
+            return (user != null && user.Password == password) ? user : null;
+        }
+
+        private bool IsValidRegistration(User user)
+        {
+            return !string.IsNullOrEmpty(user.FirstName) &&
+                   !string.IsNullOrEmpty(user.LastName) &&
+                   !string.IsNullOrEmpty(user.Email) &&
+                   !string.IsNullOrEmpty(user.Username) &&
+                   !string.IsNullOrEmpty(user.Password) &&
+                   user.BirthDate != default(DateTime);
+        }
+
+        public bool ValidateLogin(string email, string password)
+        {
+            var user = _userRepository.GetUserByEmail(email).FirstOrDefault();
+            return user != null && user.Password == password;
         }
     }
 }

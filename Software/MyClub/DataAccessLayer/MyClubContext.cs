@@ -8,7 +8,7 @@ namespace DataAccessLayer
     public partial class MyClubContext : DbContext
     {
         public MyClubContext()
-            : base("name=MyClbContext")
+            : base("name=MyClubContext")
         {
         }
 
@@ -68,11 +68,6 @@ namespace DataAccessLayer
                 .Property(e => e.RoleName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<RoleType>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.RoleType)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Status>()
                 .Property(e => e.StatusName)
                 .IsUnicode(false);
@@ -87,11 +82,6 @@ namespace DataAccessLayer
                 .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Status>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.Status)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Team>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -103,11 +93,6 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Trainings)
-                .WithRequired(e => e.Team)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Team>()
-                .HasMany(e => e.Users)
                 .WithRequired(e => e.Team)
                 .WillCascadeOnDelete(false);
 

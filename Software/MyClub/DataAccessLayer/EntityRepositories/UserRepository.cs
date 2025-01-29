@@ -14,7 +14,8 @@ namespace DataAccessLayer.EntityRepositories
 
         public int AddUser(User user)
         {
-            return 1;
+            Entities.Add(user);
+            return SaveChanges();
         }
 
         public override int Update(User entity, bool saveChanges = true)
@@ -50,7 +51,9 @@ namespace DataAccessLayer.EntityRepositories
 
         public int DeleteUser(User user)
         {
-            return 1;
+            Entities.Attach(user);
+            Entities.Remove(user);
+            return SaveChanges();
         }
 
         public IQueryable<User> GetAllUsers()
