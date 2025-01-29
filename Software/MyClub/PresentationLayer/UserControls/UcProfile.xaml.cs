@@ -1,8 +1,6 @@
-﻿using PresentationLayer.UserControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,24 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PresentationLayer
+namespace PresentationLayer.UserControls
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for UcProfile.xaml
+    /// </summary>
+    public partial class UcProfile : UserControl
     {
-        public MainWindow()
+        public UcProfile()
         {
             InitializeComponent();
         }
 
-        //černjević
-        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcProfile());
+           
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.MainWindow = this;
+            GuiManager.OpenContent(new UcEditProfile());
         }
     }
 }

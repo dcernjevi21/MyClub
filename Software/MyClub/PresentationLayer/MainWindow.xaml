@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationLayer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="800" Width="1200" Loaded="Window_Loaded">
+    <DockPanel>
+        <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="150" Background="LightGray">
+            <Label Content="FEATURES" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightGoldenrodYellow"></Label>
+            <Button x:Name="btnEditProfile" Content="Edit profile" Height="25" Background="AliceBlue" BorderThickness="1" Click="btnEditProfile_Click"></Button>
+        </StackPanel>
+        <ContentControl x:Name="contentPanel"></ContentControl>
+    </DockPanel>
 </Window>
