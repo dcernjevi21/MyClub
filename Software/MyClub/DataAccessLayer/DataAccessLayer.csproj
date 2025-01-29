@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityRepositories\Repository.cs" />
     <Compile Include="EntityRepositories\UserRepository.cs" />
     <Compile Include="MyClubContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
