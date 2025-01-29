@@ -6,16 +6,46 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityRepositories
 {
-    public class UserRepository
+    public class UserRepository : Repository<User>
     {
+        public UserRepository() : base(new MyClubContext())
+        {
+        }
+
         public int AddUser(User user)
         {
             return 1;
         }
 
-        public int UpdateUser(User user)
+        public override int Update(User entity, bool saveChanges = true)
         {
-            return 1;
+            var user = Entities.SingleOrDefault(x => x.UserID == entity.UserID);
+
+            if (user != null)
+            {
+                user.FirstName = entity.FirstName;
+                user.LastName = entity.LastName;
+                user.Email = entity.Email;
+                user.Username = entity.Username;
+                user.Password = entity.Password;
+                user.BirthDate = entity.BirthDate;
+                user.RoleID = entity.RoleID;
+                user.StatusID = entity.StatusID;
+                user.TeamID = entity.TeamID;
+
+                if (saveChanges)
+                {
+                    return SaveChanges();
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public int DeleteUser(User user)
@@ -23,19 +53,30 @@ namespace DataAccessLayer.EntityRepositories
             return 1;
         }
 
-        public List<User> GetAllUsers()
+        public IQueryable<User> GetAllUsers()
         {
-            return new List<User>();
+            var query = from s in Entities 
+                        select s;
+
+            return query;
         }
 
-        public User GetUserByEmail(string email)
+        public IQueryable<User> GetUserByEmail(string email)
         {
-            return new User();
+            var query = from s in Entities 
+                        where s.Email == email 
+                        select s;
+
+            return query;
         }
 
-        public List<User> GetAllPendingUsers(User user)
+        public IQueryable<User> GetAllPendingUsers()
         {
-            return new List<User>();
+            var query = from s in Entities
+                        //where status = query ??
+                        select s;
+
+            return query;
         }
     }
 }
