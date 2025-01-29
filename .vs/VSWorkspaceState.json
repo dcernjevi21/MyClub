@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Software",
+    "\\Software\\MyClub",
+    "\\Software\\MyClub\\packages",
+    "\\Software\\MyClub\\PresentationLayer"
   ],
-  "SelectedNode": "\\C:\\Users\\frank\\Source\\Repos\\rpp24merge",
+  "SelectedNode": "\\Software\\MyClub\\MyClub.sln",
   "PreviewInSolutionExplorer": false
 }
