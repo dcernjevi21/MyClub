@@ -58,6 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="FrmLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,6 +73,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.xaml.cs">
+      <DependentUpon>FrmLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRegistration.xaml.cs">
+      <DependentUpon>FrmRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -106,6 +120,21 @@
       <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>
       <Name>EntitiesLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\MyClub.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Background2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
