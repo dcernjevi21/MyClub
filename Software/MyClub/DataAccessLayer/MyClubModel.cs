@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace DataAccessLayer
 {
-    public partial class MyClubContext : DbContext
+    public partial class MyClubModel : DbContext
     {
-        public MyClubContext()
-            : base("name=MyClubContext")
+        public MyClubModel()
+            : base("name=MyClubModel")
         {
         }
 

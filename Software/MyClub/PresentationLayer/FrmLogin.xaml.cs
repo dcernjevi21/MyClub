@@ -11,12 +11,12 @@ namespace PresentationLayer
 {
     public partial class FrmLogin : Window
     {
-        private MyClubContext _context;
+        private MyClubModel _context;
 
         public FrmLogin()
         {
             InitializeComponent();
-            _context = new MyClubContext();
+            _context = new MyClubModel();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
