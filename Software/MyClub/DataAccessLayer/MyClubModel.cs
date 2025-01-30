@@ -79,11 +79,6 @@ namespace DataAccessLayer
                 .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Status>()
-                .HasMany(e => e.Trainings)
-                .WithRequired(e => e.Status)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Team>()
                 .Property(e => e.Name)
                 .IsUnicode(false);

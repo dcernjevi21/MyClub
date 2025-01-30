@@ -20,7 +20,6 @@ namespace DataAccessLayer.EntityRepositories
                 TrainingDate = entity.TrainingDate,
                 StartTime = entity.StartTime,
                 EndTime = entity.EndTime,
-                StatusID = entity.StatusID,
                 TeamID = entity.TeamID
             };
 
@@ -39,12 +38,11 @@ namespace DataAccessLayer.EntityRepositories
         {
             var training = Entities.SingleOrDefault(x => x.TrainingID == entity.TrainingID);
 
-
             training.TrainingDate = entity.TrainingDate;
             training.StartTime = entity.StartTime;
             training.EndTime = entity.EndTime;
-            training.StatusID = entity.StatusID;
             training.TeamID = entity.TeamID;
+
             if (saveChanges)
             {
                 return SaveChanges();
@@ -57,8 +55,8 @@ namespace DataAccessLayer.EntityRepositories
 
         public override IQueryable<Training> GetAll()
         {
-            var query = from t in Entities select t;
-
+            var query = from t in Entities.Include("Team")
+                        select t;
             return query;
         }
     }

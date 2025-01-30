@@ -52,6 +52,7 @@
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\sysdiagram.cs" />
     <Compile Include="Entities\Team.cs" />
+    <Compile Include="Entities\Team.Ext.cs" />
     <Compile Include="Entities\Training.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

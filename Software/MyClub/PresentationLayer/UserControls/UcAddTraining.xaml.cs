@@ -17,12 +17,11 @@ using System.Windows.Shapes;
 namespace PresentationLayer.UserControls
 {
     /// <summary>
-    /// Interaction logic for UcTrainings.xaml
+    /// Interaction logic for UcAddTraining.xaml
     /// </summary>
-    public partial class UcTrainings : UserControl
+    public partial class UcAddTraining : UserControl
     {
-        private TrainingService services = new TrainingService();
-        public UcTrainings()
+        public UcAddTraining()
         {
             InitializeComponent();
         }
@@ -32,31 +31,20 @@ namespace PresentationLayer.UserControls
 
         }
 
-        private void btnRemove_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ShowAllTrainings();
+            LoadTeams();
         }
 
-        private void ShowAllTrainings()
+        private void LoadTeams()
         {
-            var allTrainings = services.GetTrainings();
-            dgTrainings.ItemsSource = allTrainings;
-        }
-
-        private void btnAddNew_Click(object sender, RoutedEventArgs e)
-        {
-            GuiManager.OpenContent(new UcAddTraining());
+            var trainingServices = new TrainingService();
+            var teams = Team
         }
     }
 }
-

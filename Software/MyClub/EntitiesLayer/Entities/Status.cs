@@ -10,7 +10,6 @@ namespace EntitiesLayer.Entities
         public Status()
         {
             Attendances = new HashSet<Attendance>();
-            Trainings = new HashSet<Training>();
             Users = new HashSet<User>();
         }
 
@@ -22,9 +21,6 @@ namespace EntitiesLayer.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendances { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Training> Trainings { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

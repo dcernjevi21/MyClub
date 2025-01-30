@@ -66,6 +66,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
+    <Compile Include="UserControls\UcAddTraining.xaml.cs">
+      <DependentUpon>UcAddTraining.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcEditProfile.xaml.cs">
       <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\UcAddTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\UcEditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

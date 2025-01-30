@@ -30,6 +30,11 @@ namespace PresentationLayer
             GuiManager.OpenContent(new UcProfile());
         }
 
+        public void btnTrainings_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcTrainings());
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GuiManager.MainWindow = this;
