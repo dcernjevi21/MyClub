@@ -1,3 +1,4 @@
+using EntitiesLayer.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ namespace DataAccessLayer
     public partial class MyClubModel : DbContext
     {
         public MyClubModel()
-            : base("name=MyClubModel")
+            : base("name=MyCLubModel")
         {
         }
 
@@ -20,6 +21,7 @@ namespace DataAccessLayer
         public virtual DbSet<Method> Methods { get; set; }
         public virtual DbSet<RoleType> RoleTypes { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Training> Trainings { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -68,11 +70,6 @@ namespace DataAccessLayer
                 .Property(e => e.RoleName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<RoleType>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.RoleType)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Status>()
                 .Property(e => e.StatusName)
                 .IsUnicode(false);
@@ -87,11 +84,6 @@ namespace DataAccessLayer
                 .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Status>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.Status)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Team>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -103,11 +95,6 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Trainings)
-                .WithRequired(e => e.Team)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Team>()
-                .HasMany(e => e.Users)
                 .WithRequired(e => e.Team)
                 .WillCascadeOnDelete(false);
 

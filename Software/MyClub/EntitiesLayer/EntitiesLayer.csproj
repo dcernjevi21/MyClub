@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Entities\AthleteEvaluation.cs" />
     <Compile Include="Entities\Attendance.cs" />
     <Compile Include="Entities\Club.cs" />
@@ -51,6 +50,7 @@
     <Compile Include="Entities\Method.cs" />
     <Compile Include="Entities\RoleType.cs" />
     <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\sysdiagram.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Training.cs" />
     <Compile Include="Entities\User.cs" />
