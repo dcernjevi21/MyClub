@@ -1,7 +1,9 @@
 ﻿using BusinessLogicLayer;
 using EntitiesLayer.Entities;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -22,8 +25,6 @@ namespace PresentationLayer.UserControls
     /// </summary>
     public partial class UcProfile : UserControl
     {
-        private User user;
-
         private UserProfileServices userProfileService = new UserProfileServices();
 
         public UcProfile()
@@ -40,30 +41,48 @@ namespace PresentationLayer.UserControls
         {
             //testni podataka
             var users = userProfileService.GetUserByEmail("admin@gmail.com");
+            CurrentUser.User = users.FirstOrDefault();
             if (users != null && users.Count > 0)
             {
                 var user = users.First();
-                if(user.RoleID == 1) {
-                    lblRoleType.Content = "Admin";
-                }
-                else if (user.RoleID == 2)
+                switch (user.RoleID)
                 {
-                    lblRoleType.Content = "Coach";
-                }
-                else
-                {
-                    lblRoleType.Content = "User";
+                    case 1:
+                        lblRoleType.Content = "Admin";
+                        break;
+                    case 2:
+                        lblRoleType.Content = "Coach";
+                        break;
+                    default:
+                        lblRoleType.Content = "User";
+                        break;
                 }
                 lblFirstName.Content = user.FirstName;
                 lblLastName.Content = user.LastName;
                 lblEmail.Content = user.Email;
                 lblBirthDate.Content = user.BirthDate.ToString();
+                imgProfilePicture.Source = ConvertToImage(user.ProfilePicture);
             }
+        }
+
+        private BitmapImage ConvertToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+            }
+            return image;
         }
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfile(user));
+            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
         }
     }
 }

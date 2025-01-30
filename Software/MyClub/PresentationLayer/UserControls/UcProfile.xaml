@@ -20,6 +20,7 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="100" MaxHeight="100"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -33,7 +34,19 @@
             <Label Content="" x:Name="lblEmail" Grid.Column="1" Grid.Row="3" Margin="2"/>
             <Label Content="Role type:" Grid.Column="0" Grid.Row="4" Margin="2" />
             <Label Content="" x:Name="lblRoleType" Grid.Column="1" Grid.Row="4" Margin="2"/>
-            <Button x:Name="btnEditProfile" Content="Edit profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="5" Background="LightBlue" Click="btnEditProfile_Click"/>
+            <Label Content="Profile picture:" x:Name="lblProfilePicture" Grid.Column="0" Grid.Row="5" Margin="2" VerticalAlignment="Center"/>
+            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5"  Grid.Column="1" Grid.Row="5" Width="120" Height="100">
+             <Image x:Name="imgProfilePicture"
+           Width="100" Height="80"
+           Stretch="Uniform"
+           VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
+                    <Image.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3"/>
+                    </Image.Effect>
+                </Image>
+            </Border>
+
+            <Button x:Name="btnEditProfile" Content="Edit profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="6" Background="LightBlue" Click="btnEditProfile_Click"/>
         </Grid>
     </DockPanel>
 </UserControl>

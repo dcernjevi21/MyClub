@@ -61,5 +61,7 @@ namespace EntitiesLayer.Entities
         public virtual Status Status { get; set; }
 
         public virtual Team Team { get; set; }
+
+        public byte[] ProfilePicture { get; set; }
     }
 }

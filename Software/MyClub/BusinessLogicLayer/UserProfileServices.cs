@@ -21,23 +21,12 @@ namespace BusinessLogicLayer
             return true;
         }
 
-        public bool ChangeEmail(User user)
+        public bool UpdateUser(User user)
         {
             bool isSuccessful = false;
             using (var repo = new UserRepository())
             {
                 int affectedRows = repo.Update(user);
-                isSuccessful = affectedRows > 0;
-            }
-            return isSuccessful;
-        }
-
-        public bool ChangePassword()
-        {
-            bool isSuccessful = false;
-            using (var repo = new UserRepository())
-            {
-                int affectedRows = repo.Update(new User());
                 isSuccessful = affectedRows > 0;
             }
             return isSuccessful;

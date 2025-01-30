@@ -1,7 +1,10 @@
 ﻿using BusinessLogicLayer;
 using EntitiesLayer.Entities;
+using Microsoft.Win32;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace PresentationLayer.UserControls
 {
@@ -23,6 +27,7 @@ namespace PresentationLayer.UserControls
     public partial class UcEditProfile : UserControl
     {
         private User user;
+        byte[] imageBytes;
 
         public UcEditProfile(User fetchedUser)
         {
@@ -38,49 +43,98 @@ namespace PresentationLayer.UserControls
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var userService = new UserProfileServices();
-            var user = new User();
+            var user = CurrentUser.User;
+            user.UserID = user.UserID;
+            if (user == null)
+            {
+                MessageBox.Show("User not found!");
+                return;
+            }
 
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
             string email = txtEmail.Text;
 
-            if (email == null || password == null || confirmPassword == null)
+            if (!string.IsNullOrEmpty(email) && email != user.Email)
             {
-                return;
-            }
-
-            if (email != null)
-            {
-                //validate email
-                if(userService.ValidateEmail(email))
+                if (userService.ValidateEmail(email))
                 {
                     //change email
-                    userService.ChangeEmail(user);
+                    user.Email = email;
+                    bool a = userService.UpdateUser(user);
+                    if (a)
+                    {
+                        MessageBox.Show("Email updated successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error updating email!");
+                    }
+                    GuiManager.CloseContent();
                 }
                 else
                 {
                     MessageBox.Show("Email is not valid!");
                     return;
                 }
-                GuiManager.CloseContent();
             }
 
-            if (password != null && confirmPassword != null)
+            if (!string.IsNullOrEmpty(password) && password == confirmPassword)
             {
-                if (password != confirmPassword)
+                if (password != user.Password) // Proveravamo da li je drugačija od stare lozinke
                 {
-                    MessageBox.Show("Passwords do not match!");
-                    return;
+                    user.Password = password;
+                    userService.UpdateUser(user);
+                    GuiManager.CloseContent();
                 }
                 else
                 {
-                    //change password
-
-                    GuiManager.CloseContent();
+                    MessageBox.Show("New password must be different from the old one!");
+                    return;
                 }
+            }
+
+            if(imageBytes != null)
+            {
+                user.ProfilePicture = imageBytes;
+                bool a = userService.UpdateUser(user);
+                if(a)
+                {
+                    MessageBox.Show("Profile picture updated successfully!");
+                }
+                else { MessageBox.Show("Error updating profile picture!"); }
+                GuiManager.CloseContent();
             }
             return;
         }
+
+        private void btnChooseImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string imagePath = openFileDialog.FileName;
+                    imageBytes = File.ReadAllBytes(imagePath);
+
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(imageBytes);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+
+                    imgProfile.Source = bitmap;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
