@@ -66,6 +66,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\CurrentUser.cs" />
+    <Compile Include="UserControls\UcEditProfileUser.xaml.cs">
+      <DependentUpon>UcEditProfileUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcProfileUser.xaml.cs">
+      <DependentUpon>UcProfileUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
@@ -92,12 +98,6 @@
       <DependentUpon>CoachWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GuiManager.cs" />
-    <Compile Include="UserControls\UcEditProfile.xaml.cs">
-      <DependentUpon>UcEditProfile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UcProfile.xaml.cs">
-      <DependentUpon>UcProfile.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,11 +116,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\UcEditProfile.xaml">
+    <Page Include="UserControls\UcEditProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfile.xaml">
+    <Page Include="UserControls\UcProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

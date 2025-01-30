@@ -23,6 +23,7 @@ namespace PresentationLayer
         public AdminWindow()
         {
             InitializeComponent();
+            GuiManager.SetMainWindow(this);
         }
 
        

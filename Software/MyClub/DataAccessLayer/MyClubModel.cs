@@ -133,6 +133,9 @@ namespace DataAccessLayer
                 .HasMany(e => e.Memberships)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.ProfilePicture).IsOptional();
         }
     }
 }
