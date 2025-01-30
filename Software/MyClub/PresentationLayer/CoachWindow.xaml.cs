@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PresentationLayer.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace PresentationLayer
         {
             InitializeComponent();
             GuiManager.SetMainWindow(this);
+        }
+
+        private void btnMatchManagement_Click(object sender, RoutedEventArgs e)
+        {
+            UcMatchManagement ucMatchManagement = new UcMatchManagement();
+            contentPanel.Content = ucMatchManagement;
         }
     }
 }
