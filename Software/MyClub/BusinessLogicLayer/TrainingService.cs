@@ -58,6 +58,16 @@ namespace BusinessLogicLayer
             return isSuccessful;
         }
 
-        public bool 
+        public List<Team> GetTeams()
+        {
+            using (var repo = new TrainingRepository())
+            {
+                return repo.GetAll()
+                    .Select(t => t.Team)
+                    .Distinct()
+                    .ToList(); 
+            }
+        }
+
     }
 }

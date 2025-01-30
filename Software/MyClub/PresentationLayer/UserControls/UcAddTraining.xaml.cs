@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,17 @@ namespace PresentationLayer.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            var training = new Training
+            {
+                TrainingDate = dpDate.SelectedDate.Value,
+                StartTime = TimeSpan.Parse(tbStartTime.Text),
+                EndTime = TimeSpan.Parse(tbEndTime.Text),
+                TeamID = (int)cbTeam.SelectedValue
+            };
 
+            var trainingService = new TrainingService();
+            trainingService.AddTraining(training);
+            GuiManager.OpenContent(new UcTrainings());
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -44,7 +55,22 @@ namespace PresentationLayer.UserControls
         private void LoadTeams()
         {
             var trainingServices = new TrainingService();
-            var teams = Team
+            var teams = trainingServices.GetTeams();
+
+            cbTeam.ItemsSource = teams;
+            cbTeam.DisplayMemberPath = "Name";
+            cbTeam.SelectedValuePath = "TeamID";
+        }
+
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcTrainings());
+        }
+
+        private void btnCancel_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

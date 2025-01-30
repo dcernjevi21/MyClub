@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,19 @@ namespace PresentationLayer.UserControls
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
+            var selectedTraining = dgTrainings.SelectedItem as Training;
+            if(selectedTraining != null)
+            {
+                bool isSuccessful = services.RemoveTraining(selectedTraining);
+                GuiManager.OpenContent(new UcTrainings());
+            }
 
         }
-
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            var selectedTraining = dgTrainings.SelectedItem as Training;
+            UcEditTraining editControl = new UcEditTraining(selectedTraining);
+            GuiManager.OpenContent(editControl);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

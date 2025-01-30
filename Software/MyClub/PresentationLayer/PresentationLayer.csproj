@@ -72,6 +72,9 @@
     <Compile Include="UserControls\UcEditProfile.xaml.cs">
       <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcEditTraining.xaml.cs">
+      <DependentUpon>UcEditTraining.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcProfile.xaml.cs">
       <DependentUpon>UcProfile.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UcEditProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcEditTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
