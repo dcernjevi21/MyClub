@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLogicLayer.Services;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,11 +86,12 @@ namespace DataAccessLayer.EntityRepositories
 
         public IQueryable<User> GetAllPendingUsers()
         {
-            var query = from s in Entities
-                            //where status = query ??
-                        select s;
+            var query = from u in Entities
+                        where u.StatusID == (int)UserStatus.Pending
+                        select u;
 
             return query;
         }
+
     }
 }

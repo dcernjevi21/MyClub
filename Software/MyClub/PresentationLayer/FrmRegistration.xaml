@@ -12,8 +12,13 @@
             <ImageBrush ImageSource="/Assets/Background2.jpg" Stretch="None" TileMode="FlipY"/>
         </Grid.Background>
 
+        <Image Source="/Assets/back-button.png" Width="30" 
+       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
+       Cursor="Hand" MouseDown="imgBack_MouseDown"/>
+
+
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Margin="0 30 0 0">
-            <TextBlock Text="Registration" FontSize="24" HorizontalAlignment="Center" Margin="0"/>
+            <TextBlock Text="Registration" FontSize="28" HorizontalAlignment="Center" Margin="0" FontWeight="Bold" Foreground="DarkBlue" />
 
             <Label Content="First Name" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <TextBox Name="txtFirstName" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
@@ -39,8 +44,10 @@
                 <ComboBoxItem Content="Coach"/>
                 <ComboBoxItem Content="User"/>
             </ComboBox>
-
-            <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="200" Height="40" Margin="30" FontFamily="Lucida Sans Unicode" FontSize="16" Padding="0" Click="btnRegister_Click"/>
+            <TextBlock Name="lblErrorMessage" Grid.Row="5" Grid.Column="0" 
+           Foreground="IndianRed" FontWeight="Bold" Text="Invalid email or password" 
+           Visibility="Hidden"  Margin="0 15 0 0" HorizontalAlignment="Center"/>
+            <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="200" Height="40" Margin="10" FontFamily="Lucida Sans Unicode" FontSize="16" Padding="0" Click="btnRegister_Click"/>
         </StackPanel>
     </Grid>
 </Window>

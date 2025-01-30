@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityRepository\Repository.cs" />
+    <Compile Include="EntityRepository\TrainingRepository.cs" />
     <Compile Include="EntityRepository\UserRepository.cs" />
     <Compile Include="MyClubModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
