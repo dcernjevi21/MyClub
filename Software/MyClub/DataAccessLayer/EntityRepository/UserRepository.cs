@@ -23,7 +23,7 @@ namespace DataAccessLayer.EntityRepositories
         public override int Update(User entity, bool saveChanges = true)
         {
             var user = Entities.SingleOrDefault(x => x.UserID == entity.UserID);
-
+            
             if (user != null)
             {
                 user.FirstName = entity.FirstName;
@@ -75,7 +75,7 @@ namespace DataAccessLayer.EntityRepositories
             return query;
         }
 
-        public IQueryable<User> GetUserByRoleId(int roleId)
+        public IQueryable<User> GetUsersByRoleId(int roleId)
         {
             var query = from s in Entities
                         where s.RoleID == roleId

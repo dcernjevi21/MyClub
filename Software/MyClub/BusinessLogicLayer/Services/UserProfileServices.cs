@@ -49,11 +49,11 @@ namespace BusinessLogicLayer
             }
         }
 
-        public List<User> GetUserByRoleId(int roleId)
+        public List<User> GetUsersByRoleId(int roleId)
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetUserByRoleId(roleId).ToList();
+                return repo.GetUsersByRoleId(roleId).ToList();
             }
         }
     }
