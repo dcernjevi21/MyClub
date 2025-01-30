@@ -24,15 +24,15 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="First name:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
-            <TextBox x:Name="txtFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
+            <Label Content="" x:Name="lblFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Last name:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
-            <TextBox x:Name="txtLastName" Grid.Column="1" Grid.Row="1" Margin="2"/>
+            <Label Content="" x:Name="lblLastName" Grid.Column="1" Grid.Row="1" Margin="2"/>
             <Label Content="Birth date:" Grid.Column="0" Grid.Row="2" FontWeight="Bold"/>
-            <TextBox x:Name="txtBirthDate" Grid.Column="1" Grid.Row="2" Margin="2"/>
+            <Label Content="" x:Name="lblBirthDate" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <Label Content="Email:" Grid.Column="0" Grid.Row="3" FontWeight="Bold"/>
-            <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="3" Margin="2"/>
+            <Label Content="" x:Name="lblEmail" Grid.Column="1" Grid.Row="3" Margin="2"/>
             <Label Content="Role type:" Grid.Column="0" Grid.Row="4" Margin="2" />
-            <TextBox x:Name="txtRoleType" Grid.Column="1" Grid.Row="4" Margin="2"/>
+            <Label Content="" x:Name="lblRoleType" Grid.Column="1" Grid.Row="4" Margin="2"/>
             <Button x:Name="btnEditProfile" Content="Edit profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="5" Background="LightBlue" Click="btnEditProfile_Click"/>
         </Grid>
     </DockPanel>

@@ -43,11 +43,21 @@ namespace PresentationLayer.UserControls
             if (users != null && users.Count > 0)
             {
                 var user = users.First();
-                txtFirstName.Text = user.FirstName;
-                txtLastName.Text = user.LastName;
-                txtEmail.Text = user.Email;
-                txtRoleType.Text = user.RoleID.ToString();
-                txtBirthDate.Text = user.BirthDate.ToString();
+                if(user.RoleID == 1) {
+                    lblRoleType.Content = "Admin";
+                }
+                else if (user.RoleID == 2)
+                {
+                    lblRoleType.Content = "Coach";
+                }
+                else
+                {
+                    lblRoleType.Content = "User";
+                }
+                lblFirstName.Content = user.FirstName;
+                lblLastName.Content = user.LastName;
+                lblEmail.Content = user.Email;
+                lblBirthDate.Content = user.BirthDate.ToString();
             }
         }
 
