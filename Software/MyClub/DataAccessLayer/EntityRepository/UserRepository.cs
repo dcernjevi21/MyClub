@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntitiesLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace DataAccessLayer.EntityRepositories
 
         public int AddUser(User user)
         {
-            return 1;
+            Entities.Add(user);
+            return SaveChanges();
         }
 
         public override int Update(User entity, bool saveChanges = true)
@@ -50,12 +52,14 @@ namespace DataAccessLayer.EntityRepositories
 
         public int DeleteUser(User user)
         {
-            return 1;
+            Entities.Attach(user);
+            Entities.Remove(user);
+            return SaveChanges();
         }
 
         public IQueryable<User> GetAllUsers()
         {
-            var query = from s in Entities 
+            var query = from s in Entities
                         select s;
 
             return query;
@@ -63,8 +67,8 @@ namespace DataAccessLayer.EntityRepositories
 
         public IQueryable<User> GetUserByEmail(string email)
         {
-            var query = from s in Entities 
-                        where s.Email == email 
+            var query = from s in Entities
+                        where s.Email == email
                         select s;
 
             return query;
@@ -73,7 +77,7 @@ namespace DataAccessLayer.EntityRepositories
         public IQueryable<User> GetAllPendingUsers()
         {
             var query = from s in Entities
-                        //where status = query ??
+                            //where status = query ??
                         select s;
 
             return query;
