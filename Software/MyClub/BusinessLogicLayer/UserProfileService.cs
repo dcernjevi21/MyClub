@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using DataAccessLayer.EntityRepositories;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +10,32 @@ namespace BusinessLogicLayer
 {
     public class UserProfileService
     {
-        private bool ValidateEmail()
+        public bool ValidateEmail()
         {
             return true;
         }
 
-        private bool ValidatePassword()
+        public bool ValidatePassword()
         {
             return true;
         }
 
-        private void ChangeEmail()
-        {
-        }
-
-        private void ChangePassword()
+        public void ChangeEmail()
         {
 
         }
 
-        private User GetUserByEmail(string email)
+        public void ChangePassword()
         {
-            return new User();
+
+        }
+
+        public List<User> GetUserByEmail(string email)
+        {
+            using (var repo = new UserRepository())
+            {
+                return repo.GetUserByEmail(email).ToList();
+            }
         }
     }
 }

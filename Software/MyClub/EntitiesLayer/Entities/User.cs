@@ -1,4 +1,4 @@
-namespace DataAccessLayer
+namespace EntitiesLayer.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -41,11 +41,11 @@ namespace DataAccessLayer
         [Column(TypeName = "date")]
         public DateTime BirthDate { get; set; }
 
-        public int RoleID { get; set; }
+        public int? RoleID { get; set; }
 
-        public int StatusID { get; set; }
+        public int? StatusID { get; set; }
 
-        public int TeamID { get; set; }
+        public int? TeamID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AthleteEvaluation> AthleteEvaluations { get; set; }

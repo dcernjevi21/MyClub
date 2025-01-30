@@ -1,3 +1,4 @@
+using EntitiesLayer.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -20,6 +21,7 @@ namespace DataAccessLayer
         public virtual DbSet<Method> Methods { get; set; }
         public virtual DbSet<RoleType> RoleTypes { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Training> Trainings { get; set; }
         public virtual DbSet<User> Users { get; set; }

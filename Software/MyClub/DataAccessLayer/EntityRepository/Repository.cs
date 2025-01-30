@@ -9,10 +9,10 @@ namespace DataAccessLayer.EntityRepositories
 {
     public abstract class Repository<T> : IDisposable where T : class
     {
-        protected MyClubContext Context { get; set; }
+        protected MyClubModel Context { get; set; }
         protected DbSet<T> Entities { get; set; }
 
-        public Repository(MyClubContext context)
+        public Repository(MyClubModel context)
         {
             Context = context;
             Entities = context.Set<T>();
