@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using DataAccessLayer;  // Import your DAL
-using BusinessLogicLayer;   // Import business logic if applicable
+using DataAccessLayer; 
+using BusinessLogicLayer;   
 using System.Security.Cryptography;
 using System.Text;
 

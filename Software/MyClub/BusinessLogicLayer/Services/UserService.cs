@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.EntityRepositories;
+using EntitiesLayer.Entities;
 using System;
 using System.Linq;
 

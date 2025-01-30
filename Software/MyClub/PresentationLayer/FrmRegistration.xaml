@@ -36,8 +36,8 @@
             <Label Content="Role" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <ComboBox Name="cmbRole" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center">
                 <ComboBoxItem Content="Admin"/>
+                <ComboBoxItem Content="Coach"/>
                 <ComboBoxItem Content="User"/>
-                <ComboBoxItem Content="Moderator"/>
             </ComboBox>
 
             <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="200" Height="40" Margin="30" FontFamily="Lucida Sans Unicode" FontSize="16" Padding="0" Click="btnRegister_Click"/>
