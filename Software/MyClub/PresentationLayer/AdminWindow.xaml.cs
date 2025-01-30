@@ -1,4 +1,5 @@
 ﻿using PresentationLayer.Helper;
+using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,10 @@ namespace PresentationLayer
             InitializeComponent();
         }
 
-       
+        private void btnRegistrationRequests_Click(object sender, RoutedEventArgs e)
+        {
+            UCRegistrationRequests ucRegistrationRequests = new UCRegistrationRequests();
+            contentPanel.Content = ucRegistrationRequests;
+        }
     }
 }

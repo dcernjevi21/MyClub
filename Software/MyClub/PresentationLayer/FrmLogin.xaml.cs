@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
-using DataAccessLayer;
-using BusinessLogicLayer;
-using System.Security.Cryptography;
-using System.Text;
+using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
 
 namespace PresentationLayer
 {
     public partial class FrmLogin : Window
     {
-        private MyClubModel _context;
+        private readonly UserService _userService;
 
         public FrmLogin()
         {
             InitializeComponent();
-            _context = new MyClubModel();
+            _userService = new UserService();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -30,35 +26,16 @@ namespace PresentationLayer
                 return;
             }
 
-            if (AuthenticateUser(email, password))
+            var user = _userService.AuthenticateUser(email, password);
+            if (user != null)
             {
-                MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                OpenMainWindow(email);
-                this.Close();
+                CurrentUser.User = user;
+                OpenMainWindow();
+                Close();
             }
             else
             {
                 ShowError("Invalid email or password!");
-            }
-        }
-
-        private bool AuthenticateUser(string email, string password)
-        {
-            try
-            {
-                var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
-                if (user != null)
-                {
-                    CurrentUser.User = user;
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Database error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
         }
 
@@ -68,35 +45,31 @@ namespace PresentationLayer
             lblErrorMessage.Visibility = Visibility.Visible;
         }
 
-        private void OpenMainWindow(string email)
+        private void OpenMainWindow()
         {
             switch (CurrentUser.User.RoleID)
             {
                 case 1:
-                    AdminWindow adminWindow = new AdminWindow();
-                    adminWindow.Show();
+                    new AdminWindow().Show();
                     break;
                 case 2:
-                    CoachWindow coachWindow = new CoachWindow();
-                    coachWindow.Show();
+                    new CoachWindow().Show();
                     break;
                 case 3:
-                    UserWindow userWindow = new UserWindow();
-                    userWindow.Show();
+                    new UserWindow().Show();
                     break;
                 default:
                     MessageBox.Show("User role is not recognized.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
-
-            this.Close();
+            Close();
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            FrmRegistration registerForm = new FrmRegistration();
+            FrmRegistration registerForm = new FrmRegistration(_userService);
             registerForm.Show();
-            this.Close();
+            Close();
         }
     }
 }
