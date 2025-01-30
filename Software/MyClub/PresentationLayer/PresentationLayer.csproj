@@ -81,6 +81,42 @@
     <Compile Include="UserControls\UcTrainings.xaml.cs">
       <DependentUpon>UcTrainings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CurrentUser.cs" />
+    <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
+      <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcEditProfileUser.xaml.cs">
+      <DependentUpon>UcEditProfileUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcProfileUser.xaml.cs">
+      <DependentUpon>UcProfileUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoachWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoachWindow.xaml.cs">
+      <DependentUpon>CoachWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GuiManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +124,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.xaml.cs">
+      <DependentUpon>FrmLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRegistration.xaml.cs">
+      <DependentUpon>FrmRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -106,6 +148,19 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UcProfile.xaml">
+    <Page Include="UserControls\UcEditProfileUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcProfileUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCRegistrationRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,10 +201,26 @@
       <Project>{2a1de6db-81da-440c-9f47-01abbe39a566}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{F45FE330-52B2-4488-8459-268DB5883BAF}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>
       <Name>EntitiesLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\MyClub.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\back-button.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

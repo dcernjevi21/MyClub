@@ -9,7 +9,7 @@ namespace DataAccessLayer
     public partial class MyClubModel : DbContext
     {
         public MyClubModel()
-            : base("name=MyCLubModel")
+            : base("name=MyClubModel")
         {
         }
 
@@ -128,6 +128,9 @@ namespace DataAccessLayer
                 .HasMany(e => e.Memberships)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.ProfilePicture).IsOptional();
         }
     }
 }
