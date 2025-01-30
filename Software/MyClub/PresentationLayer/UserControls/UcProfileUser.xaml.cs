@@ -45,22 +45,11 @@ namespace PresentationLayer.UserControls
             if (users != null && users.Count > 0)
             {
                 var user = users.First();
-                switch (user.RoleID)
-                {
-                    case 1:
-                        lblRoleType.Content = "Admin";
-                        break;
-                    case 2:
-                        lblRoleType.Content = "Coach";
-                        break;
-                    default:
-                        lblRoleType.Content = "User";
-                        break;
-                }
                 lblFirstName.Content = user.FirstName;
                 lblLastName.Content = user.LastName;
                 lblEmail.Content = user.Email;
                 lblBirthDate.Content = user.BirthDate.ToString();
+                lblRoleType.Content = "User";
                 imgProfilePicture.Source = ConvertToImage(user.ProfilePicture);
             }
         }

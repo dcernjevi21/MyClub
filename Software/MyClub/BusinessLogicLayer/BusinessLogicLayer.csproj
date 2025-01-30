@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="TrainingService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="UserProfileServices.cs" />
+    <Compile Include="Services\UserProfileServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

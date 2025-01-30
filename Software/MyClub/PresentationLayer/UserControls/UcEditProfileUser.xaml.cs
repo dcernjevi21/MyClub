@@ -42,8 +42,6 @@ namespace PresentationLayer.UserControls
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var userService = new UserProfileServices();
-            var user = CurrentUser.User;
-            user.UserID = user.UserID;
             if (user == null)
             {
                 MessageBox.Show("User not found!");
@@ -84,7 +82,7 @@ namespace PresentationLayer.UserControls
             {
                 if (userService.ValidatePassword(password))
                 {
-                    if (password == user.Password) // Proveravamo da li je drugačija od stare lozinke
+                    if (password == confirmPassword) // Proveravamo da li je drugačija od stare lozinke
                     {
                         user.Password = password;
                         userService.UpdateUser(user);
