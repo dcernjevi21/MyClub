@@ -9,7 +9,7 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Background2.jpg" Stretch="None" TileMode="FlipY"/>
+            <ImageBrush ImageSource="/Assets/Background2.jpg" Stretch="None" TileMode="FlipY"/>
         </Grid.Background>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Margin="0 30 0 0">

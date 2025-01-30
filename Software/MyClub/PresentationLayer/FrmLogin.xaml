@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
     <Grid>
         <Grid.Background>
-            <ImageBrush TileMode="Tile" ImageSource="/Background.png"/>
+            <ImageBrush TileMode="Tile" ImageSource="/Assets/Background.png"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>

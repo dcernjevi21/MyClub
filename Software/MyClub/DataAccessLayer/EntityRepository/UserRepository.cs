@@ -9,7 +9,7 @@ namespace DataAccessLayer.EntityRepositories
 {
     public class UserRepository : Repository<User>
     {
-        public UserRepository() : base(new MyClubModel())
+        public UserRepository() : base(new MyClubContext())
         {
         }
 

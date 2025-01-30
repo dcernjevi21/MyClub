@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using DataAccessLayer; 
-using BusinessLogicLayer;   
+using DataAccessLayer;
+using BusinessLogicLayer;
 using System.Security.Cryptography;
 using System.Text;
+using PresentationLayer.Helper;
 
 namespace PresentationLayer
 {
@@ -32,7 +33,7 @@ namespace PresentationLayer
             if (AuthenticateUser(email, password))
             {
                 MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                OpenMainWindow();
+                OpenMainWindow(email);
                 this.Close();
             }
             else
@@ -46,7 +47,13 @@ namespace PresentationLayer
             try
             {
                 var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
-                return user != null;
+                if (user != null)
+                {
+                    CurrentUser.User = user;
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
@@ -61,10 +68,28 @@ namespace PresentationLayer
             lblErrorMessage.Visibility = Visibility.Visible;
         }
 
-        private void OpenMainWindow()
+        private void OpenMainWindow(string email)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            switch (CurrentUser.User.RoleID)
+            {
+                case 1:
+                    AdminWindow adminWindow = new AdminWindow();
+                    adminWindow.Show();
+                    break;
+                case 2:
+                    CoachWindow coachWindow = new CoachWindow();
+                    coachWindow.Show();
+                    break;
+                case 3:
+                    UserWindow userWindow = new UserWindow();
+                    userWindow.Show();
+                    break;
+                default:
+                    MessageBox.Show("User role is not recognized.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+
+            this.Close();
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
