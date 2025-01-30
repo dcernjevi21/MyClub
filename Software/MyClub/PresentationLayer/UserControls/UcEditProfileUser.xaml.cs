@@ -17,25 +17,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using BusinessLogicLayer.Services;
 
 namespace PresentationLayer.UserControls
 {
     /// <summary>
-    /// Interaction logic for UcEditProfile.xaml
+    /// Interaction logic for UcEditProfileUser.xaml
     /// </summary>
-    public partial class UcEditProfile : UserControl
+    public partial class UcEditProfileUser : UserControl
     {
         private User user;
         byte[] imageBytes;
 
-        public UcEditProfile(User fetchedUser)
+        public UcEditProfileUser(User fetchedUser)
         {
             InitializeComponent();
             user = fetchedUser;
         }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -95,7 +93,7 @@ namespace PresentationLayer.UserControls
                     {
                         MessageBox.Show("New password must be different from the old one!");
                         return;
-                    } 
+                    }
                 }
                 else
                 {
@@ -105,17 +103,17 @@ namespace PresentationLayer.UserControls
             }
 
             //update image
-            if(imageBytes != null)
+            if (imageBytes != null)
             {
                 user.ProfilePicture = imageBytes;
                 bool a = userService.UpdateUser(user);
-                if(a)
+                if (a)
                 {
                     MessageBox.Show("Profile picture updated successfully!");
                 }
                 else
-                { 
-                    MessageBox.Show("Error updating profile picture!"); 
+                {
+                    MessageBox.Show("Error updating profile picture!");
                 }
             }
             GuiManager.CloseContent();
@@ -147,7 +145,6 @@ namespace PresentationLayer.UserControls
                 }
             }
         }
-
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

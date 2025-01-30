@@ -22,6 +22,7 @@ namespace PresentationLayer
         public CoachWindow()
         {
             InitializeComponent();
+            GuiManager.SetMainWindow(this);
         }
     }
 }

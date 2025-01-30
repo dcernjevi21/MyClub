@@ -23,11 +23,11 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcProfile.xaml
     /// </summary>
-    public partial class UcProfile : UserControl
+    public partial class UcProfileUser : UserControl
     {
         private UserProfileServices userProfileService = new UserProfileServices();
 
-        public UcProfile()
+        public UcProfileUser()
         {
             InitializeComponent();
         }
@@ -40,7 +40,7 @@ namespace PresentationLayer.UserControls
         private void DisplayUserData()
         {
             //testni podataka
-            var users = userProfileService.GetUserByEmail("admin@gmail.com");
+            var users = userProfileService.GetUserByEmail(CurrentUser.User.Email);
             CurrentUser.User = users.FirstOrDefault();
             if (users != null && users.Count > 0)
             {
@@ -82,7 +82,7 @@ namespace PresentationLayer.UserControls
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
+            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
         }
     }
 }

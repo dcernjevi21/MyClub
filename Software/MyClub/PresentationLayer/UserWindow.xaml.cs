@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PresentationLayer.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,18 @@ namespace PresentationLayer
         public UserWindow()
         {
             InitializeComponent();
+            GuiManager.SetMainWindow(this);
+        }
+
+        //černjević
+        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcProfileUser());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GuiManager.CurrentWindow = this;
         }
     }
 }

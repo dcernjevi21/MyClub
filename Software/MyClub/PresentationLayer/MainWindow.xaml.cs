@@ -27,12 +27,12 @@ namespace PresentationLayer
         //černjević
         public void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcProfile());
+            GuiManager.OpenContent(new UcProfileUser());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GuiManager.MainWindow = this;
+            GuiManager.CurrentWindow = this;
         }
     }
 }
