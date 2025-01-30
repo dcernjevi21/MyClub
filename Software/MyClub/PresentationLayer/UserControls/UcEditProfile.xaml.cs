@@ -56,6 +56,7 @@ namespace PresentationLayer.UserControls
             string confirmPassword = txtConfirmPassword.Text;
             string email = txtEmail.Text;
 
+            //update email
             if (!string.IsNullOrEmpty(email) && email != user.Email)
             {
                 if (userService.ValidateEmail(email))
@@ -70,8 +71,8 @@ namespace PresentationLayer.UserControls
                     else
                     {
                         MessageBox.Show("Error updating email!");
+                        return;
                     }
-                    GuiManager.CloseContent();
                 }
                 else
                 {
@@ -80,24 +81,21 @@ namespace PresentationLayer.UserControls
                 }
             }
 
-            if (!string.IsNullOrEmpty(password) && password == confirmPassword)
+            //update password
+            if (!string.IsNullOrEmpty(password))
             {
                 if (userService.ValidatePassword(password))
                 {
-                    if (password != user.Password) // Proveravamo da li je drugačija od stare lozinke
+                    if (password == user.Password) // Proveravamo da li je drugačija od stare lozinke
                     {
-                        if (userService.ValidatePassword(password))
-                        {
-                            user.Password = password;
-                            userService.UpdateUser(user);
-                            GuiManager.CloseContent();
-                        }
-                        else
-                        {
-                            MessageBox.Show("New password must be different from the old one!");
-                            return;
-                        }
-                    }    
+                        user.Password = password;
+                        userService.UpdateUser(user);
+                    }
+                    else
+                    {
+                        MessageBox.Show("New password must be different from the old one!");
+                        return;
+                    } 
                 }
                 else
                 {
@@ -106,6 +104,7 @@ namespace PresentationLayer.UserControls
                 }
             }
 
+            //update image
             if(imageBytes != null)
             {
                 user.ProfilePicture = imageBytes;
@@ -114,10 +113,12 @@ namespace PresentationLayer.UserControls
                 {
                     MessageBox.Show("Profile picture updated successfully!");
                 }
-                else { MessageBox.Show("Error updating profile picture!"); }
-                GuiManager.CloseContent();
+                else
+                { 
+                    MessageBox.Show("Error updating profile picture!"); 
+                }
             }
-            return;
+            GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)
