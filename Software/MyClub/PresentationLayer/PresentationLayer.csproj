@@ -78,7 +78,8 @@
     <Compile Include="Helper\CurrentUser.cs" />
     <Compile Include="UserControls\UcEditProfileAdmin.xaml.cs">
       <DependentUpon>UcEditProfileAdmin.xaml</DependentUpon>
-    <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
+    </Compile>
+      <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcEditProfileUser.xaml.cs">
