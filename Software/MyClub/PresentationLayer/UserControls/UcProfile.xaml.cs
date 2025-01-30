@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace PresentationLayer.UserControls
     /// </summary>
     public partial class UcProfile : UserControl
     {
-        private UserProfileService userProfileService = new UserProfileService();
+        private User user;
+
+        private UserProfileServices userProfileService = new UserProfileServices();
 
         public UcProfile()
         {
@@ -51,7 +54,7 @@ namespace PresentationLayer.UserControls
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfile());
+            GuiManager.OpenContent(new UcEditProfile(user));
         }
     }
 }

@@ -27,6 +27,8 @@
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Password:" Grid.Column="0" Grid.Row="1" Margin="2" />
             <TextBox x:Name="txtPassword" Grid.Column="1" Grid.Row="1" Margin="2"/>
+            <Label Content="Confirm password:" Grid.Column="0" Grid.Row="2" Margin="2" />
+            <TextBox x:Name="txtConfirmPassword" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="btnEditProfile" Content="Save" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnSave_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>
