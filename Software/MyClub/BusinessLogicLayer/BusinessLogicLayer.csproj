@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TrainingService.cs" />
-    <Compile Include="UserProfileService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="UserProfileServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

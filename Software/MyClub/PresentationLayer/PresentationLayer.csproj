@@ -69,14 +69,8 @@
     <Compile Include="UserControls\UcAddTraining.xaml.cs">
       <DependentUpon>UcAddTraining.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditProfile.xaml.cs">
-      <DependentUpon>UcEditProfile.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UcEditTraining.xaml.cs">
       <DependentUpon>UcEditTraining.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UcProfile.xaml.cs">
-      <DependentUpon>UcProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcTrainings.xaml.cs">
       <DependentUpon>UcTrainings.xaml</DependentUpon>
@@ -139,15 +133,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\UcEditTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfile.xaml">
     <Page Include="UserControls\UcEditProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
