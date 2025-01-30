@@ -72,6 +72,9 @@
     <Compile Include="UserControls\UcProfile.xaml.cs">
       <DependentUpon>UcProfile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcTrainings.xaml.cs">
+      <DependentUpon>UcTrainings.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UcProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcTrainings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
