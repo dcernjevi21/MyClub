@@ -28,26 +28,21 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Logo on the Left -->
         <Image Source="/Assets/MyClub.jpg" Grid.Row="0"  Grid.Column="1"  Grid.RowSpan="7"
                HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Margin="60 0px 0 0"/>
         
-        <!-- Email Label and Input -->
         <Label Content="Email" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="95, 0, 0, 0" FontFamily="Arial"/>
         <TextBox Name="txtEmail" Grid.Row="2" Grid.Column="0" Width="200" Height="30" Margin="5 5 5 10" VerticalContentAlignment="Center"/>
 
-        <!-- Password Label and Input -->
         <Label Content="Password" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="95, 0, 0, 0" FontFamily="Arial"/>
         <PasswordBox Name="txtPassword" Grid.Row="4" Grid.Column="0" Width="200" Height="30" Margin="5" VerticalContentAlignment="Center"/>
 
-        <!-- Validation Error Message -->
         <TextBlock Name="lblErrorMessage" Grid.Row="5" Grid.Column="0" 
                    Foreground="IndianRed" FontWeight="Bold" Text="Invalid email or password" 
                    Visibility="Collapsed" Margin="5" HorizontalAlignment="Center"/>
 
-        <!-- Buttons -->
         <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 0">
-            <Button Name="btnLogin" Background="#0A234B" Foreground="White" Content="Login" Width="100" Height="30" Margin="5" FontFamily="Lucida Sans Unicode" FontSize="16" />
+            <Button Name="btnLogin" Background="#0A234B" Foreground="White" Content="Login" Width="100" Height="30" Margin="5" FontFamily="Lucida Sans Unicode" FontSize="16" Click="btnLogin_Click" />
             <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="100" Height="30" Margin="5" FontFamily="Lucida Sans Unicode" FontSize="16" Click="btnRegister_Click" />
         </StackPanel>
     </Grid>

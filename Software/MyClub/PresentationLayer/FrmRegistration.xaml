@@ -12,44 +12,34 @@
             <ImageBrush ImageSource="/Background2.jpg" Stretch="None" TileMode="FlipY"/>
         </Grid.Background>
 
-        <!-- Form Elements -->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Margin="0 30 0 0">
             <TextBlock Text="Registration" FontSize="24" HorizontalAlignment="Center" Margin="0"/>
 
-            <!-- First Name -->
             <Label Content="First Name" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <TextBox Name="txtFirstName" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Last Name -->
             <Label Content="Last Name" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <TextBox Name="txtLastName" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Email -->
             <Label Content="Email" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <TextBox Name="txtEmail" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Username -->
             <Label Content="Username" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <TextBox Name="txtUsername" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Password -->
             <Label Content="Password" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <PasswordBox Name="txtPassword" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Birthdate -->
             <Label Content="Birthdate" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <DatePicker Name="dpBirthDate" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
 
-            <!-- Role (ComboBox) -->
             <Label Content="Role" HorizontalAlignment="Left" Margin="100 10 0 0"/>
             <ComboBox Name="cmbRole" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center">
-                <!-- Example roles -->
                 <ComboBoxItem Content="Admin"/>
                 <ComboBoxItem Content="User"/>
                 <ComboBoxItem Content="Moderator"/>
             </ComboBox>
 
-            <!-- Register Button -->
             <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="200" Height="40" Margin="30" FontFamily="Lucida Sans Unicode" FontSize="16" Padding="0" Click="btnRegister_Click"/>
         </StackPanel>
     </Grid>

@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace PresentationLayer
 {
-    /// <summary>
-    /// Interaction logic for FrmRegistration.xaml
-    /// </summary>
+
     public partial class FrmRegistration : Window
     {
         private readonly UserService _userService;
@@ -42,6 +40,8 @@ namespace PresentationLayer
                 StatusID = 1,
                 TeamID = 1
             };
+
+
 
             bool isRegistered = _userService.RegisterUser(newUser);
 

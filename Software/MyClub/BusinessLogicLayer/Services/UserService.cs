@@ -20,13 +20,13 @@ namespace BusinessLogicLayer.Services
             {
                 if (_userRepository.GetUserByEmail(user.Email).Any())
                 {
-                    return false; // Email already exists
+                    return false;  
                 }
 
                 user.StatusID = (int)UserStatus.Pending;
                 return _userRepository.AddUser(user) > 0;
             }
-            return false; // Invalid registration
+            return false; 
         }
 
         public User AuthenticateUser(string email, string password)
