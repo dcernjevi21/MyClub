@@ -65,6 +65,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GuiManager.cs" />
+    <Compile Include="UserControls\UcAddTraining.xaml.cs">
+      <DependentUpon>UcAddTraining.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcEditProfile.xaml.cs">
+      <DependentUpon>UcEditProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcEditTraining.xaml.cs">
+      <DependentUpon>UcEditTraining.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcProfile.xaml.cs">
+      <DependentUpon>UcProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcTrainings.xaml.cs">
+      <DependentUpon>UcTrainings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\CurrentUser.cs" />
     <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
@@ -119,6 +135,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\UcAddTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcEditProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcEditTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcProfile.xaml">
     <Page Include="UserControls\UcEditProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcTrainings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
