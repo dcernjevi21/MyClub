@@ -74,6 +74,15 @@ namespace DataAccessLayer.EntityRepositories
             return query;
         }
 
+        public IQueryable<User> GetUserByRoleId(int roleId)
+        {
+            var query = from s in Entities
+                        where s.RoleID == roleId
+                        select s;
+
+            return query;
+        }
+
         public IQueryable<User> GetAllPendingUsers()
         {
             var query = from s in Entities

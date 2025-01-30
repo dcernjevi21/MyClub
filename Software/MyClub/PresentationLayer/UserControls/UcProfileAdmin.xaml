@@ -6,7 +6,40 @@
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
-    <Grid>
-            
-    </Grid>
+    <DockPanel>
+        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Profile" DockPanel.Dock="Top"/>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="860"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="4000" MaxHeight="400"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="First name:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <Label Content="" x:Name="lblFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
+            <Label Content="Last name:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
+            <Label Content="" x:Name="lblLastName" Grid.Column="1" Grid.Row="1" Margin="2"/>
+            <Label Content="Birth date:" Grid.Column="0" Grid.Row="2" FontWeight="Bold"/>
+            <Label Content="" x:Name="lblBirthDate" Grid.Column="1" Grid.Row="2" Margin="2"/>
+            <Label Content="Email:" Grid.Column="0" Grid.Row="3" FontWeight="Bold"/>
+            <Label Content="" x:Name="lblEmail" Grid.Column="1" Grid.Row="3" Margin="2"/>
+            <Label Content="Role type:" Grid.Column="0" Grid.Row="4" Margin="2" />
+            <Label Content="" x:Name="lblRoleType" Grid.Column="1" Grid.Row="4" Margin="2"/>
+            <Button x:Name="btnEditProfile" Content="Edit your profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="5" Background="LightBlue" Click="btnEditProfile_Click"/>
+            <DataGrid x:Name="dgCoachGrid" Grid.Column="2" Margin="0,10,0,10" Grid.Row="6"/>
+            <Button x:Name="btnEditCoachProfile" Content="Edit selected coach profile" Width="150" Height="25" Margin="2"  Grid.Column="2" Grid.Row="7" Background="LightBlue" Click="btnEditCoachProfile_Click"/>
+        </Grid>
+    </DockPanel>
 </UserControl>

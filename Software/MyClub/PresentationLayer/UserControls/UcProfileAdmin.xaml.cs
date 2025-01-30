@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using PresentationLayer.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,32 @@ namespace PresentationLayer.UserControls
     /// </summary>
     public partial class UcProfileAdmin : UserControl
     {
+        private UserProfileServices userProfileService = new UserProfileServices();
+
         public UcProfileAdmin()
         {
             InitializeComponent();
         }
+
+        public void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DisplayCoachData();
+        }
+
+        public void DisplayCoachData()
+        {
+            dgCoachGrid.ItemsSource = userProfileService.GetUserByRoleId(2);
+        }
+
+        public void btnEditCoachProfile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
+        }
+
     }
 }

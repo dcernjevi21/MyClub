@@ -48,5 +48,13 @@ namespace BusinessLogicLayer
                 return repo.GetUserByEmail(email).ToList();
             }
         }
+
+        public List<User> GetUserByRoleId(int roleId)
+        {
+            using (var repo = new UserRepository())
+            {
+                return repo.GetUserByRoleId(roleId).ToList();
+            }
+        }
     }
 }

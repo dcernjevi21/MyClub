@@ -10,7 +10,11 @@
         MinWidth="1200" 
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="150" Background="LightGray">
+            <Label Content="FEATURES" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightGoldenrodYellow"></Label>
+            <Button x:Name="btnEditProfile" Content="Edit profile" Height="25" Background="AliceBlue" BorderThickness="1" Click="btnEditProfile_Click"></Button>
+        </StackPanel>
+        <ContentControl x:Name="contentPanel"></ContentControl>
+    </DockPanel>
 </Window>
