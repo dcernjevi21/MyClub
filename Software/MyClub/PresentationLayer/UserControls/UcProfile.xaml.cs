@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-//černjević
+//Černjević
 namespace PresentationLayer.UserControls
 {
     /// <summary>
@@ -36,7 +36,7 @@ namespace PresentationLayer.UserControls
         {
             DisplayUserData();
         }
-
+        //dodati popis zadnjih 10 prijava
         private void DisplayUserData()
         {
             //testni podataka

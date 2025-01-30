@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using BusinessLogicLayer.Services;
 
 namespace PresentationLayer.UserControls
 {
@@ -74,22 +75,33 @@ namespace PresentationLayer.UserControls
                 }
                 else
                 {
-                    MessageBox.Show("Email is not valid!");
+                    MessageBox.Show("Email is not valid! Correct format: example@example.com");
                     return;
                 }
             }
 
             if (!string.IsNullOrEmpty(password) && password == confirmPassword)
             {
-                if (password != user.Password) // Proveravamo da li je drugačija od stare lozinke
+                if (userService.ValidatePassword(password))
                 {
-                    user.Password = password;
-                    userService.UpdateUser(user);
-                    GuiManager.CloseContent();
+                    if (password != user.Password) // Proveravamo da li je drugačija od stare lozinke
+                    {
+                        if (userService.ValidatePassword(password))
+                        {
+                            user.Password = password;
+                            userService.UpdateUser(user);
+                            GuiManager.CloseContent();
+                        }
+                        else
+                        {
+                            MessageBox.Show("New password must be different from the old one!");
+                            return;
+                        }
+                    }    
                 }
                 else
                 {
-                    MessageBox.Show("New password must be different from the old one!");
+                    MessageBox.Show("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one digit!");
                     return;
                 }
             }
