@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//sve Černjević
 namespace PresentationLayer.UserControls
 {
     /// <summary>
@@ -36,11 +38,32 @@ namespace PresentationLayer.UserControls
 
         public void DisplayCoachData()
         {
+            lblFirstName.Content = CurrentUser.User.FirstName;
+            lblLastName.Content = CurrentUser.User.LastName;
+            lblEmail.Content = CurrentUser.User.Email;
+            lblBirthDate.Content = CurrentUser.User.BirthDate;
+            lblRoleType.Content = "Admin";
             dgCoachGrid.ItemsSource = userProfileService.GetUserByRoleId(2);
         }
 
         public void btnEditCoachProfile_Click(object sender, RoutedEventArgs e)
         {
+            User coach = GetSelectedCoach();
+            if (coach == null)
+            {
+                MessageBox.Show("Please select a coach!");
+                return;
+            }
+            else 
+            {
+                GuiManager.OpenContent(new UcEditProfileUser(coach));
+            }
+
+        }
+
+        private User GetSelectedCoach()
+        {
+            return dgCoachGrid.SelectedItem as User;
 
         }
 
