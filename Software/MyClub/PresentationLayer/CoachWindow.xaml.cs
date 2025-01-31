@@ -31,5 +31,11 @@ namespace PresentationLayer
             UcMatchManagement ucMatchManagement = new UcMatchManagement();
             contentPanel.Content = ucMatchManagement;
         }
+
+        private void btnMTrainings_Click(object sender, RoutedEventArgs e)
+        {
+            UcTrainings ucTrainings = new UcTrainings();
+            contentPanel.Content = ucTrainings;
+        }
     }
 }
