@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcEditTraining"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" Height="425.191" Width="375.498" Loaded="UserControl_Loaded">
+    <Grid Margin="0,0,0.2,-0.2">
+        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalAlignment="Top" Background="LightBlue" Content="Update Training" Height="28"/>
+        <Label Content="Date:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="112,120,0,0" VerticalAlignment="Top" Height="24" Width="206"/>
+        <Label Content="Start time:" HorizontalAlignment="Left" Margin="43,181,0,0" VerticalAlignment="Top" Height="24"/>
+        <TextBox x:Name="tbStartTime" HorizontalAlignment="Left" Height="24" Margin="112,181,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="206"/>
+        <TextBox x:Name="tbEndTime" HorizontalAlignment="Left" Height="24" Margin="112,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="206"/>
+        <Label Content="End time:" HorizontalAlignment="Left" Margin="43,248,0,0" VerticalAlignment="Top" Height="24"/>
+        <Label Content="Team:" HorizontalAlignment="Left" Margin="67,309,0,0" VerticalAlignment="Top" Height="24"/>
+        <ComboBox x:Name="cbTeam" HorizontalAlignment="Left" Margin="112,309,0,0" VerticalAlignment="Top" Width="206" Height="24"/>
+        <Button x:Name="btnAdd" Content="Update" HorizontalAlignment="Center" Margin="181,391,119,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Center" Margin="281,391,19,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+    </Grid>
+</UserControl>
