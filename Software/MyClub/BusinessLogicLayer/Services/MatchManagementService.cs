@@ -58,5 +58,16 @@ namespace BusinessLogicLayer.Services
             }
             return isSuccessful;
         }
+
+        public bool DoesMatchExist(int teamId, DateTime matchDate, TimeSpan startTime)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return repo.GetAllMatches().Any(m =>
+                    m.TeamID == teamId &&
+                    m.MatchDate == matchDate &&
+                    m.StartTime == startTime);
+            }
+        }
     }
 }

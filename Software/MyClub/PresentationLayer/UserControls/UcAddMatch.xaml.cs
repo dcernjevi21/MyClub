@@ -37,7 +37,11 @@ namespace PresentationLayer.UserControls
             string opponentTeam = txtOpponent.Text;
             string location = txtLocation.Text;
             string startTime = txtStartTime.Text;
+            TimeSpan startTimeParsed = TimeSpan.Parse(startTime);
             DateTime matchDate = dtMatchDate.SelectedDate.Value;
+
+            int teamId = (int)CurrentUser.User.TeamID;
+            bool matchExists = _matchManagementService.DoesMatchExist(teamId, matchDate, startTimeParsed);
 
             string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
             if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
@@ -55,6 +59,11 @@ namespace PresentationLayer.UserControls
                 MessageBox.Show("Invalid time format. Please enter time in HH:mm format.");
                 return;
             }
+            else if (matchExists)
+            {
+                MessageBox.Show("Match already exists on this date and time.");
+                return;
+            }
             else
             {
                 var match = new EntitiesLayer.Entities.Match
@@ -63,7 +72,7 @@ namespace PresentationLayer.UserControls
                     MatchDate = matchDate,
                     OpponentTeam = opponentTeam,
                     Location = location,
-                    StartTime = TimeSpan.Parse(startTime),
+                    StartTime = startTimeParsed,
                     Status = "Scheduled"
                 };
                 _matchManagementService.AddMatch(match);
