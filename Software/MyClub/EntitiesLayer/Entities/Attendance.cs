@@ -14,7 +14,7 @@ namespace EntitiesLayer.Entities
 
         public int UserID { get; set; }
 
-        public int StatusID { get; set; }
+        public int? StatusID { get; set; }
 
         public int? MatchId { get; set; }
 

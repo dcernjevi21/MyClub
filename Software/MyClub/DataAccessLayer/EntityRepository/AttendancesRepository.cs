@@ -43,10 +43,10 @@ namespace BusinessLogicLayer.Services
             var attendance = Entities.SingleOrDefault(x => x.AttendanceID == entity.AttendanceID);
             if (attendance != null)
             {
-                //dodati ostale atribute
                 attendance.TrainingID = entity.TrainingID;
                 attendance.UserID = entity.UserID;
                 attendance.StatusID = entity.StatusID;
+                attendance.MatchId = entity.MatchId;
 
                 if (saveChanges)
                 {
