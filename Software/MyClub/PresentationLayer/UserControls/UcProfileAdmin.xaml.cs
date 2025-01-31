@@ -43,7 +43,7 @@ namespace PresentationLayer.UserControls
             lblEmail.Content = CurrentUser.User.Email;
             lblBirthDate.Content = CurrentUser.User.BirthDate;
             lblRoleType.Content = "Admin";
-            dgCoachGrid.ItemsSource = userProfileService.GetUserByRoleId(2);
+            dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2);
         }
 
         public void btnEditCoachProfile_Click(object sender, RoutedEventArgs e)

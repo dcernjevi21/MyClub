@@ -52,6 +52,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<Match>()
                 .Property(e => e.Result)
                 .IsUnicode(false);
+            modelBuilder.Entity<Match>()
+               .Property(e => e.Status)
+               .IsUnicode(false);
 
             modelBuilder.Entity<Membership>()
                 .Property(e => e.Amount)
