@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\MatchManagementService.cs" />
+    <Compile Include="Services\MembershipService.cs" />
     <Compile Include="TrainingService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserProfileServices.cs" />

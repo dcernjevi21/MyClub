@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Local settings (.vs)",
+    "\\Software",
+    "\\Software\\MyClub"
   ],
-  "SelectedNode": "\\C:\\Users\\frank\\Source\\Repos\\rpp24-dcernjevi21-evalec21-fkundih2",
+  "SelectedNode": "\\Software\\MyClub\\MyClub.sln",
   "PreviewInSolutionExplorer": false
 }

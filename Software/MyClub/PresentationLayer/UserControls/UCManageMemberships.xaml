@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UCManageMemberships"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Name="dataGridUsers" AutoGenerateColumns="False" CanUserSortColumns="False" SelectionMode="Single" 
+                  Margin="10" CanUserReorderColumns="False" CanUserResizeColumns="False" Background="#FFF0F4FF" FontSize="14" 
+                  IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Grid.Column="0" Grid.Row="0" Grid.RowSpan="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="auto"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="auto"/>
+                <DataGridTextColumn Header="Club" Binding="{Binding Club}" Width="100"/>
+                <DataGridTextColumn Header="Team" Binding="{Binding Team}" Width="100"/>
+                <DataGridTextColumn Header="Month" Binding="{Binding Month}" Width="100"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="100"/>
+                <DataGridTextColumn Header="Paid" Binding="{Binding Paid}" Width="auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Mark as Paid" Name="btnMarkAsPaid" Width="120" Height="30" Click="btnMarkAsPaid_Click" Margin="5"/>
+            <Button Content="Mark All as Not Paid" Name="btnMarkAllAsNotPaid" Width="120" Height="30" Click="btnMarkAllAsNotPaid_Click" Margin="5"/>
+            <Button Content="Update Membership" Name="btnUpdateMembership" Width="120" Height="30" Click="btnUpdateMembership_Click" Margin="5"/>
+            <Button Content="Assign Memberships"  Name="btnAssignMemberships" Click="btnAssignMemberships_Click" Margin="10" Height="35" Width="120" Grid.Column="1" Grid.Row="1"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

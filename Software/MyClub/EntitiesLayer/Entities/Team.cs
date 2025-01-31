@@ -1,5 +1,6 @@
 namespace EntitiesLayer.Entities
 {
+    using DataAccessLayer;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
