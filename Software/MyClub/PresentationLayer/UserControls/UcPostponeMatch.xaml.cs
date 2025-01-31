@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,9 @@ namespace PresentationLayer.UserControls
     /// </summary>
     public partial class UcPostponeMatch : UserControl
     {
-        private Match match;
+        private EntitiesLayer.Entities.Match match;
 
-        public UcPostponeMatch(Match fetchedMatch)
+        public UcPostponeMatch(EntitiesLayer.Entities.Match fetchedMatch)
         {
             InitializeComponent();
             match = fetchedMatch;
@@ -31,10 +32,39 @@ namespace PresentationLayer.UserControls
 
         private void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
-            //GuiManager.CloseContent();
+            var _matchService = new MatchManagementService();
+            if (match == null)
+            {
+                MessageBox.Show("Match not found!");
+                return;
+            }
+
+            string explanation = txtExplanation.Text;
+            if (string.IsNullOrEmpty(explanation))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+            else
+            {
+                //ne upise cancelled u bazu
+                match.Status = "Cancelled";
+                match.Summary = explanation;
+                bool a = _matchService.UpdateMatch(match);
+                if (a)
+                {
+                    MessageBox.Show("Match updated successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Match update failed!");
+                }
+            }
+
+            GuiManager.CloseContent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+            private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
         }

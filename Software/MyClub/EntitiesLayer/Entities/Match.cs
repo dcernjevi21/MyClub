@@ -33,5 +33,8 @@ namespace EntitiesLayer.Entities
         public string Summary { get; set; }
 
         public virtual Team Team { get; set; }
+
+        [StringLength(50)]
+        public string Status { get; set; }
     }
 }

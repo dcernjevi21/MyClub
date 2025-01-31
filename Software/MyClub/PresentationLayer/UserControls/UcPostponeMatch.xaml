@@ -28,8 +28,8 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Summary:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
-            <TextBox x:Name="txtOpponent" Grid.Column="1" Grid.Row="2" Margin="2"/>
+            <Label Content="Explanation:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
+            <TextBox x:Name="txtExplanation" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnPostponeMatch" Content="Postpone match" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnPostponeMatch_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>
