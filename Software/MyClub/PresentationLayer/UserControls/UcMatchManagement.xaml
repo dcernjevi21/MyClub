@@ -10,21 +10,12 @@
         <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Match management" DockPanel.Dock="Top"/>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-<<<<<<< HEAD
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="400" MaxHeight="400"/>
-=======
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="160"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="600" MaxHeight="600"/>
->>>>>>> 0f090e83ba1c7f08d7c5e2cb576069982926a646
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>

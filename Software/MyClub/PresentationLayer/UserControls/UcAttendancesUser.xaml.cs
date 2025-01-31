@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,33 @@ namespace PresentationLayer.UserControls
     /// Interaction logic for UcAttendancesUser.xaml
     /// </summary>
     public partial class UcAttendancesUser : UserControl
-    {
+    
+
         public UcAttendancesUser()
         {
             InitializeComponent();
+        
+        }
+
+        public void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadTrainings();
+
+            LoadMatches();
+        }
+
+        public void LoadTrainings()
+        {
+            dgTrainingGrid.ItemsSource = _trainingManagementService.GetTrainings();
+        }
+        public void LoadMatches()
+        {
+            // Load matches
+        }
+
+        public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            // Mark attendance
         }
     }
 }
