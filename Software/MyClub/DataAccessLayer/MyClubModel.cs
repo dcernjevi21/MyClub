@@ -134,6 +134,10 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<User>()
                 .Property(e => e.ProfilePicture).IsOptional();
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.TeamID)
+                .IsOptional();
         }
     }
 }

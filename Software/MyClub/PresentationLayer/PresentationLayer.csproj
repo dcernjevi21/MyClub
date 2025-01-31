@@ -69,6 +69,9 @@
     <Compile Include="UserControls\UcAttendancesUser.xaml.cs">
       <DependentUpon>UcAttendancesUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
+      <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
       <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\UcAttendancesUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcMarkAttendance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

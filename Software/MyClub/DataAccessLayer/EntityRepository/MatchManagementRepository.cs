@@ -30,6 +30,11 @@ namespace DataAccessLayer.EntityRepository
             return Entities.Where(x => x.MatchID == matchId);
         }
 
+        public IQueryable<Match> GetMatchesByTeamId(int teamId)
+        {
+            return Entities.Where(x => x.TeamID == teamId);
+        }
+
         public int DeleteMatch(Match match)
         {
             Entities.Remove(match);

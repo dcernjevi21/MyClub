@@ -1,4 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
+using EntitiesLayer.Entities;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,9 @@ namespace PresentationLayer.UserControls
     /// Interaction logic for UcAttendancesUser.xaml
     /// </summary>
     public partial class UcAttendancesUser : UserControl
-    
+    {
+        private MatchManagementService _matchManagementService = new MatchManagementService();
+        private int teamId = CurrentUser.User.TeamID.Value;
 
         public UcAttendancesUser()
         {
@@ -37,16 +41,39 @@ namespace PresentationLayer.UserControls
 
         public void LoadTrainings()
         {
-            dgTrainingGrid.ItemsSource = _trainingManagementService.GetTrainings();
+            //dgTrainingGrid.ItemsSource = _trainingManagementService.GetTrainingsByTeamId((int)CurrentUser.User.TeamID);
         }
         public void LoadMatches()
         {
-            // Load matches
+            dgMatchGrid.ItemsSource = _matchManagementService.GetMatchesByTeamId((int)CurrentUser.User.TeamID);
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)
         {
-            // Mark attendance
+            Match match = GetMatchAttendance();
+            Training training = GetTrainingAttendance();
+            if (match == null && training != null)
+            {
+                GuiManager.OpenContent(new UcMarkAttendance(training.TrainingID, 0, training, null));
+            }
+            else if (match != null && training == null)
+            {
+                GuiManager.OpenContent(new UcMarkAttendance(0, match.MatchID, null, match));
+            }
+            else
+            {
+                MessageBox.Show("Please select a match or training to mark attendance for.");
+            }
+
+        }
+
+        public Match GetMatchAttendance()
+        {
+            return dgMatchGrid.SelectedItem as Match;
+        }
+        public Training GetTrainingAttendance()
+        {
+            return dgTrainingGrid.SelectedItem as Training;
         }
     }
 }
