@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
     <DockPanel>
-        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Add Match" DockPanel.Dock="Top"/>
+        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Update match details" DockPanel.Dock="Top"/>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -19,23 +19,17 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="150" MaxHeight="150"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Opponent:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
-            <TextBox x:Name="txtOpponent" Grid.Column="1" Grid.Row="2" Margin="2"/>
-            <Label Content="MatchDate:" Grid.Column="1" Grid.Row="3" Margin="2" FontWeight="Bold"/>
-            <DatePicker x:Name="dtMatchDate" Grid.Column="1" Grid.Row="4" Margin="2"/>
-            <Label Content="Start time:" Grid.Column="1" Grid.Row="5" Margin="2" FontWeight="Bold"/>
-            <TextBox x:Name="txtStartTime" Grid.Column="1" Grid.Row="6" Margin="2"/>
-            <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnAddMatch" Content="Add match" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnAddMatch_Click"/>
+            <Label Content="Result:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
+            <TextBox x:Name="txtResult" Grid.Column="1" Grid.Row="2" Margin="2"/>
+            <Label Content="Summary:" Grid.Column="1" Grid.Row="3" Margin="2" FontWeight="Bold"/>
+            <TextBox x:Name="txtStartTime" Grid.Column="1" Grid.Row="4" Margin="2"/>
+            <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnUpdateMatch" Content="Update 69 haha lol match" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>
             </StackPanel>
         </Grid>

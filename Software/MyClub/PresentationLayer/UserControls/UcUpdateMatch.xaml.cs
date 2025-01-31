@@ -17,21 +17,19 @@ using System.Windows.Shapes;
 namespace PresentationLayer.UserControls
 {
     /// <summary>
-    /// Interaction logic for UcUpdateMatch.xaml
+    /// Interaction logic for UcAddMatch.xaml
     /// </summary>
     public partial class UcUpdateMatch : UserControl
     {
-        private Match match;
-
-        public UcUpdateMatch(Match fetchedMatch)
+        public UcUpdateMatch()
         {
             InitializeComponent();
-            match = fetchedMatch;
         }
 
         private void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
 
+            GuiManager.CloseContent();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

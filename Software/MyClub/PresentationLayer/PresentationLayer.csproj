@@ -66,8 +66,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
-    <Compile Include="UserControls\UcAddMatch.xaml.cs">
-      <DependentUpon>UcAddMatch.xaml</DependentUpon>
+    <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
+      <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcAddTraining.xaml.cs">
       <DependentUpon>UcAddTraining.xaml</DependentUpon>
@@ -100,8 +100,8 @@
     <Compile Include="UserControls\UcProfileUser.xaml.cs">
       <DependentUpon>UcProfileUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
-      <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
+    <Compile Include="UserControls\UcAddMatch.xaml.cs">
+      <DependentUpon>UcAddMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
@@ -147,7 +147,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\UcAddMatch.xaml">
+    <Page Include="UserControls\UcUpdateMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,7 +187,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcUpdateMatch.xaml">
+    <Page Include="UserControls\UcAddMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

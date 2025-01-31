@@ -12,6 +12,7 @@ namespace EntitiesLayer.Entities
 
         public int TeamID { get; set; }
 
+        
         [Column(TypeName = "date")]
         public DateTime MatchDate { get; set; }
 

@@ -40,7 +40,8 @@ namespace PresentationLayer.UserControls
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
         {
-            //GuiManager.OpenContent(new UcAddMatch(new Match()));
+
+            GuiManager.OpenContent(new UcAddMatch());
         }
 
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
