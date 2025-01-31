@@ -43,6 +43,13 @@ namespace PresentationLayer.UserControls
             int teamId = (int)CurrentUser.User.TeamID;
             bool matchExists = _matchManagementService.DoesMatchExist(teamId, matchDate, startTimeParsed);
 
+
+
+
+            //dodati logiku ako se stavlja utakmica u isto vrijeme kada je trening
+            //dodati slanje e maila korisnicima nakon sto se zakaze utakmica
+
+
             string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
             if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
             {
@@ -73,7 +80,7 @@ namespace PresentationLayer.UserControls
                     OpponentTeam = opponentTeam,
                     Location = location,
                     StartTime = startTimeParsed,
-                    Status = "Scheduled"
+                    Status = "Scheduled" //tu upise scheduled u bazu
                 };
                 _matchManagementService.AddMatch(match);
             }
