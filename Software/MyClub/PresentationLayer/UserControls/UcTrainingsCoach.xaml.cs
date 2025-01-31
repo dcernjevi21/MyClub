@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer;
 using EntitiesLayer.Entities;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,36 +19,36 @@ using System.Windows.Shapes;
 namespace PresentationLayer.UserControls
 {
     /// <summary>
-    /// Interaction logic for UcTrainings.xaml
+    /// Interaction logic for UcTrainingsCoach.xaml
     /// </summary>
-    public partial class UcTrainings : UserControl
+    public partial class UcTrainingsCoach : UserControl
     {
         private TrainingService services = new TrainingService();
-        public UcTrainings()
+        public UcTrainingsCoach()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             var selectedTraining = dgTrainings.SelectedItem as Training;
-            if(selectedTraining != null)
+            if (selectedTraining != null)
             {
                 bool isSuccessful = services.RemoveTraining(selectedTraining);
-                GuiManager.OpenContent(new UcTrainings());
+                GuiManager.OpenContent(new UcTrainingsAdmin());
             }
-
         }
+
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             var selectedTraining = dgTrainings.SelectedItem as Training;
             UcEditTraining editControl = new UcEditTraining(selectedTraining);
             GuiManager.OpenContent(editControl);
+        }
+
+        private void btnAddNew_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcAddTraining());
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -57,14 +58,9 @@ namespace PresentationLayer.UserControls
 
         private void ShowAllTrainings()
         {
-            var allTrainings = services.GetTrainings();
-            dgTrainings.ItemsSource = allTrainings;
-        }
-
-        private void btnAddNew_Click(object sender, RoutedEventArgs e)
-        {
-            GuiManager.OpenContent(new UcAddTraining());
+            var teamId = (int)CurrentUser.User.TeamID;
+            var trainings = services.GetTrainingsForTeam(teamId);
+            dgTrainings.ItemsSource = trainings;
         }
     }
 }
-

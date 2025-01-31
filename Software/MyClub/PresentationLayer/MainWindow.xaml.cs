@@ -32,7 +32,7 @@ namespace PresentationLayer
 
         public void btnTrainings_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcTrainings());
+            GuiManager.OpenContent(new UcTrainingsAdmin());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
