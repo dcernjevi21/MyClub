@@ -1,0 +1,53 @@
+﻿<Window x:Class="PresentationLayer.FrmRegistration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer"
+        mc:Ignorable="d"
+        Title="Register" Height="650" Width="600"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Background2.jpg" Stretch="None" TileMode="FlipY"/>
+        </Grid.Background>
+
+        <Image Source="/Assets/back-button.png" Width="30" 
+       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
+       Cursor="Hand" MouseDown="imgBack_MouseDown"/>
+
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Margin="0 30 0 0">
+            <TextBlock Text="Registration" FontSize="28" HorizontalAlignment="Center" Margin="0" FontWeight="Bold" Foreground="DarkBlue" />
+
+            <Label Content="First Name" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <TextBox Name="txtFirstName" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Last Name" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <TextBox Name="txtLastName" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Email" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <TextBox Name="txtEmail" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Username" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <TextBox Name="txtUsername" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Password" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <PasswordBox Name="txtPassword" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Birthdate" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <DatePicker Name="dpBirthDate" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center"/>
+
+            <Label Content="Role" HorizontalAlignment="Left" Margin="100 10 0 0"/>
+            <ComboBox Name="cmbRole" Width="200" Margin="0" Height="24" VerticalContentAlignment="Center">
+                <ComboBoxItem Content="Admin"/>
+                <ComboBoxItem Content="Coach"/>
+                <ComboBoxItem Content="User"/>
+            </ComboBox>
+            <TextBlock Name="lblErrorMessage" Grid.Row="5" Grid.Column="0" 
+           Foreground="IndianRed" FontWeight="Bold" Text="Invalid email or password" 
+           Visibility="Hidden"  Margin="0 15 0 0" HorizontalAlignment="Center"/>
+            <Button Name="btnRegister" Background="#0A234B" Foreground="White" Content="Register" Width="200" Height="40" Margin="10" FontFamily="Lucida Sans Unicode" FontSize="16" Padding="0" Click="btnRegister_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
