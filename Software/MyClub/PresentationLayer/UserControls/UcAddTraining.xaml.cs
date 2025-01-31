@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer;
 using EntitiesLayer.Entities;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,16 @@ namespace PresentationLayer.UserControls
 
             var trainingService = new TrainingService();
             trainingService.AddTraining(training);
-            GuiManager.OpenContent(new UcTrainings());
+            
+            var currentUserID = CurrentUser.User.UserID;
+            if (currentUserID == 1)
+            {
+                GuiManager.OpenContent(new UcTrainingsAdmin());
+            }
+            else
+            {
+                GuiManager.OpenContent(new UcTrainingsCoach());
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -65,7 +75,15 @@ namespace PresentationLayer.UserControls
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcTrainings());
+            var currentUserID = CurrentUser.User.UserID;
+            if (currentUserID == 1)
+            {
+                GuiManager.OpenContent(new UcTrainingsAdmin());
+            }
+            else
+            {
+                GuiManager.OpenContent(new UcTrainingsCoach());
+            }
         }
 
         private void btnCancel_Click_1(object sender, RoutedEventArgs e)

@@ -19,18 +19,6 @@ namespace BusinessLogicLayer
             }
         }
 
-        public List<Training> GetTrainingsForTeam(int teamId)
-        {
-            using (var repo = new TrainingRepository())
-            {
-                List<Training> trainings = repo.GetAll()
-                                               .Where(t => t.TeamID == teamId)
-                                               .ToList();
-                return trainings;
-            }
-        }
-
-
         public bool AddTraining(Training training)
         {
             bool isSuccessful = false;
@@ -69,6 +57,18 @@ namespace BusinessLogicLayer
 
             return isSuccessful;
         }
+
+        public List<Training> GetTrainingsByID(int teamId)
+        {
+            using (var repo = new TrainingRepository())
+            {
+                List<Training> trainings = repo.GetAll()
+                                               .Where(t => t.TeamID == teamId)
+                                               .ToList();
+                return trainings;
+            }
+        }
+
 
         public List<Team> GetTeams()
         {

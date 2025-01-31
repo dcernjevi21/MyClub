@@ -66,6 +66,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
+    <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
+      <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
       <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
     </Compile>
@@ -81,8 +84,8 @@
     <Compile Include="UserControls\UcPostponeMatch.xaml.cs">
       <DependentUpon>UcPostponeMatch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcTrainings.xaml.cs">
-      <DependentUpon>UcTrainings.xaml</DependentUpon>
+    <Compile Include="UserControls\UcTrainingsAdmin.xaml.cs">
+      <DependentUpon>UcTrainingsAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentUser.cs" />
     <Compile Include="UserControls\UcEditProfileAdmin.xaml.cs">
@@ -147,6 +150,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\UcTrainingsCoach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\UcUpdateMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,7 +202,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcTrainings.xaml">
+    <Page Include="UserControls\UcTrainingsAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

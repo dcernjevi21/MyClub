@@ -34,7 +34,7 @@ namespace PresentationLayer
 
         private void btnMTrainings_Click(object sender, RoutedEventArgs e)
         {
-            UcTrainings ucTrainings = new UcTrainings();
+            UcTrainingsCoach ucTrainings = new UcTrainingsCoach();
             contentPanel.Content = ucTrainings;
         }
     }
