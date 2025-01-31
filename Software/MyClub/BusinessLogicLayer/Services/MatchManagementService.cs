@@ -26,6 +26,14 @@ namespace BusinessLogicLayer.Services
             }
         }
 
+        public List<Match> GetMatchesByTeamId(int teamId)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return repo.GetMatchesByTeamId(teamId).ToList();
+            }
+        }
+
         public bool AddMatch(Match match)
         {
             bool isSuccessful = false;

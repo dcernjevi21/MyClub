@@ -27,9 +27,14 @@ namespace PresentationLayer
         }
 
         //černjević
-        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcProfileUser());
+        }
+
+        private void btnAttendances_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcAttendancesUser());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
