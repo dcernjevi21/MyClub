@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,14 +22,52 @@ namespace PresentationLayer.UserControls
     /// </summary>
     public partial class UcUpdateMatch : UserControl
     {
-        public UcUpdateMatch()
+        private EntitiesLayer.Entities.Match match;
+
+        public UcUpdateMatch(EntitiesLayer.Entities.Match fetchedMatch)
         {
             InitializeComponent();
+            match = fetchedMatch;
         }
 
         private void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
+            var _matchService = new MatchManagementService();
+            if (match == null)
+            {
+                MessageBox.Show("Match not found!");
+                return;
+            }
 
+            string result = txtResult.Text;
+            string summary = txtSummary.Text;
+
+            string resultPattern = @"^([0-9]|[1-9][0-9])[-:]([0-9]|[1-9][0-9])$";
+
+            if (string.IsNullOrEmpty(summary) || string.IsNullOrEmpty(result))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+            else if (!Regex.IsMatch(result, resultPattern))
+            {
+                MessageBox.Show("Invalid result format. Please enter in format '0:0', '10:1', etc.");
+                return;
+            }
+            else
+            {
+                match.Result = result;
+                match.Summary = summary;
+                bool a = _matchService.UpdateMatch(match);
+                if (a)
+                {
+                    MessageBox.Show("Match updated successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Match update failed!");
+                }
+            }
             GuiManager.CloseContent();
         }
 

@@ -27,7 +27,7 @@
             <Label Content="Result:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
             <TextBox x:Name="txtResult" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <Label Content="Summary:" Grid.Column="1" Grid.Row="3" Margin="2" FontWeight="Bold"/>
-            <TextBox x:Name="txtStartTime" Grid.Column="1" Grid.Row="4" Margin="2"/>
+            <TextBox x:Name="txtSummary" Grid.Column="1" Grid.Row="4" Margin="2"/>
             <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnUpdateMatch" Content="Update 69 haha lol match" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>

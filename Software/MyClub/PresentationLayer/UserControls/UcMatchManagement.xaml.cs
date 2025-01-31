@@ -43,20 +43,57 @@ namespace PresentationLayer.UserControls
 
             GuiManager.OpenContent(new UcAddMatch());
         }
-
+        //radi sve
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
-
+            EntitiesLayer.Entities.Match match = GetMatch();
+            if (match != null)
+            {
+                if (match.MatchDate > DateTime.Now)
+                {
+                    MessageBox.Show("Cannot update future matches! Only matches that have already been played can be updated.",
+                                  "Warning",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Warning);
+                    return;
+                }
+                else if(match.Status == "Cancelled")
+                {
+                    MessageBox.Show("Cannot update postponed matches! Only matches that have already been played can be updated.",
+                                  "Warning",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Warning);
+                    return;
+                }
+                else if (match.Status == "Scheduled")
+                {
+                    GuiManager.OpenContent(new UcUpdateMatch(match));
+                }
+            }
         }
 
         public void btnDeleteMatch_Click(object sender, RoutedEventArgs e)
         {
-
+            EntitiesLayer.Entities.Match match = GetMatch();
+            if (match != null)
+            {
+                MatchManagementService _matchManagementService = new MatchManagementService();
+                _matchManagementService.RemoveMatch(match);
+            }
         }
 
         public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
+            EntitiesLayer.Entities.Match match = GetMatch();
+            if (match != null)
+            {
+                GuiManager.OpenContent(new UcPostponeMatch(match));
+            }
+        }
 
+        public EntitiesLayer.Entities.Match GetMatch()
+        {
+            return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
         }
     }
 }

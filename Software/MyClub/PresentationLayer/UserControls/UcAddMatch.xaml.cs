@@ -63,7 +63,8 @@ namespace PresentationLayer.UserControls
                     MatchDate = matchDate,
                     OpponentTeam = opponentTeam,
                     Location = location,
-                    StartTime = TimeSpan.Parse(startTime)
+                    StartTime = TimeSpan.Parse(startTime),
+                    Status = "Scheduled"
                 };
                 _matchManagementService.AddMatch(match);
             }

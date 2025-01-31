@@ -25,7 +25,7 @@
                 <Button x:Name="btnAddMatch" Content="Add match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnAddMatch_Click"/>
                 <Button x:Name="btnUpdateMatch" Content="Update match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnDeleteMatch" Content="Delete match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnDeleteMatch_Click"/>
-                <Button x:Name="btnPostponeMatch" Content="Delete match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnPostponeMatch_Click"/>
+                <Button x:Name="btnPostponeMatch" Content="Postpone match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnPostponeMatch_Click"/>
             </StackPanel>
          </Grid>
     </DockPanel>
