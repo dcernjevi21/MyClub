@@ -1,0 +1,20 @@
+﻿<Window x:Class="PresentationLayer.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer"
+        mc:Ignorable="d"
+        Title="UserWindow"
+        MinHeight="800" 
+        MinWidth="1200"
+        ResizeMode="CanResize"
+        WindowStyle="SingleBorderWindow">
+    <DockPanel>
+        <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="150" Background="LightGray">
+            <Label Content="FEATURES" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightGoldenrodYellow"></Label>
+            <Button x:Name="btnEditProfile" Content="Edit profile" Height="25" Background="AliceBlue" BorderThickness="1" Click="btnEditProfile_Click"></Button>
+        </StackPanel>
+        <ContentControl x:Name="contentPanel"></ContentControl>
+    </DockPanel>
+</Window>
