@@ -45,9 +45,9 @@ namespace PresentationLayer.UserControls
 
             var trainingService = new TrainingService();
             trainingService.AddTraining(training);
-            
-            var currentUserID = CurrentUser.User.UserID;
-            if (currentUserID == 1)
+
+            var userRole = CurrentUser.User.RoleID;
+            if (userRole == 1)
             {
                 GuiManager.OpenContent(new UcTrainingsAdmin());
             }
@@ -75,8 +75,8 @@ namespace PresentationLayer.UserControls
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var currentUserID = CurrentUser.User.UserID;
-            if (currentUserID == 1)
+            var userRole = CurrentUser.User.RoleID;
+            if (userRole == 1)
             {
                 GuiManager.OpenContent(new UcTrainingsAdmin());
             }
