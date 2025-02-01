@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.EntityRepositories;
+﻿using DataAccessLayer;
+using DataAccessLayer.EntityRepositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -92,6 +93,14 @@ namespace BusinessLogicLayer.Services
         {
             user.StatusID = (int)UserStatus.Rejected;
             return _userRepository.Update(user) > 0;
+        }
+
+        public List<User> GetUsersFromTeam(int teamId)
+        {
+            using (var repo = new UserRepository())
+            {
+                return repo.GetUsersByTeamId(teamId).ToList();
+            }
         }
     }
 }

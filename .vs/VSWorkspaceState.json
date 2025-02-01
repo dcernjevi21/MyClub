@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Documentation",
+    "\\Local settings (.vs)",
     "\\Software",
-    "\\Software\\MyClub",
-    "\\Software\\MyClub\\BusinessLogicLayer",
-    "\\Software\\MyClub\\DataAccessLayer",
-    "\\Software\\MyClub\\EntitiesLayer",
-    "\\Software\\MyClub\\PresentationLayer"
+    "\\Software\\MyClub"
   ],
   "SelectedNode": "\\Software\\MyClub\\MyClub.sln",
   "PreviewInSolutionExplorer": false

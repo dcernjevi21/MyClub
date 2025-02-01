@@ -41,5 +41,22 @@ namespace PresentationLayer
             UCRegistrationRequests ucRegistrationRequests = new UCRegistrationRequests();
             contentPanel.Content = ucRegistrationRequests;
         }
+
+        private void btnTrainingsAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            UcTrainingsAdmin ucTrainings = new UcTrainingsAdmin();
+            contentPanel.Content = ucTrainings;
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.Logout();
+        }
+
+        private void btnManageMemberships_Click(object sender, RoutedEventArgs e)
+        {
+            UCManageMemberships uCManageMemberships = new UCManageMemberships();
+            contentPanel.Content = uCManageMemberships;
+        }
     }
 }

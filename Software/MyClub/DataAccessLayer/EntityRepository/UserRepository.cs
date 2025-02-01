@@ -23,7 +23,7 @@ namespace DataAccessLayer.EntityRepositories
         public override int Update(User entity, bool saveChanges = true)
         {
             var user = Entities.SingleOrDefault(x => x.UserID == entity.UserID);
-
+            
             if (user != null)
             {
                 user.FirstName = entity.FirstName;
@@ -35,6 +35,7 @@ namespace DataAccessLayer.EntityRepositories
                 user.RoleID = entity.RoleID;
                 user.StatusID = entity.StatusID;
                 user.TeamID = entity.TeamID;
+                user.ProfilePicture = entity.ProfilePicture;
 
                 if (saveChanges)
                 {
@@ -75,7 +76,7 @@ namespace DataAccessLayer.EntityRepositories
             return query;
         }
 
-        public IQueryable<User> GetUserByRoleId(int roleId)
+        public IQueryable<User> GetUsersByRoleId(int roleId)
         {
             var query = from s in Entities
                         where s.RoleID == roleId
@@ -90,6 +91,16 @@ namespace DataAccessLayer.EntityRepositories
                         where u.StatusID == (int)UserStatus.Pending
                         select u;
 
+            return query;
+        }
+
+        public IQueryable<User> GetUsersByTeamId(int teamId)
+        {
+            var query = from u in Entities
+                        where u.TeamID == teamId &&
+                              u.StatusID == (int)UserStatus.Accepted &&
+                              u.RoleID == 3
+                        select u;
             return query;
         }
 

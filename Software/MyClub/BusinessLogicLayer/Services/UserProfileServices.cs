@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.EntityRepositories;
+﻿using DataAccessLayer;
+using DataAccessLayer.EntityRepositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -49,11 +50,11 @@ namespace BusinessLogicLayer
             }
         }
 
-        public List<User> GetUserByRoleId(int roleId)
+        public List<User> GetUsersByRoleId(int roleId)
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetUserByRoleId(roleId).ToList();
+                return repo.GetUsersByRoleId(roleId).ToList();
             }
         }
     }

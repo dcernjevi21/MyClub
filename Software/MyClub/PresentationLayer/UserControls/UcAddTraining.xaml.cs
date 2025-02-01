@@ -1,5 +1,7 @@
 ﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Services;
 using EntitiesLayer.Entities;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +46,16 @@ namespace PresentationLayer.UserControls
 
             var trainingService = new TrainingService();
             trainingService.AddTraining(training);
-            GuiManager.OpenContent(new UcTrainings());
+
+            var userRole = CurrentUser.User.RoleID;
+            if (userRole == 1)
+            {
+                GuiManager.OpenContent(new UcTrainingsAdmin());
+            }
+            else
+            {
+                GuiManager.OpenContent(new UcTrainingsCoach());
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -54,8 +65,8 @@ namespace PresentationLayer.UserControls
 
         private void LoadTeams()
         {
-            var trainingServices = new TrainingService();
-            var teams = trainingServices.GetTeams();
+            var teamsServices = new TeamService();
+            var teams = teamsServices.GetTeams();
 
             cbTeam.ItemsSource = teams;
             cbTeam.DisplayMemberPath = "Name";
@@ -65,7 +76,15 @@ namespace PresentationLayer.UserControls
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcTrainings());
+            var userRole = CurrentUser.User.RoleID;
+            if (userRole == 1)
+            {
+                GuiManager.OpenContent(new UcTrainingsAdmin());
+            }
+            else
+            {
+                GuiManager.OpenContent(new UcTrainingsCoach());
+            }
         }
 
         private void btnCancel_Click_1(object sender, RoutedEventArgs e)
