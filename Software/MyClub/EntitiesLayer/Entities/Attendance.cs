@@ -17,6 +17,7 @@ namespace EntitiesLayer.Entities
         public int StatusID { get; set; }
 
         public int? MatchId { get; set; }
+        public string Notes { get; set; }
 
         public virtual Status Status { get; set; }
 

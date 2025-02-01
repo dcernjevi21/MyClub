@@ -46,5 +46,12 @@ namespace BusinessLogicLayer.Services
             }
             return isSuccessful;
         }
+        public List<Attendance> GetAttendancesByTrainingId(int trainingId)
+        {
+            using (var repo = new AttendancesRepository())
+            {
+                return repo.GetAttendancesByTrainingId(trainingId).ToList();
+            }
+        }
     }
 }

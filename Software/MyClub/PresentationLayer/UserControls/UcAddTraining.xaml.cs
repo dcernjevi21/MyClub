@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Services;
 using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
@@ -64,8 +65,8 @@ namespace PresentationLayer.UserControls
 
         private void LoadTeams()
         {
-            var trainingServices = new TrainingService();
-            var teams = trainingServices.GetTeams();
+            var teamsServices = new TeamService();
+            var teams = teamsServices.GetTeams();
 
             cbTeam.ItemsSource = teams;
             cbTeam.DisplayMemberPath = "Name";

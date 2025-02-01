@@ -66,6 +66,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
+    <Compile Include="Helper\AttendanceViewModel.cs" />
+    <Compile Include="UserControls\UcTrainingAttendanceCoach.xaml.cs">
+      <DependentUpon>UcTrainingAttendanceCoach.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
@@ -161,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UcMarkAttendance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcTrainingAttendanceCoach.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

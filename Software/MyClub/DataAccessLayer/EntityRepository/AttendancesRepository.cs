@@ -38,6 +38,13 @@ namespace BusinessLogicLayer.Services
             return SaveChanges();
         }
 
+        public IQueryable<Attendance> GetAttendancesByTrainingId(int trainingId)
+        {
+            return Entities.Where(x => x.TrainingID == trainingId)
+                           .Include(x => x.User)
+                           .Include(x => x.Status);
+        }
+
         public override int Update(Attendance entity, bool saveChanges = true)
         {
             var attendance = Entities.SingleOrDefault(x => x.AttendanceID == entity.AttendanceID);

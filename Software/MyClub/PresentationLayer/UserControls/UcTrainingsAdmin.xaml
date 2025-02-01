@@ -5,14 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="600" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
-    <Grid>
-        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Trainings" Height="28" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgTrainings" HorizontalAlignment="Center" Height="260" Margin="10,80,0,0" VerticalAlignment="Top" Width="780" SelectionMode="Single" AutoGenerateColumns="True"/>
-        <Button x:Name="btnRemove" Content="Remove" HorizontalAlignment="Left" Margin="720,406,0,0" VerticalAlignment="Top" Width="75" Click="btnRemove_Click"/>
-        <Button x:Name="btnUpdate" Content="Modify" HorizontalAlignment="Left" Margin="626,406,0,0" VerticalAlignment="Top" Width="75" Click="btnUpdate_Click"/>
-        <Button x:Name="btnAddNew" Content="Add New" HorizontalAlignment="Left" Margin="529,406,0,0" VerticalAlignment="Top" Width="75" Click="btnAddNew_Click"/>
+
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="Trainings"
+                       Foreground="White"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <DataGrid x:Name="dgTrainings" 
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Height="Auto"
+                  Margin="10 30 10 10"
+                  Width="Auto"
+                  SelectionMode="Single"
+                  Background="#FFF0F4FF"
+                  FontSize="14"
+                  CanUserReorderColumns="False" 
+                  CanUserResizeColumns="False"
+                  AutoGenerateColumns="False"
+                  VerticalScrollBarVisibility="Hidden"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding TrainingDate}" Width="150"/>
+                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150"/>
+                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
+            <Button x:Name="btnAddNew" Content="Add New" Style="{StaticResource ButtonStyle}" Click="btnAddNew_Click"/>
+            <Button x:Name="btnUpdate" Content="Modify" Style="{StaticResource ButtonStyle}" Click="btnUpdate_Click"/>
+            <Button x:Name="btnRemove" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnRemove_Click"/>
+        </StackPanel>
 
     </Grid>
+
 </UserControl>

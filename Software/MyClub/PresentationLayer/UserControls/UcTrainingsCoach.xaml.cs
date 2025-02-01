@@ -62,5 +62,21 @@ namespace PresentationLayer.UserControls
             var trainings = services.GetTrainingsForTeam(teamId);
             dgTrainings.ItemsSource = trainings;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var training = button.DataContext as Training;
+            if (training != null)
+            {
+                var attendanceControl = new UcTrainingAttendanceCoach(training);
+                GuiManager.OpenContent(attendanceControl);
+            }
+        }
     }
 }
