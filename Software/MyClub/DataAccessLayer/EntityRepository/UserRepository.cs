@@ -97,7 +97,8 @@ namespace DataAccessLayer.EntityRepositories
         {
             var query = from u in Entities
                         where u.TeamID == teamId &&
-                              u.StatusID == (int)UserStatus.Accepted
+                              u.StatusID == (int)UserStatus.Accepted &&
+                              u.RoleID == 3
                         select u;
             return query;
         }

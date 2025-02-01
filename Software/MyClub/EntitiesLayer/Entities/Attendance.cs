@@ -24,5 +24,7 @@ namespace EntitiesLayer.Entities
         public virtual Training Training { get; set; }
 
         public virtual User User { get; set; }
+        public virtual Match Match { get; set; }
+
     }
 }
