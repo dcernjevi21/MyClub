@@ -35,7 +35,7 @@ namespace PresentationLayer.UserControls
             if (selectedTraining != null)
             {
                 bool isSuccessful = services.RemoveTraining(selectedTraining);
-                GuiManager.OpenContent(new UcTrainingsAdmin());
+                GuiManager.OpenContent(new UcTrainingsCoach());
             }
         }
 

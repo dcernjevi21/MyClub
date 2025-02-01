@@ -53,5 +53,21 @@ namespace BusinessLogicLayer.Services
                 return repo.GetAttendancesByTrainingId(trainingId).ToList();
             }
         }
+
+        public List<Attendance> GetAttendancesByMatchId(int matchId)
+        {
+            using (var repo = new AttendancesRepository())
+            {
+                return repo.GetAttendancesByMatchId(matchId).ToList();
+            }
+        }
+
+        public List<Attendance> GetUserAttendances(int userId)
+        {
+            using (var repo = new AttendancesRepository())
+            {
+                return repo.GetUserAttendances(userId).ToList();
+            }
+        }
     }
 }

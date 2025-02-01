@@ -28,8 +28,7 @@ namespace BusinessLogicLayer.Services
         
         public IQueryable<Attendance> GetMatchAttendanceById(int teamId)
         {
-            //dodati za match id
-            return Entities.Where(x => x.Training.TeamID == teamId);
+            return Entities.Where(x => x.Match.TeamID == teamId);
         }
 
         public int AddNewAttendance(Attendance attendance)
@@ -45,15 +44,23 @@ namespace BusinessLogicLayer.Services
                            .Include(x => x.Status);
         }
 
+        public IQueryable<Attendance> GetAttendancesByMatchId(int matchId)
+        {
+            return Entities.Where(x => x.MatchId == matchId)
+                           .Include(x => x.User)
+                           .Include(x => x.Status);
+        }
+
         public override int Update(Attendance entity, bool saveChanges = true)
         {
             var attendance = Entities.SingleOrDefault(x => x.AttendanceID == entity.AttendanceID);
             if (attendance != null)
             {
-                //dodati ostale atribute
                 attendance.TrainingID = entity.TrainingID;
                 attendance.UserID = entity.UserID;
                 attendance.StatusID = entity.StatusID;
+                attendance.Notes = entity.Notes;
+                attendance.MatchId = entity.MatchId;
 
                 if (saveChanges)
                 {
@@ -68,6 +75,15 @@ namespace BusinessLogicLayer.Services
             {
                 return 0;
             }
+        }
+
+        public IQueryable<Attendance> GetUserAttendances(int userId)
+        {
+            return Entities.Where(x => x.UserID == userId)
+                           .Include(x => x.Training)
+                           .Include(x => x.Match)
+                           .Include(x => x.Status)
+                           .OrderByDescending(x => x.Training != null ? x.Training.TrainingDate : x.Match.MatchDate);
         }
     }
 }

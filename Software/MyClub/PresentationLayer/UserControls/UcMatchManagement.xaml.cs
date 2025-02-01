@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,17 @@ namespace PresentationLayer.UserControls
         public EntitiesLayer.Entities.Match GetMatch()
         {
             return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
+        }
+
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var match = button.DataContext as EntitiesLayer.Entities.Match;
+            if (match != null)
+            {
+                var attendanceControl = new UcMatchAttendanceCoach(match);
+                GuiManager.OpenContent(attendanceControl);
+            }
         }
     }
 }

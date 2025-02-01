@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcMatchAttendanceCoach"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Label x:Name="header" FontWeight="Bold" 
+               HorizontalContentAlignment="Center" 
+               Background="LightBlue" 
+               Content="Match Attendance" 
+               Height="28" 
+               VerticalAlignment="Top"/>
+
+        <StackPanel Orientation="Horizontal" Margin="10,40,10,0">
+            <TextBlock Text="Date: " FontWeight="Bold"/>
+            <TextBlock x:Name="txtDate"/>
+            <TextBlock Text=" Time: " FontWeight="Bold" Margin="20,0,0,0"/>
+            <TextBlock x:Name="txtTime"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgAttendance" 
+                  Margin="10,80,10,50"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" 
+                                  Binding="{Binding User.FirstName}"
+                                  IsReadOnly="True"/>
+                <DataGridTextColumn Header="Last Name" 
+                                  Binding="{Binding User.LastName}"
+                                  IsReadOnly="True"/>
+                <DataGridComboBoxColumn Header="Status"
+                                      x:Name="StatusColumn"/>
+                <DataGridTextColumn Header="Notes" 
+                                  Binding="{Binding Notes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom" 
+                    Margin="0,0,10,10">
+            <Button x:Name="btnSave" 
+                    Content="Save" 
+                    Width="75" 
+                    Margin="0,0,10,0"
+                    Click="btnSave_Click"/>
+            <Button x:Name="btnBack" 
+                    Content="Back" 
+                    Width="75" 
+                    Click="btnBack_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

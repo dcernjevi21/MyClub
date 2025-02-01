@@ -22,6 +22,7 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="100" MaxHeight="100"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="First name:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
@@ -47,6 +48,7 @@
             </Border>
 
             <Button x:Name="btnEditProfile" Content="Edit profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="6" Background="LightBlue" Click="btnEditProfile_Click"/>
+            <Button x:Name="btnMyAttendances" Content="My attendances" Width="200" Height="25" Margin="0,5,0,0" Click="btnMyAttendances_Click"  Background="LightBlue" Grid.Column="1" Grid.Row="7"/>
         </Grid>
     </DockPanel>
 </UserControl>
