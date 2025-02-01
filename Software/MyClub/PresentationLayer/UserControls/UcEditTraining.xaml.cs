@@ -97,17 +97,5 @@ namespace PresentationLayer.UserControls
                 }
             }
         }
-
-
-        private int getSelectedTeamID()
-        {
-            if (cbTeam.SelectedValue == null)
-            {
-                MessageBox.Show("Please select a team.");
-                return -1;
-            }
-
-            return (int)cbTeam.SelectedValue;
-        }
     }
 }

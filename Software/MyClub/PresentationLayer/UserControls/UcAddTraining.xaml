@@ -7,7 +7,6 @@
              mc:Ignorable="d" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <!-- Button Style to Match UcTrainingsAdmin -->
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
@@ -26,14 +25,10 @@
     <Grid VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header -->
             <RowDefinition Height="Auto"/>
-            <!-- Form Fields -->
             <RowDefinition Height="Auto"/>
-            <!-- Buttons -->
         </Grid.RowDefinitions>
 
-        <!-- Full-Width Header -->
         <Border Background="#0A234B" Grid.Row="0" Padding="15">
             <TextBlock Text="Add Training"
                        Foreground="White"
@@ -43,7 +38,6 @@
                        VerticalAlignment="Center"/>
         </Border>
 
-        <!-- Form Inputs -->
         <Grid Grid.Row="1" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -65,7 +59,6 @@
             <ComboBox x:Name="cbTeam" Grid.Row="3" Width="206" Height="30" HorizontalAlignment="Center" Margin="10"/>
         </Grid>
 
-        <!-- Buttons Aligned Center -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="10">
             <Button x:Name="btnAdd" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAdd_Click"/>
             <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancel_Click"/>

@@ -13,14 +13,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Label Grid.Row="0" 
-               Content="My Attendances" 
-               FontWeight="Bold" 
-               HorizontalContentAlignment="Center" 
-               Background="LightBlue"/>
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My attendances"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
 
-        <!-- Stats Panel -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -58,7 +59,6 @@
             </Border>
         </Grid>
 
-        <!-- DataGrid -->
         <DataGrid Grid.Row="2" 
                   x:Name="dgAttendances"
                   Margin="10"

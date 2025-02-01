@@ -35,13 +35,11 @@ namespace PresentationLayer.UserControls
             var userId = CurrentUser.User.UserID;
             var attendances = _attendanceService.GetUserAttendances(userId);
 
-            // Računamo statistike
             int totalEvents = attendances.Count;
-            int presentCount = attendances.Count(a => a.StatusID == 4); // Present
-            int absentCount = attendances.Count(a => a.StatusID == 5); // Absent
-            int excusedCount = attendances.Count(a => a.StatusID == 6); // Excused
+            int presentCount = attendances.Count(a => a.StatusID == 4);
+            int absentCount = attendances.Count(a => a.StatusID == 5);
+            int excusedCount = attendances.Count(a => a.StatusID == 6);
 
-            // Postavljamo statistike
             txtTotalEvents.Text = totalEvents.ToString();
             txtPresentPercentage.Text = totalEvents > 0
                 ? $"{(presentCount * 100.0 / totalEvents):F1}%"
