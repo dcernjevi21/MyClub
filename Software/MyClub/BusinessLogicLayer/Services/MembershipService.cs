@@ -33,6 +33,12 @@ namespace BusinessLogicLayer.Services
             var result = _membershipRepository.MarkAsPaid(membershipId);
             return result > 0;
         }
+        public bool MarkAsUnpaid(int membershipId)
+        {
+            var result = _membershipRepository.MarkAsUnpaid(membershipId);
+            return result > 0;
+        }
+
 
         public bool UpdateMembership(Membership membership)
         {
@@ -48,19 +54,26 @@ namespace BusinessLogicLayer.Services
 
         public bool AssignMembershipsToAllMembers(decimal amount)
         {
-            var users = _membershipRepository.GetEligiblePlayers();
+            var eligiblePlayers = _membershipRepository.GetEligiblePlayers().ToList();
             DateTime currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-
             bool isSuccessful = true;
 
-            foreach (var user in users)
+            foreach (var user in eligiblePlayers)
             {
-                int result = _membershipRepository.AddMembershipForUser(user.UserID, amount, currentMonth);
-                if (result == 0)
-                    isSuccessful = false;
+                if (!_membershipRepository.MembershipExistsForUser(user.UserID, currentMonth))
+                {
+                    int result = _membershipRepository.AddMembershipForUser(user.UserID, amount, currentMonth);
+                    if (result == 0)
+                        isSuccessful = false;
+                }
             }
-
             return isSuccessful;
+        }
+
+        public bool DeleteMembership(Membership membership)
+        {
+            int result = _membershipRepository.Remove(membership);
+            return result > 0;
         }
     }
 }

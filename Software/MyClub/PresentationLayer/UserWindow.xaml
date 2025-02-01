@@ -11,10 +11,27 @@
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow">
     <DockPanel>
-        <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="150" Background="LightGray">
-            <Label Content="FEATURES" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightGoldenrodYellow"></Label>
-            <Button x:Name="btnEditProfile" Content="Edit profile" Height="25" Background="AliceBlue" BorderThickness="1" Click="btnEditProfile_Click"></Button>
+        <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="220" Background="#0A234B" Height="Auto">
+            <!-- Make this Grid take all available height -->
+            <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Grid.Row="0">
+                    <Image Source="./Assets/MyClub.jpg" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 -50" />
+                    <Label Content="MENU" FontWeight="Bold" FontSize="26" HorizontalContentAlignment="Center" Background="#0A234B" Foreground="White" Margin="10"/>
+                    <Button x:Name="btnMyMembership" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Content="My Memeberships" Background="#0A234B" Foreground="White" Padding="10" Click="btnMyMembership_Click"></Button>
+                    <Button x:Name="btnEditProfile" Content="Edit profile" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"></Button>
+                </StackPanel>
+
+                <Button x:Name="btnLogout" Grid.Row="2" Content="Logout" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 30 0 20" FontSize="18" Background="#0A234B" Foreground="White" Padding="10" Click="btnLogout_Click" VerticalAlignment="Bottom"/>
+            </Grid>
         </StackPanel>
-        <ContentControl x:Name="contentPanel"></ContentControl>
+        <ContentControl x:Name="contentPanel" Margin="100"/>
     </DockPanel>
+  
 </Window>

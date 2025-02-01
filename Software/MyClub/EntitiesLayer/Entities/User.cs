@@ -60,6 +60,7 @@ namespace DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Membership> Memberships { get; set; }
 
+
         public virtual RoleType RoleType { get; set; }
 
         public virtual Status Status { get; set; }

@@ -47,5 +47,15 @@ namespace PresentationLayer
             UCManageMemberships uCManageMemberships = new UCManageMemberships();
             contentPanel.Content = uCManageMemberships;
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentUser.User = null;
+
+            FrmLogin loginWindow = new FrmLogin();
+            loginWindow.Show();
+
+            this.Close();
+        }
     }
 }

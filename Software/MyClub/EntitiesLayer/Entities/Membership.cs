@@ -21,5 +21,8 @@ namespace DataAccessLayer
         public bool Paid { get; set; }
 
         public virtual User User { get; set; }
+
+        public string FirstName => User?.FirstName ?? "N/A";
+        public string LastName => User?.LastName ?? "N/A";
     }
 }

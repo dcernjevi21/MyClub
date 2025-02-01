@@ -1,7 +1,8 @@
 ﻿using DataAccessLayer.EntityRepositories;
-using EntitiesLayer.Entities;
+
 using System;
 using System.Linq;
+using System.Data.Entity;
 
 namespace DataAccessLayer.EntityRepository
 {
@@ -11,7 +12,7 @@ namespace DataAccessLayer.EntityRepository
 
         public IQueryable<Membership> GetAllMemberships()
         {
-            return Entities;
+            return Entities.Include(m => m.User);
         }
 
         public IQueryable<Membership> GetMembershipsByMonth(DateTime month)
@@ -19,7 +20,6 @@ namespace DataAccessLayer.EntityRepository
             var query = from m in Entities
                         where m.Month.Month == month.Month && m.Month.Year == month.Year
                         select m;
-
             return query;
         }
 
@@ -34,6 +34,23 @@ namespace DataAccessLayer.EntityRepository
             if (membership != null)
             {
                 membership.Paid = true;
+                return SaveChanges();
+            }
+
+            return 0;
+        }
+
+        public int MarkAsUnpaid(int membershipId)
+        {
+            var query = from m in Entities
+                        where m.MembershipID == membershipId
+                        select m;
+
+            var membership = query.FirstOrDefault();
+
+            if (membership != null)
+            {
+                membership.Paid = false;
                 return SaveChanges();
             }
 
@@ -72,6 +89,7 @@ namespace DataAccessLayer.EntityRepository
 
             return saveChanges ? SaveChanges() : 0;
         }
+
         public IQueryable<User> GetEligiblePlayers()
         {
             return Context.Users.Where(u => u.RoleID == 3);
@@ -89,6 +107,14 @@ namespace DataAccessLayer.EntityRepository
 
             Entities.Add(membership);
             return SaveChanges();
+        }
+
+        public bool MembershipExistsForUser(int userId, DateTime month)
+        {
+            return Entities.Any(m =>
+                m.UserID == userId &&
+                m.Month.Month == month.Month &&
+                m.Month.Year == month.Year);
         }
     }
 }

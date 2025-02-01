@@ -1,4 +1,5 @@
-﻿using PresentationLayer.UserControls;
+﻿using PresentationLayer.Helper;
+using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,22 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GuiManager.CurrentWindow = this;
+        }
+
+        private void btnMyMembership_Click(object sender, RoutedEventArgs e)
+        {
+            UCUserMemberships ucUserMemberships = new UCUserMemberships();
+            contentPanel.Content = ucUserMemberships;
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentUser.User = null;
+
+            FrmLogin loginWindow = new FrmLogin();
+            loginWindow.Show();
+
+            this.Close();
         }
     }
 }
