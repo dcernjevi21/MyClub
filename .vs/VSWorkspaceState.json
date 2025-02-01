@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Local settings (.vs)",
+    "\\Software",
+    "\\Software\\MyClub"
   ],
-  "SelectedNode": "\\MyClub.sln",
+  "SelectedNode": "\\Software\\MyClub\\MyClub.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -52,9 +52,10 @@ namespace DataAccessLayer
             modelBuilder.Entity<Match>()
                 .Property(e => e.Result)
                 .IsUnicode(false);
+
             modelBuilder.Entity<Match>()
-               .Property(e => e.Status)
-               .IsUnicode(false);
+                .Property(e => e.Status)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Membership>()
                 .Property(e => e.Amount)
@@ -64,11 +65,6 @@ namespace DataAccessLayer
                 .Property(e => e.MethodName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Method>()
-                .HasMany(e => e.Memberships)
-                .WithRequired(e => e.Method)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<RoleType>()
                 .Property(e => e.RoleName)
                 .IsUnicode(false);
@@ -76,11 +72,6 @@ namespace DataAccessLayer
             modelBuilder.Entity<Status>()
                 .Property(e => e.StatusName)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Status>()
-                .HasMany(e => e.Attendances)
-                .WithRequired(e => e.Status)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Team>()
                 .Property(e => e.Name)
@@ -94,11 +85,6 @@ namespace DataAccessLayer
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Trainings)
                 .WithRequired(e => e.Team)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Training>()
-                .HasMany(e => e.Attendances)
-                .WithRequired(e => e.Training)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
