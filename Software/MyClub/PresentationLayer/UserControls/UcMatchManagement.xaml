@@ -67,10 +67,10 @@
                 <DataGridTemplateColumn Header="Attendance" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="btnAttendance" 
+                         <Button x:Name="btnAttendance" 
                            Content="Attendance" 
-                           Click="btnAttendance_Click"
                            Width="75"
+                           Click="btnAttendance_Click"
                            IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -66,8 +66,7 @@ namespace PresentationLayer.UserControls
                                   MessageBoxImage.Warning);
                     return;
                 }
-                else if (match.Status == "Scheduled")
-                {
+                else {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
                 }
             }

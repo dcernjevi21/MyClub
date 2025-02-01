@@ -39,6 +39,11 @@
                    VerticalAlignment="Center"/>
         </Border>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,50,0,20" Grid.Row="1">
+            <ComboBox Name="cmbStatus" Width="100" Margin="0" Height="24" VerticalContentAlignment="Center">
+                <ComboBoxItem Content="Win"/>
+                <ComboBoxItem Content="Lost"/>
+                <ComboBoxItem Content="Draw"/>
+            </ComboBox>
             <Label Content="Result:" FontWeight="Bold"/>
             <TextBox x:Name="txtResult" Margin="2" Width="100" Height="20"/>
             <Label Content="Summary:" FontWeight="Bold"/>

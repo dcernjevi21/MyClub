@@ -51,13 +51,14 @@ namespace PresentationLayer.UserControls
             }
             else if (!Regex.IsMatch(result, resultPattern))
             {
-                MessageBox.Show("Invalid result format. Please enter in format '0:0', '10:1', etc.");
+                MessageBox.Show("Invalid result format. Please enter in format '0:0', '99:99', etc.");
                 return;
             }
             else
             {
                 match.Result = result;
                 match.Summary = summary;
+                match.Status = cmbStatus.SelectedValue.ToString();
                 bool a = _matchService.UpdateMatch(match);
                 if (a)
                 {
