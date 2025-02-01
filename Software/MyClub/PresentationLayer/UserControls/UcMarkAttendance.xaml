@@ -6,28 +6,38 @@
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
-    <DockPanel>
-        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Add Match" DockPanel.Dock="Top"/>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100" MaxHeight="100"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="Mark attendance"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Margin="0,50,0,0">
             <Label x:Name="lblDate" Content="Date:" Grid.Column="1" Grid.Row="1" Margin="2" FontWeight="Bold"></Label>
             <Label x:Name="lblStartTime" Content="Start time:" Grid.Column="1" Grid.Row="2" Margin="2" FontWeight="Bold"></Label>
             <Label Content="Will your attend:" Grid.Column="1" Grid.Row="3" FontWeight="Bold"/>
@@ -35,10 +45,10 @@
                 <ComboBoxItem Content="+"></ComboBoxItem>
                 <ComboBoxItem Content="-"></ComboBoxItem>
             </ComboBox>
-            <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnSave" Content="Save choice" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnSave_Click"/>
-                <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button x:Name="btnSave" Content="Save choice" Style="{StaticResource ButtonStyle}" Margin="2"  Grid.Column="1" Grid.Row="2" Click="btnSave_Click"/>
+                <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Margin="2" Click="btnCancel_Click"/>
             </StackPanel>
-        </Grid>
-    </DockPanel>
+        </StackPanel>
+    </Grid>
 </UserControl>
