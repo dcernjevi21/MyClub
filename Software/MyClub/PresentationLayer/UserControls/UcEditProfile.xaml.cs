@@ -25,6 +25,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcEditProfileUser.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcEditProfile : UserControl
     {
         private User user;

@@ -23,6 +23,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAddatch.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcAddMatch : UserControl
     {
         MatchManagementService _matchManagementService = new MatchManagementService();

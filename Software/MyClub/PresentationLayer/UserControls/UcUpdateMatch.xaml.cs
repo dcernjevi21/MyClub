@@ -20,6 +20,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAddMatch.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcUpdateMatch : UserControl
     {
         private EntitiesLayer.Entities.Match match;

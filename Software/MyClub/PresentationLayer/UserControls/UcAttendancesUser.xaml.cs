@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAttendancesUser.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcAttendancesUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();

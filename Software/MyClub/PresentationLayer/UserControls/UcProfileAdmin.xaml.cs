@@ -23,6 +23,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcProfileAdmin.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcProfileAdmin : UserControl
     {
         private UserProfileServices userProfileService = new UserProfileServices();

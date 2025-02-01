@@ -20,6 +20,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcPostponeMatch.xaml
     /// </summary>
+    ///
+    ///Černjević kompletno
     public partial class UcPostponeMatch : UserControl
     {
         private EntitiesLayer.Entities.Match match;

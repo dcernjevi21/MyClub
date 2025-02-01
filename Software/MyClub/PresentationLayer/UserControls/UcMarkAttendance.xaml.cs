@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMarkAttendance.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcMarkAttendance : UserControl
     {
         private Attendance attendance;

@@ -50,7 +50,7 @@ namespace PresentationLayer.UserControls
 
             GuiManager.OpenContent(new UcAddMatch());
         }
-        //radi sve
+        //Černjević
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
@@ -72,7 +72,7 @@ namespace PresentationLayer.UserControls
                 }
             }
         }
-
+        //Černjević
         public void btnDeleteMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
@@ -93,8 +93,8 @@ namespace PresentationLayer.UserControls
                 }
             }
         }
-
-            public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
+        //Černjević
+        public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
@@ -108,6 +108,7 @@ namespace PresentationLayer.UserControls
             return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
         }
 
+        //Valec
         private void btnAttendance_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
