@@ -44,9 +44,9 @@
 
         <DataGrid x:Name="dgCoachGrid" 
          Margin="0,50,0,20"
-
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top"
+         IsReadOnly="True"
+         HorizontalAlignment="Center"
+         VerticalAlignment="Top"
          Height="auto"
          Width="Auto"
          Grid.Row="1"
