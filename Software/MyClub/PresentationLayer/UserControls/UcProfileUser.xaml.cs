@@ -71,7 +71,7 @@ namespace PresentationLayer.UserControls
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
+            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
         }
 
         private void btnMyAttendances_Click(object sender, RoutedEventArgs e)

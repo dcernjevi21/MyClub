@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
+        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
+        
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
@@ -40,21 +43,26 @@
         </Border>
 
         <DataGrid x:Name="dgCoachGrid" 
-         Grid.Column="1" 
-         Margin="0,10,0,10" 
-         Grid.Row="0" 
+         Margin="0,50,0,20"
+
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+         Height="auto"
+         Width="Auto"
+         Grid.Row="1"
+         FontSize="14"
          AutoGenerateColumns="False">
             <!-- Prvo sve postojeće kolone -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}"/>
-                <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}"/>
-                <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}"/>
-                <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}"/>
-                <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
-                <DataGridTextColumn Header="Result" Binding="{Binding Result}"/>
-                <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}"/>
-                <DataGridTextColumn Header="Summary" Binding="{Binding Summary}"/>
-                <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}"/>
+                <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}" Width="80"/>
+                <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="80"/>
+                <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
+                <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}" Width="120"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="100"/>
+                <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="100"/>
+                <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="120"/>
+                <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="150"/>
+                <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="90"/>
                 <!-- Attendance kolona na kraju -->
                 <DataGridTemplateColumn Header="Attendance" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>

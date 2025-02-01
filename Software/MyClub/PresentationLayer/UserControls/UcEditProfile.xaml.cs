@@ -24,12 +24,12 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcEditProfileUser.xaml
     /// </summary>
-    public partial class UcEditProfileUser : UserControl
+    public partial class UcEditProfile : UserControl
     {
         private User user;
         byte[] imageBytes;
 
-        public UcEditProfileUser(User fetchedUser)
+        public UcEditProfile(User fetchedUser)
         {
             InitializeComponent();
             user = fetchedUser;

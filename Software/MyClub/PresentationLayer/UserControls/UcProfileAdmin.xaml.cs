@@ -56,7 +56,7 @@ namespace PresentationLayer.UserControls
             }
             else 
             {
-                GuiManager.OpenContent(new UcEditProfileUser(coach));
+                GuiManager.OpenContent(new UcEditProfile(coach));
             }
 
         }
@@ -69,7 +69,7 @@ namespace PresentationLayer.UserControls
 
         public void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
+            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
         }
 
     }

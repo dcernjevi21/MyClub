@@ -102,14 +102,11 @@
       <DependentUpon>UcTrainingsAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentUser.cs" />
-    <Compile Include="UserControls\UcEditProfileAdmin.xaml.cs">
-      <DependentUpon>UcEditProfileAdmin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditProfileUser.xaml.cs">
-      <DependentUpon>UcEditProfileUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcEditProfile.xaml.cs">
+      <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcProfileAdmin.xaml.cs">
       <DependentUpon>UcProfileAdmin.xaml</DependentUpon>
@@ -191,10 +188,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfileAdmin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\UcAddTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,7 +196,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfileUser.xaml">
+    <Page Include="UserControls\UcEditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
