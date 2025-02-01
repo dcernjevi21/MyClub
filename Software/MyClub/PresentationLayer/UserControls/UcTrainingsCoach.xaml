@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
@@ -24,6 +26,7 @@
     </UserControl.Resources>
     <Grid VerticalAlignment="Top">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -54,18 +57,10 @@
                   VerticalScrollBarVisibility="Hidden"
                   Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" 
-                                  Binding="{Binding TrainingDate}" 
-                                  Width="150"/>
-                <DataGridTextColumn Header="Start Time" 
-                                  Binding="{Binding StartTime}" 
-                                  Width="150"/>
-                <DataGridTextColumn Header="End Time" 
-                                  Binding="{Binding EndTime}" 
-                                  Width="150"/>
-                <DataGridTextColumn Header="Team" 
-                                  Binding="{Binding Team.Name}" 
-                                  Width="200"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding TrainingDate}" Width="200"/>
+                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150"/>
+                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
                 <DataGridTemplateColumn Header="Attendance" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -75,29 +70,27 @@
                                     Style="{StaticResource ButtonStyle}"
                                     Width="90"
                                     Height="30"
-                                    Margin="2"/>
+                                    Margin="2"
+                                    IsEnabled="{Binding TrainingDate, Converter={StaticResource DateToPastConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Horizontal" 
-                    HorizontalAlignment="Center" 
-                    Margin="10" 
-                    Grid.Row="2">
-            <Button x:Name="btnAddNew" 
-                    Content="Add New" 
-                    Style="{StaticResource ButtonStyle}" 
-                    Click="btnAddNew_Click"/>
-            <Button x:Name="btnUpdate" 
-                    Content="Modify" 
-                    Style="{StaticResource ButtonStyle}" 
-                    Click="btnUpdate_Click"/>
-            <Button x:Name="btnRemove" 
-                    Content="Remove" 
-                    Style="{StaticResource ButtonStyle}" 
-                    Click="btnRemove_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
+            <Button x:Name="btnAddNew" Content="Add New" Style="{StaticResource ButtonStyle}" Click="btnAddNew_Click"/>
+            <Button x:Name="btnUpdate" Content="Modify" Style="{StaticResource ButtonStyle}" Click="btnUpdate_Click"/>
+            <Button x:Name="btnRemove" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnRemove_Click"/>
         </StackPanel>
+        
+        <Label x:Name="lblMessage" 
+               Grid.Row="3"
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Bottom"
+               Foreground="Green"
+               FontWeight="Bold"
+               Margin="0,0,0,10"
+               Visibility="Collapsed"/>
     </Grid>
 </UserControl>

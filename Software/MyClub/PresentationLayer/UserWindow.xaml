@@ -19,7 +19,7 @@
             <Button x:Name="btnEditProfile" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Edit profile" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"></Button>
             <Button x:Name="btnLogout" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Log out" Background="#0A234B" Foreground="White" Padding="10" Click="btnLogout_Click"></Button>
         </StackPanel>
-        <ContentControl x:Name="contentPanel" Margin="100"/>
+        <ContentControl x:Name="contentPanel"/>
     </DockPanel>
   
 </Window>

@@ -29,6 +29,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Background="#0A234B" Grid.Row="0" Padding="15">
@@ -53,9 +54,10 @@
                   CanUserResizeColumns="False"
                   AutoGenerateColumns="False"
                   VerticalScrollBarVisibility="Hidden"
+                  IsReadOnly="True"
                   Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding TrainingDate}" Width="150"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding TrainingDate}" Width="200"/>
                 <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150"/>
                 <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
                 <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
@@ -67,7 +69,14 @@
             <Button x:Name="btnUpdate" Content="Modify" Style="{StaticResource ButtonStyle}" Click="btnUpdate_Click"/>
             <Button x:Name="btnRemove" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnRemove_Click"/>
         </StackPanel>
-
+        <Label x:Name="lblMessage" 
+               Grid.Row="3"
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Bottom"
+               Foreground="Green"
+               FontWeight="Bold"
+               Margin="0,0,0,10"
+               Visibility="Collapsed"/>
     </Grid>
 
 </UserControl>

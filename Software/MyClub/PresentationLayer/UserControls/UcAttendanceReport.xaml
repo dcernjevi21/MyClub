@@ -113,11 +113,10 @@
                           Background="#FFF0F4FF">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="200"/>
-                <DataGridTextColumn Header="Total Events" Binding="{Binding TotalEvents}" Width="100"/>
-                <DataGridTextColumn Header="Attendances" Binding="{Binding Attendances}" Width="100"/>
-                <DataGridTextColumn Header="Absences" Binding="{Binding Absences}" Width="100"/>
-                <DataGridTextColumn Header="Attendance %" Binding="{Binding AttendancePercentage}" Width="100"/>
-                <DataGridTextColumn Header="Last Note" Binding="{Binding LastNote}" Width="*"/>
+                <DataGridTextColumn Header="Total Events" Binding="{Binding TotalEvents}" Width="150"/>
+                <DataGridTextColumn Header="Attendances" Binding="{Binding Attendances}" Width="150"/>
+                <DataGridTextColumn Header="Absences" Binding="{Binding Absences}" Width="150"/>
+                <DataGridTextColumn Header="Attendance %" Binding="{Binding AttendancePercentage}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="4" 

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace PresentationLayer.UserControls
 {
@@ -17,7 +18,7 @@ namespace PresentationLayer.UserControls
     {
         private Training training;
         private List<Team> teams;
-
+        public event EventHandler<bool> TrainingUpdated;
         public UcEditTraining(Training selectedTraining)
         {
             InitializeComponent();
@@ -82,18 +83,35 @@ namespace PresentationLayer.UserControls
                 training.StartTime = TimeSpan.TryParse(tbStartTime.Text, out var startTime) ? startTime : TimeSpan.Zero;
                 training.EndTime = TimeSpan.TryParse(tbEndTime.Text, out var endTime) ? endTime : TimeSpan.Zero;
                 training.TeamID = selectedTeam.TeamID;
-
                 var trainingService = new TrainingService();
                 bool isUpdated = trainingService.UpdateTraining(training);
 
                 var userRole = CurrentUser.User.RoleID;
                 if (userRole == 1)
                 {
-                    GuiManager.OpenContent(new UcTrainingsAdmin());
+                    var trainingAdmin = new UcTrainingsAdmin();
+                    if (isUpdated)
+                    {
+                        trainingAdmin.ShowMessage("Training successfully updated!", true);
+                    }
+                    else
+                    {
+                        trainingAdmin.ShowMessage("Failed to update training!", false);
+                    }
+                    GuiManager.OpenContent(trainingAdmin);
                 }
                 else
                 {
-                    GuiManager.OpenContent(new UcTrainingsCoach());
+                    var trainingCoach = new UcTrainingsCoach();
+                    if (isUpdated)
+                    {
+                        trainingCoach.ShowMessage("Training successfully updated!", true);
+                    }
+                    else
+                    {
+                        trainingCoach.ShowMessage("Failed to update training!", false);
+                    }
+                    GuiManager.OpenContent(trainingCoach);
                 }
             }
         }

@@ -118,6 +118,9 @@
     <Compile Include="ToastWindow.xaml.cs">
       <DependentUpon>ToastWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcDeleteConfirmation.xaml.cs">
+      <DependentUpon>UcDeleteConfirmation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
       <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
     </Compile>
@@ -221,6 +224,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ToastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcDeleteConfirmation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

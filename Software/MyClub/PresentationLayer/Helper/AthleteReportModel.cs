@@ -13,6 +13,5 @@ namespace PresentationLayer.Helper
         public int Attendances { get; set; }
         public int Absences { get; set; }
         public double AttendancePercentage { get; set; }
-        public string LastNote { get; set; }
     }
 }

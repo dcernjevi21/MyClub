@@ -34,16 +34,67 @@ namespace PresentationLayer.UserControls
             var selectedTraining = dgTrainings.SelectedItem as Training;
             if (selectedTraining != null)
             {
-                bool isSuccessful = services.RemoveTraining(selectedTraining);
-                GuiManager.OpenContent(new UcTrainingsCoach());
+                var confirmDialog = new UcDeleteConfirmation();
+                var window = new Window
+                {
+                    Content = confirmDialog,
+                    WindowStyle = WindowStyle.None,
+                    ResizeMode = ResizeMode.NoResize,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    SizeToContent = SizeToContent.WidthAndHeight
+                };
+
+                confirmDialog.DeleteConfirmed += (s, confirmed) =>
+                {
+                    if (confirmed)
+                    {
+                        bool isSuccessful = services.RemoveTraining(selectedTraining);
+                        if (isSuccessful)
+                        {
+                            ShowMessage("Training successfully deleted!");
+                            ShowAllTrainings();
+                        }
+                        else ShowMessage("Failed to remove training!", false);
+                    }
+                };
+
+                window.ShowDialog();
+            }
+            else
+            {
+                ShowMessage("Please select a training to remove.", false);
             }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             var selectedTraining = dgTrainings.SelectedItem as Training;
-            UcEditTraining editControl = new UcEditTraining(selectedTraining);
-            GuiManager.OpenContent(editControl);
+            if (selectedTraining != null)
+            {
+                UcEditTraining editControl = new UcEditTraining(selectedTraining);
+                GuiManager.OpenContent(editControl);
+            }
+            else
+            {
+                ShowMessage("Please select a training to update.", false);
+            }
+        }
+
+        public void ShowMessage(string message, bool isSuccess = true)
+        {
+            lblMessage.Content = message;
+            lblMessage.Foreground = isSuccess ? Brushes.Green : Brushes.Red;
+            lblMessage.Visibility = Visibility.Visible;
+            var timer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += (s, e) =>
+            {
+                lblMessage.Visibility = Visibility.Collapsed;
+                timer.Stop();
+            };
+            timer.Start();
         }
 
         private void btnAddNew_Click(object sender, RoutedEventArgs e)

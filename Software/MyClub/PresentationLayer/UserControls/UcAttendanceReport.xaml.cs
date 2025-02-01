@@ -83,10 +83,7 @@ namespace PresentationLayer.UserControls
                     Absences = absentCount,
                     AttendancePercentage = athleteTotalEvents > 0
                         ? Math.Round((double)presentCount / athleteTotalEvents * 100, 1)
-                        : 0,
-                    LastNote = athleteAttendances
-                        .OrderByDescending(a => a.Training?.TrainingDate ?? a.Match.MatchDate)
-                        .FirstOrDefault()?.Notes
+                        : 0
                 };
             }).ToList();
 
@@ -160,7 +157,6 @@ namespace PresentationLayer.UserControls
                 worksheet.Cell(rowIndex, 3).Value = "Attendances";
                 worksheet.Cell(rowIndex, 4).Value = "Absences";
                 worksheet.Cell(rowIndex, 5).Value = "Attendance %";
-                worksheet.Cell(rowIndex, 6).Value = "Last Note";
 
                 foreach (var athlete in data)
                 {
@@ -170,7 +166,6 @@ namespace PresentationLayer.UserControls
                     worksheet.Cell(rowIndex, 3).Value = athlete.Attendances;
                     worksheet.Cell(rowIndex, 4).Value = athlete.Absences;
                     worksheet.Cell(rowIndex, 5).Value = athlete.AttendancePercentage;
-                    worksheet.Cell(rowIndex, 6).Value = athlete.LastNote;
                 }
 
                 var headerRow = worksheet.Row(10);
@@ -227,7 +222,6 @@ namespace PresentationLayer.UserControls
                 worksheet.Cell(rowIndex, 3).Value = "Attendances";
                 worksheet.Cell(rowIndex, 4).Value = "Absences";
                 worksheet.Cell(rowIndex, 5).Value = "Attendance %";
-                worksheet.Cell(rowIndex, 6).Value = "Last Note";
 
                 foreach (var athlete in data)
                 {
@@ -237,7 +231,6 @@ namespace PresentationLayer.UserControls
                     worksheet.Cell(rowIndex, 3).Value = athlete.Attendances;
                     worksheet.Cell(rowIndex, 4).Value = athlete.Absences;
                     worksheet.Cell(rowIndex, 5).Value = athlete.AttendancePercentage;
-                    worksheet.Cell(rowIndex, 6).Value = athlete.LastNote;
                 }
 
                 var headerRow = worksheet.Row(10);
