@@ -85,5 +85,18 @@ namespace BusinessLogicLayer.Services
                            .Include(x => x.Status)
                            .OrderByDescending(x => x.Training != null ? x.Training.TrainingDate : x.Match.MatchDate);
         }
+
+        public IQueryable<Attendance> GetTeamAttendancesForPeriod(int teamId, DateTime startDate, DateTime endDate)
+        {
+            return Entities.Where(a =>
+                (a.Training != null && a.Training.TeamID == teamId &&
+                 a.Training.TrainingDate >= startDate && a.Training.TrainingDate <= endDate) ||
+                (a.Match != null && a.Match.TeamID == teamId &&
+                 a.Match.MatchDate >= startDate && a.Match.MatchDate <= endDate))
+                .Include(a => a.Training)
+                .Include(a => a.Match)
+                .Include(a => a.User)
+                .Include(a => a.Status);
+        }
     }
 }

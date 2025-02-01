@@ -42,5 +42,11 @@ namespace PresentationLayer
         {
             GuiManager.Logout();
         }
+
+        private void btnAttendanceReport_Click(object sender, RoutedEventArgs e)
+        {
+            UcAttendanceReport ucAttendance = new UcAttendanceReport();
+            contentPanel.Content = ucAttendance;
+        }
     }
 }
