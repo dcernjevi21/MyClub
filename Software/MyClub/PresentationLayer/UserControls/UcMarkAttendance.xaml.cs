@@ -26,6 +26,7 @@ namespace PresentationLayer.UserControls
     public partial class UcMarkAttendance : UserControl
     {
         private Attendance attendance;
+        private Attendance existingAttendance;
         private Match match;
         private Training training;
         AttendanceService _attendanceService = new AttendanceService();
@@ -55,14 +56,14 @@ namespace PresentationLayer.UserControls
 
         public void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            attendance = new Attendance();
-
             if (trainingId == 0 && matchId == 0)
             {
                 ShowToast("Error! Please reopen form.");
                 GuiManager.CloseContent();
             }
 
+            attendance = new Attendance();
+            existingAttendance = new Attendance();
             string selectedStatus = (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             if (selectedStatus == "+")
@@ -82,8 +83,16 @@ namespace PresentationLayer.UserControls
             attendance.TrainingID = trainingId != 0 ? trainingId : (int?)null;
             attendance.MatchId = matchId != 0 ? matchId : (int?)null;
             attendance.UserID = CurrentUser.User.UserID;
-            _attendanceService.AddAttendance(attendance);
-
+            //baca error ak vec postoji attendance u bazi
+            existingAttendance = _attendanceService.GetAttendances().FirstOrDefault(x => x.UserID == CurrentUser.User.UserID);
+            if (existingAttendance != null)
+            {
+                _attendanceService.UpdateAttendance(attendance);
+            }
+            else 
+            {
+                _attendanceService.AddAttendance(attendance);
+            }
             GuiManager.CloseContent();
         }
 
