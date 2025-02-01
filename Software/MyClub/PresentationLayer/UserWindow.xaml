@@ -14,7 +14,7 @@
         <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="200" Background="#0A234B">
             <Image Source="./Assets/MyClub.jpg" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 -50" />
             <Label Content="MENU" FontWeight="Bold" FontSize="26" HorizontalContentAlignment="Center" Background="#0A234B" Foreground="White" Margin="10"></Label>
-            <Button x:Name="btnAttendances" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Attendances" Background="#0A234B" Foreground="White" Padding="10" Click="btnAttendances_Click"></Button>
+            <Button x:Name="btnAttendances" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Schedule" Background="#0A234B" Foreground="White" Padding="10" Click="btnAttendances_Click"></Button>
             <Button x:Name="btnEditProfile" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Edit profile" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"></Button>
             <Button x:Name="btnLogout" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Log out" Background="#0A234B" Foreground="White" Padding="10" Click="btnLogout_Click"></Button>
         </StackPanel>

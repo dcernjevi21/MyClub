@@ -5,24 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
-    <DockPanel>
-        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Profile" DockPanel.Dock="Top"/>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="100" MaxHeight="100"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="Match management"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2" Margin="0,50,0,0">
             <Label Content="Email:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="New password:" Grid.Column="0" Grid.Row="1" Margin="2" FontWeight="Bold"/>
@@ -39,11 +56,12 @@
                     </Image.Effect>
                 </Image>
             </Border>
-            <Button x:Name="btnChooseImage" Content="Choose Image" Width="120" Height="25" Margin="0,5,0,0" Click="btnChooseImage_Click" Background="LightBlue" Grid.Column="1" Grid.Row="4"/>
-            <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnEditProfile" Content="Save" Width="100" Height="25" Margin="2"  Grid.Column="1" Grid.Row="2" Background="LightBlue" Click="btnSave_Click"/>
-                <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"/>
+            <Button x:Name="btnChooseImage" Margin="0,20,0,0" Content="Choose Image" Style="{StaticResource ButtonStyle}" Click="btnChooseImage_Click" />
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button x:Name="btnEditProfile" Content="Save" Style="{StaticResource ButtonStyle}" Click="btnSave_Click"/>
+                <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancel_Click"/>
             </StackPanel>
-        </Grid>
-    </DockPanel>
-</UserControl>
+        </StackPanel>
+        
+    </Grid>
+    </UserControl>
