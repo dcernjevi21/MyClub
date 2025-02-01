@@ -4,6 +4,9 @@
     {
         Pending = 1,
         Accepted = 2,
-        Rejected = 3
+        Rejected = 3,
+        Present = 4,
+        Absent = 5,
+        Excused = 6
     }
 }

@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcUserMyAttendances"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My attendances"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Total Events"/>
+                    <TextBlock x:Name="txtTotalEvents" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Present"/>
+                    <TextBlock x:Name="txtPresentPercentage" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Absences"/>
+                    <TextBlock x:Name="txtAbsences" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Excused"/>
+                    <TextBlock x:Name="txtExcused" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <DataGrid Grid.Row="2" 
+                  x:Name="dgAttendances"
+                  Margin="10"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" 
+                                  Binding="{Binding EventDate, StringFormat={}{0:dd.MM.yyyy}}"/>
+                <DataGridTextColumn Header="Type" 
+                                  Binding="{Binding EventType}"/>
+                <DataGridTextColumn Header="Time" 
+                                  Binding="{Binding EventTime}"/>
+                <DataGridTextColumn Header="Status" 
+                                  Binding="{Binding Status.StatusName}"/>
+                <DataGridTextColumn Header="Notes" 
+                                  Binding="{Binding Notes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

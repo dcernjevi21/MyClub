@@ -94,5 +94,13 @@ namespace BusinessLogicLayer.Services
             user.StatusID = (int)UserStatus.Rejected;
             return _userRepository.Update(user) > 0;
         }
+
+        public List<User> GetUsersFromTeam(int teamId)
+        {
+            using (var repo = new UserRepository())
+            {
+                return repo.GetUsersByTeamId(teamId).ToList();
+            }
+        }
     }
 }

@@ -6,27 +6,38 @@
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
-    <DockPanel>
-        <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Profile" DockPanel.Dock="Top"/>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="860"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="4000" MaxHeight="400"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition Height="30" MaxHeight="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="Profile"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,50,0,20" Grid.Row="1">
             <Label Content="First name:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
             <Label Content="" x:Name="lblFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Last name:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
@@ -37,9 +48,29 @@
             <Label Content="" x:Name="lblEmail" Grid.Column="1" Grid.Row="3" Margin="2"/>
             <Label Content="Role type:" Grid.Column="0" Grid.Row="4" Margin="2" />
             <Label Content="" x:Name="lblRoleType" Grid.Column="1" Grid.Row="4" Margin="2"/>
-            <Button x:Name="btnEditProfile" Content="Edit your profile" Width="120" Height="25" Margin="2"  Grid.Column="1" Grid.Row="5" Background="LightBlue" Click="btnEditProfile_Click"/>
-            <DataGrid x:Name="dgCoachGrid" Grid.Column="2" Margin="0,10,0,10" Grid.Row="6"/>
-            <Button x:Name="btnEditCoachProfile" Content="Edit selected coach profile" Width="150" Height="25" Margin="2"  Grid.Column="2" Grid.Row="7" Background="LightBlue" Click="btnEditCoachProfile_Click"/>
-        </Grid>
-    </DockPanel>
+            <Button x:Name="btnEditProfile" Content="Edit your profile" Style="{StaticResource ButtonStyle}" Width="120" Click="btnEditProfile_Click"/>
+            <DataGrid x:Name="dgCoachGrid"
+                       Margin="0,50,0,20"
+
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                     Height="auto"
+                     Width="Auto"
+                     Grid.Row="1"
+                     FontSize="14"
+                     AutoGenerateColumns="False">
+                <!-- Prvo sve postojeće kolone -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="UserID" Binding="{Binding UserID}" Width="80"/>
+                    <DataGridTextColumn Header="First name" Binding="{Binding FirstName }" Width="80"/>
+                    <DataGridTextColumn Header="Last name" Binding="{Binding LastName }" Width="80"/>
+                    <DataGridTextColumn Header="Birth date" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="100"/>
+                    <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="120"/>
+                    <DataGridTextColumn Header="StatusID" Binding="{Binding StatusID}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="btnEditCoachProfile" Content="Edit selected coach profile" Style="{StaticResource ButtonStyle}" Width="200" Click="btnEditCoachProfile_Click"/>
+        </StackPanel>
+    </Grid>
 </UserControl>

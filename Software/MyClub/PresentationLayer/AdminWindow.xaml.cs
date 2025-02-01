@@ -42,20 +42,21 @@ namespace PresentationLayer
             contentPanel.Content = ucRegistrationRequests;
         }
 
-        private void btnManageMemberships_Click(object sender, RoutedEventArgs e)
+        private void btnTrainingsAdmin_Click(object sender, RoutedEventArgs e)
         {
-            UCManageMemberships uCManageMemberships = new UCManageMemberships();
-            contentPanel.Content = uCManageMemberships;
+            UcTrainingsAdmin ucTrainings = new UcTrainingsAdmin();
+            contentPanel.Content = ucTrainings;
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            CurrentUser.User = null;
+            GuiManager.Logout();
+        }
 
-            FrmLogin loginWindow = new FrmLogin();
-            loginWindow.Show();
-
-            this.Close();
+        private void btnManageMemberships_Click(object sender, RoutedEventArgs e)
+        {
+            UCManageMemberships uCManageMemberships = new UCManageMemberships();
+            contentPanel.Content = uCManageMemberships;
         }
     }
 }

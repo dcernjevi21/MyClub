@@ -28,9 +28,14 @@ namespace PresentationLayer
         }
 
         //černjević
-        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcProfileUser());
+        }
+
+        private void btnAttendances_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcAttendancesUser());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -44,14 +49,11 @@ namespace PresentationLayer
             contentPanel.Content = ucUserMemberships;
         }
 
+
+
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            CurrentUser.User = null;
-
-            FrmLogin loginWindow = new FrmLogin();
-            loginWindow.Show();
-
-            this.Close();
+            GuiManager.Logout();
         }
     }
 }
