@@ -38,12 +38,11 @@ namespace PresentationLayer.UserControls
 
         public void DisplayCoachData()
         {
-            lblFirstName.Content = CurrentUser.User.FirstName;
-            lblLastName.Content = CurrentUser.User.LastName;
-            lblEmail.Content = CurrentUser.User.Email;
-            lblBirthDate.Content = CurrentUser.User.BirthDate;
-            lblRoleType.Content = "Admin";
-            dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2);
+            lblName.Content = "Name: " + CurrentUser.User.FirstName + " " + CurrentUser.User.LastName;
+            lblEmail.Content = "Email: " + CurrentUser.User.Email;
+            lblBirthDate.Content = "Birth date: " + CurrentUser.User.BirthDate;
+            lblRoleType.Content = "Role: Admin";
+            dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2); //userid 2 is for coach
         }
 
         public void btnEditCoachProfile_Click(object sender, RoutedEventArgs e)

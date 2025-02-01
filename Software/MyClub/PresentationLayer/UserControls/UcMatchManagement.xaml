@@ -78,10 +78,10 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnAddMatch" Content="Add match" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
-            <Button x:Name="btnUpdateMatch" Content="Update match" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
-            <Button x:Name="btnDeleteMatch" Content="Delete match" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
-            <Button x:Name="btnPostponeMatch" Content="Postpone match" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
+            <Button x:Name="btnAddMatch" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
+            <Button x:Name="btnUpdateMatch" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
+            <Button x:Name="btnDeleteMatch" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
+            <Button x:Name="btnPostponeMatch" Content="Postpone" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
         </StackPanel>
     </Grid>
 </UserControl>
