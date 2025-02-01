@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAttendancesUser.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcAttendancesUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
@@ -30,6 +32,12 @@ namespace PresentationLayer.UserControls
         {
             InitializeComponent();
         
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
 
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -54,17 +62,30 @@ namespace PresentationLayer.UserControls
             Training training = GetTrainingAttendance();
             if (match == null && training != null)
             {
-                GuiManager.OpenContent(new UcMarkAttendance(training.TrainingID, 0, training, null));
+                if (DateTime.Now < training.TrainingDate)
+                {
+                    GuiManager.OpenContent(new UcMarkAttendance(training.TrainingID, 0, training, null));
+                }
+                else
+                {
+                    MessageBox.Show("Cannot mark attendance for past training sessions.");
+                }
             }
             else if (match != null && training == null)
             {
-                GuiManager.OpenContent(new UcMarkAttendance(0, match.MatchID, null, match));
+                if (DateTime.Now < match.MatchDate)
+                {
+                    GuiManager.OpenContent(new UcMarkAttendance(0, match.MatchID, null, match));
+                }
+                else
+                {
+                    MessageBox.Show("Cannot mark attendance for past matches.");
+                }
             }
             else
             {
-                MessageBox.Show("Please select a match or training to mark attendance for.");
+                ShowToast("Please select a match or training to mark attendance for.");
             }
-
         }
 
         public Match GetMatchAttendance()

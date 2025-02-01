@@ -57,6 +57,7 @@
     <Compile Include="Entities\Match.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Method.cs" />
+    <Compile Include="Entities\PaymentMethod.cs" />
     <Compile Include="Entities\RoleType.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\sysdiagram.cs" />

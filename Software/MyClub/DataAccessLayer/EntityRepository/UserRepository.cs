@@ -35,6 +35,7 @@ namespace DataAccessLayer.EntityRepositories
                 user.RoleID = entity.RoleID;
                 user.StatusID = entity.StatusID;
                 user.TeamID = entity.TeamID;
+                user.ProfilePicture = entity.ProfilePicture;
 
                 if (saveChanges)
                 {

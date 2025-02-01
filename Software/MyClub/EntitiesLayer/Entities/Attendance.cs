@@ -1,5 +1,6 @@
 namespace EntitiesLayer.Entities
 {
+    using DataAccessLayer;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace EntitiesLayer.Entities
 
         public int UserID { get; set; }
 
-        public int StatusID { get; set; }
+        public int? StatusID { get; set; }
 
         public int? MatchId { get; set; }
         public string Notes { get; set; }

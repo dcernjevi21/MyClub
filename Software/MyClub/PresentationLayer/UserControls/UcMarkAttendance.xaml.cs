@@ -21,9 +21,12 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMarkAttendance.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcMarkAttendance : UserControl
     {
         private Attendance attendance;
+        private Attendance existingAttendance;
         private Match match;
         private Training training;
         AttendanceService _attendanceService = new AttendanceService();
@@ -45,16 +48,22 @@ namespace PresentationLayer.UserControls
             lblStartTime.Content = training != null ? "Start time: " + training.StartTime.ToString() : "Start time: " + match.StartTime.ToString();
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            attendance = new Attendance();
-
             if (trainingId == 0 && matchId == 0)
             {
-                MessageBox.Show("Error! Please reopen form.");
+                ShowToast("Error! Please reopen form.");
                 GuiManager.CloseContent();
             }
 
+            attendance = new Attendance();
+            existingAttendance = new Attendance();
             string selectedStatus = (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             if (selectedStatus == "+")
@@ -67,15 +76,23 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                MessageBox.Show("Please select status.");
+                ShowToast("Please select status.");
                 return;
             }
 
             attendance.TrainingID = trainingId != 0 ? trainingId : (int?)null;
             attendance.MatchId = matchId != 0 ? matchId : (int?)null;
             attendance.UserID = CurrentUser.User.UserID;
-            _attendanceService.AddAttendance(attendance);
-
+            //baca error ak vec postoji attendance u bazi
+            existingAttendance = _attendanceService.GetAttendances().FirstOrDefault(x => x.UserID == CurrentUser.User.UserID);
+            if (existingAttendance != null)
+            {
+                _attendanceService.UpdateAttendance(attendance);
+            }
+            else 
+            {
+                _attendanceService.AddAttendance(attendance);
+            }
             GuiManager.CloseContent();
         }
 

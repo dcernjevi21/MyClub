@@ -4,6 +4,8 @@ namespace EntitiesLayer.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using DataAccessLayer;
+    using EntitiesLayer;
 
     [Table("RoleType")]
     public partial class RoleType

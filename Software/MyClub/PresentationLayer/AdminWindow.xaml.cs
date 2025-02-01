@@ -52,5 +52,11 @@ namespace PresentationLayer
         {
             GuiManager.Logout();
         }
+
+        private void btnManageMemberships_Click(object sender, RoutedEventArgs e)
+        {
+            UCManageMemberships uCManageMemberships = new UCManageMemberships();
+            contentPanel.Content = uCManageMemberships;
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcPostponeMatch.xaml
     /// </summary>
+    ///
+    ///Černjević kompletno
     public partial class UcPostponeMatch : UserControl
     {
         private EntitiesLayer.Entities.Match match;
@@ -29,20 +31,25 @@ namespace PresentationLayer.UserControls
             InitializeComponent();
             match = fetchedMatch;
         }
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
 
         private void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
             var _matchService = new MatchManagementService();
             if (match == null)
             {
-                MessageBox.Show("Match not found!");
+                ShowToast("Match not found!");
                 return;
             }
 
             string explanation = txtExplanation.Text;
             if (string.IsNullOrEmpty(explanation))
             {
-                MessageBox.Show("Please fill in all fields.");
+                ShowToast("Please fill in all fields.");
                 return;
             }
             else
@@ -53,11 +60,11 @@ namespace PresentationLayer.UserControls
                 bool a = _matchService.UpdateMatch(match);
                 if (a)
                 {
-                    MessageBox.Show("Match updated successfully!");
+                    ShowToast("Match updated successfully!");
                 }
                 else
                 {
-                    MessageBox.Show("Match update failed!");
+                    ShowToast("Match update failed!");
                 }
             }
 
