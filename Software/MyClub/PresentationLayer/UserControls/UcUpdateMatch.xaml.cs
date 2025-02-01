@@ -29,13 +29,19 @@ namespace PresentationLayer.UserControls
             InitializeComponent();
             match = fetchedMatch;
         }
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
 
         private void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
             var _matchService = new MatchManagementService();
             if (match == null)
             {
-                MessageBox.Show("Match not found!");
+                ShowToast("Match not found!");
                 return;
             }
 
@@ -46,12 +52,12 @@ namespace PresentationLayer.UserControls
 
             if (string.IsNullOrEmpty(summary) || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("Please fill in all fields.");
+                ShowToast("Please fill in all fields.");
                 return;
             }
             else if (!Regex.IsMatch(result, resultPattern))
             {
-                MessageBox.Show("Invalid result format. Please enter in format '0:0', '99:99', etc.");
+                ShowToast("Invalid result format. Please enter in format '0:0', '99:99', etc.");
                 return;
             }
             else
@@ -62,11 +68,11 @@ namespace PresentationLayer.UserControls
                 bool a = _matchService.UpdateMatch(match);
                 if (a)
                 {
-                    MessageBox.Show("Match updated successfully!");
+                    ShowToast("Match updated successfully!");
                 }
                 else
                 {
-                    MessageBox.Show("Match update failed!");
+                    ShowToast("Match update failed!");
                 }
             }
             GuiManager.CloseContent();

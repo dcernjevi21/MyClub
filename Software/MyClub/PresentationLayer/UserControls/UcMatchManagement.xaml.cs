@@ -34,6 +34,12 @@ namespace PresentationLayer.UserControls
             LoadMatches();
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public void LoadMatches()
         {
             dgCoachGrid.ItemsSource = _matchManagementService.GetMatches();
@@ -52,7 +58,7 @@ namespace PresentationLayer.UserControls
             {
                 if (match.MatchDate > DateTime.Now)
                 {
-                    MessageBox.Show("Cannot update future matches! Only matches that have already been played can be updated.",
+                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.",
                                   "Warning",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Warning);
@@ -60,7 +66,7 @@ namespace PresentationLayer.UserControls
                 }
                 else if(match.Status == "Cancelled")
                 {
-                    MessageBox.Show("Cannot update postponed matches! Only matches that have already been played can be updated.",
+                    ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.",
                                   "Warning",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Warning);

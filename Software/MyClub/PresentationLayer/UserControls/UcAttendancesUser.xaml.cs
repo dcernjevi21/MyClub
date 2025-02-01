@@ -32,6 +32,12 @@ namespace PresentationLayer.UserControls
         
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTrainings();
@@ -62,7 +68,7 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                MessageBox.Show("Please select a match or training to mark attendance for.");
+                ShowToast("Please select a match or training to mark attendance for.");
             }
 
         }

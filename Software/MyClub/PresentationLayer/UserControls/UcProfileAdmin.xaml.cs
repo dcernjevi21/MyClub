@@ -51,7 +51,7 @@ namespace PresentationLayer.UserControls
             User coach = GetSelectedCoach();
             if (coach == null)
             {
-                MessageBox.Show("Please select a coach!");
+                ShowToast("Please select a coach!");
                 return;
             }
             else 
@@ -59,6 +59,12 @@ namespace PresentationLayer.UserControls
                 GuiManager.OpenContent(new UcEditProfile(coach));
             }
 
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
 
         private User GetSelectedCoach()
