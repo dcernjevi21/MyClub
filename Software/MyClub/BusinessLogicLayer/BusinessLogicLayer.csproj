@@ -51,8 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AttendanceService.cs" />
     <Compile Include="Services\MatchManagementService.cs" />
-    <Compile Include="TrainingService.cs" />
+    <Compile Include="Services\TeamService.cs" />
+    <Compile Include="Services\TrainingService.cs" />
+    <Compile Include="Services\MembershipService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserProfileServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
