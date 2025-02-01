@@ -58,18 +58,13 @@ namespace PresentationLayer.UserControls
             {
                 if (match.MatchDate > DateTime.Now)
                 {
-                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.",
-                                  "Warning",
-                                  MessageBoxButton.OK,
-                                  MessageBoxImage.Warning);
+                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
+                                  
                     return;
                 }
                 else if(match.Status == "Cancelled")
                 {
-                    ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.",
-                                  "Warning",
-                                  MessageBoxButton.OK,
-                                  MessageBoxImage.Warning);
+                    ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.");
                     return;
                 }
                 else {
@@ -83,12 +78,23 @@ namespace PresentationLayer.UserControls
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                MatchManagementService _matchManagementService = new MatchManagementService();
-                _matchManagementService.RemoveMatch(match);
+                // Prikaz poruke s potvrdom brisanja
+                MessageBoxResult result = MessageBox.Show(
+                    "Jeste li sigurni da želite izbrisati zapis?",
+                    "Potvrda brisanja",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                // Ako korisnik odabere 'Yes', izvršava se brisanje
+                if (result == MessageBoxResult.Yes)
+                {
+                    MatchManagementService _matchManagementService = new MatchManagementService();
+                    _matchManagementService.RemoveMatch(match);
+                }
             }
         }
 
-        public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
+            public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
