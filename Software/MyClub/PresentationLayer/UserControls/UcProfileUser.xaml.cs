@@ -76,7 +76,7 @@ namespace PresentationLayer.UserControls
 
         private void btnMyAttendances_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcUserAttendances());
+            GuiManager.OpenContent(new UcUserMyAttendances());
         }
     }
 }

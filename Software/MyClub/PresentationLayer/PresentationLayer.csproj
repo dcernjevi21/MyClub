@@ -120,8 +120,8 @@
     <Compile Include="UserControls\UcAddMatch.xaml.cs">
       <DependentUpon>UcAddMatch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcUserAttendances.xaml.cs">
-      <DependentUpon>UcUserAttendances.xaml</DependentUpon>
+    <Compile Include="UserControls\UcUserMyAttendances.xaml.cs">
+      <DependentUpon>UcUserMyAttendances.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
@@ -231,7 +231,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcUserAttendances.xaml">
+    <Page Include="UserControls\UcUserMyAttendances.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

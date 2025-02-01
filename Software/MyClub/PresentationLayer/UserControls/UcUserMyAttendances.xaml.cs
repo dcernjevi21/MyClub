@@ -18,13 +18,13 @@ using System.Windows.Shapes;
 namespace PresentationLayer.UserControls
 {
     /// <summary>
-    /// Interaction logic for UcUserAttendances.xaml
+    /// Interaction logic for UcUserMyAttendances.xaml
     /// </summary>
-    public partial class UcUserAttendances : UserControl
+    public partial class UcUserMyAttendances : UserControl
     {
         private readonly AttendanceService _attendanceService = new AttendanceService();
 
-        public UcUserAttendances()
+        public UcUserMyAttendances()
         {
             InitializeComponent();
             LoadData();
