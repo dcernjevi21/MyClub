@@ -45,7 +45,6 @@ namespace PresentationLayer.UserControls
 
 
 
-
             //dodati logiku ako se stavlja utakmica u isto vrijeme kada je trening
             //dodati slanje e maila korisnicima nakon sto se zakaze utakmica
 
