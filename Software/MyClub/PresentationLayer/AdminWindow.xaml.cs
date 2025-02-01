@@ -47,5 +47,10 @@ namespace PresentationLayer
             UcTrainingsAdmin ucTrainings = new UcTrainingsAdmin();
             contentPanel.Content = ucTrainings;
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.Logout();
+        }
     }
 }

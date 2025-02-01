@@ -41,5 +41,10 @@ namespace PresentationLayer
         {
             GuiManager.CurrentWindow = this;
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.Logout();
+        }
     }
 }
