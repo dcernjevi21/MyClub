@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMarkAttendance.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcMarkAttendance : UserControl
     {
         private Attendance attendance;
@@ -46,11 +48,17 @@ namespace PresentationLayer.UserControls
             lblStartTime.Content = training != null ? "Start time: " + training.StartTime.ToString() : "Start time: " + match.StartTime.ToString();
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (trainingId == 0 && matchId == 0)
             {
-                MessageBox.Show("Error! Please reopen form.");
+                ShowToast("Error! Please reopen form.");
                 GuiManager.CloseContent();
             }
 
@@ -68,7 +76,7 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                MessageBox.Show("Please select status.");
+                ShowToast("Please select status.");
                 return;
             }
 

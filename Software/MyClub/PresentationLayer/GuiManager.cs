@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using PresentationLayer.Helper;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PresentationLayer
@@ -35,6 +37,13 @@ namespace PresentationLayer
         private static ContentControl GetContentPanel()
         {
             return CurrentWindow?.FindName("contentPanel") as ContentControl;
+        }
+
+        public static void Logout()
+        {
+            new FrmLogin().Show();
+            CurrentWindow.Close();
+            CurrentUser.User = null;
         }
     }
 }

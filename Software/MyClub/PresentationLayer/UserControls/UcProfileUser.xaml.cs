@@ -23,6 +23,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcProfile.xaml
     /// </summary>
+    ///
+    ///Černjević kompletno
     public partial class UcProfileUser : UserControl
     {
         private UserProfileServices userProfileService = new UserProfileServices();
@@ -36,20 +38,19 @@ namespace PresentationLayer.UserControls
         {
             DisplayUserData();
         }
-        //dodati popis zadnjih 10 prijava
+        //TODO: Add 10 last login dates and time
         private void DisplayUserData()
         {
-            //testni podataka
+            //needs refactoring
             var users = userProfileService.GetUserByEmail(CurrentUser.User.Email);
             CurrentUser.User = users.FirstOrDefault();
             if (users != null && users.Count > 0)
             {
                 var user = users.First();
-                lblFirstName.Content = user.FirstName;
-                lblLastName.Content = user.LastName;
-                lblEmail.Content = user.Email;
-                lblBirthDate.Content = user.BirthDate.ToString();
-                lblRoleType.Content = "User";
+                lblName.Content = "Name: " + CurrentUser.User.FirstName + " " + CurrentUser.User.LastName;
+                lblEmail.Content = "Email: " + CurrentUser.User.Email;
+                lblBirthDate.Content = "Birth date: " + CurrentUser.User.BirthDate;
+                lblRoleType.Content = "Role: User";
                 imgProfilePicture.Source = ConvertToImage(user.ProfilePicture);
             }
         }
@@ -71,7 +72,12 @@ namespace PresentationLayer.UserControls
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
+            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
+        }
+
+        private void btnMyAttendances_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcUserMyAttendances());
         }
     }
 }

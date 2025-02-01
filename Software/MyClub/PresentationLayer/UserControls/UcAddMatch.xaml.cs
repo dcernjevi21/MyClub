@@ -23,6 +23,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAddatch.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcAddMatch : UserControl
     {
         MatchManagementService _matchManagementService = new MatchManagementService();
@@ -30,6 +32,12 @@ namespace PresentationLayer.UserControls
         public UcAddMatch()
         {
             InitializeComponent();
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
 
         private void btnAddMatch_Click(object sender, RoutedEventArgs e)
@@ -45,7 +53,6 @@ namespace PresentationLayer.UserControls
 
 
 
-
             //dodati logiku ako se stavlja utakmica u isto vrijeme kada je trening
             //dodati slanje e maila korisnicima nakon sto se zakaze utakmica
 
@@ -53,22 +60,22 @@ namespace PresentationLayer.UserControls
             string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
             if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
             {
-                MessageBox.Show("Please fill in all fields.");
+                ShowToast("Please fill in all fields.");
                 return;
             }
             else if (matchDate < DateTime.Now)
             {
-                MessageBox.Show("Match date cannot be in the past.");
+                ShowToast("Match date cannot be in the past.");
                 return;
             }
             else if (!Regex.IsMatch(startTime, timePattern))
             {
-                MessageBox.Show("Invalid time format. Please enter time in HH:mm format.");
+                ShowToast("Invalid time format. Please enter time in HH:mm format.");
                 return;
             }
             else if (matchExists)
             {
-                MessageBox.Show("Match already exists on this date and time.");
+                ShowToast("Match already exists on this date and time.");
                 return;
             }
             else

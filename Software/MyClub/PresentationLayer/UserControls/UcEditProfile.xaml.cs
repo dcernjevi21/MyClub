@@ -18,18 +18,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogicLayer.Services;
+using DataAccessLayer;
 
 namespace PresentationLayer.UserControls
 {
     /// <summary>
     /// Interaction logic for UcEditProfileUser.xaml
     /// </summary>
-    public partial class UcEditProfileUser : UserControl
+    /// 
+    ///Černjević kompletno
+    public partial class UcEditProfile : UserControl
     {
         private User user;
         byte[] imageBytes;
 
-        public UcEditProfileUser(User fetchedUser)
+        public UcEditProfile(User fetchedUser)
         {
             InitializeComponent();
             user = fetchedUser;
@@ -39,12 +42,19 @@ namespace PresentationLayer.UserControls
 
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var userService = new UserProfileServices();
             if (user == null)
             {
-                MessageBox.Show("User not found!");
+                ShowToast("User not found!");
                 return;
             }
 
@@ -62,17 +72,17 @@ namespace PresentationLayer.UserControls
                     bool a = userService.UpdateUser(user);
                     if (a)
                     {
-                        MessageBox.Show("Email updated successfully!");
+                        ShowToast("Email updated successfully!");
                     }
                     else
                     {
-                        MessageBox.Show("Error updating email!");
+                        ShowToast("Error updating email!");
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Email is not valid! Correct format: example@example.com");
+                    ShowToast("Email is not valid! Correct format: example@example.com");
                     return;
                 }
             }
@@ -89,32 +99,37 @@ namespace PresentationLayer.UserControls
                     }
                     else
                     {
-                        MessageBox.Show("New password must be different from the old one!");
+                        ShowToast("New password must be different from the old one!");
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one digit!");
+                    ShowToast("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one digit!");
                     return;
                 }
             }
 
             //update image
-            if (imageBytes != null)
+            if (imageBytes != null && imageBytes.Length > 0)
             {
                 user.ProfilePicture = imageBytes;
                 bool a = userService.UpdateUser(user);
                 if (a)
                 {
-                    MessageBox.Show("Profile picture updated successfully!");
+                    ShowToast("Profile picture updated successfully!");
                 }
                 else
                 {
-                    MessageBox.Show("Error updating profile picture!");
+                    ShowToast("Error updating profile picture!");
                 }
             }
-            GuiManager.CloseContent();
+            else
+            {
+                ShowToast("Profile picture not updated!");
+            }
+        
+        GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)

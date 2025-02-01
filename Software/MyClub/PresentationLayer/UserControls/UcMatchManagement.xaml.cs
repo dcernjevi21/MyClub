@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,12 @@ namespace PresentationLayer.UserControls
             LoadMatches();
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public void LoadMatches()
         {
             dgCoachGrid.ItemsSource = _matchManagementService.GetMatches();
@@ -43,7 +50,7 @@ namespace PresentationLayer.UserControls
 
             GuiManager.OpenContent(new UcAddMatch());
         }
-        //radi sve
+        //Černjević
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
@@ -51,37 +58,42 @@ namespace PresentationLayer.UserControls
             {
                 if (match.MatchDate > DateTime.Now)
                 {
-                    MessageBox.Show("Cannot update future matches! Only matches that have already been played can be updated.",
-                                  "Warning",
-                                  MessageBoxButton.OK,
-                                  MessageBoxImage.Warning);
+                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
+                                  
                     return;
                 }
                 else if(match.Status == "Cancelled")
                 {
-                    MessageBox.Show("Cannot update postponed matches! Only matches that have already been played can be updated.",
-                                  "Warning",
-                                  MessageBoxButton.OK,
-                                  MessageBoxImage.Warning);
+                    ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.");
                     return;
                 }
-                else if (match.Status == "Scheduled")
-                {
+                else {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
                 }
             }
         }
-
+        //Černjević
         public void btnDeleteMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                MatchManagementService _matchManagementService = new MatchManagementService();
-                _matchManagementService.RemoveMatch(match);
+                // Prikaz poruke s potvrdom brisanja
+                MessageBoxResult result = MessageBox.Show(
+                    "Jeste li sigurni da želite izbrisati zapis?",
+                    "Potvrda brisanja",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                // Ako korisnik odabere 'Yes', izvršava se brisanje
+                if (result == MessageBoxResult.Yes)
+                {
+                    MatchManagementService _matchManagementService = new MatchManagementService();
+                    _matchManagementService.RemoveMatch(match);
+                }
             }
         }
-
+        //Černjević
         public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
@@ -94,6 +106,18 @@ namespace PresentationLayer.UserControls
         public EntitiesLayer.Entities.Match GetMatch()
         {
             return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
+        }
+
+        //Valec
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var match = button.DataContext as EntitiesLayer.Entities.Match;
+            if (match != null)
+            {
+                var attendanceControl = new UcMatchAttendanceCoach(match);
+                GuiManager.OpenContent(attendanceControl);
+            }
         }
     }
 }

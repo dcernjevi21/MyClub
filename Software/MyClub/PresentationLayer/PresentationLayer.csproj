@@ -66,11 +66,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
+    <Compile Include="Helper\AttendanceViewModel.cs" />
+    <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="ToastWindow.xaml.cs">
+      <DependentUpon>ToastWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
+      <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcTrainingAttendanceCoach.xaml.cs">
+      <DependentUpon>UcTrainingAttendanceCoach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
+      <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcAttendancesUser.xaml.cs">
       <DependentUpon>UcAttendancesUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCManageMemberships.xaml.cs">
+      <DependentUpon>UCManageMemberships.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
       <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
@@ -87,18 +104,15 @@
     <Compile Include="UserControls\UcPostponeMatch.xaml.cs">
       <DependentUpon>UcPostponeMatch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcTrainings.xaml.cs">
-      <DependentUpon>UcTrainings.xaml</DependentUpon>
+    <Compile Include="UserControls\UcTrainingsAdmin.xaml.cs">
+      <DependentUpon>UcTrainingsAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentUser.cs" />
-    <Compile Include="UserControls\UcEditProfileAdmin.xaml.cs">
-      <DependentUpon>UcEditProfileAdmin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditProfileUser.xaml.cs">
-      <DependentUpon>UcEditProfileUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcEditProfile.xaml.cs">
+      <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcProfileAdmin.xaml.cs">
       <DependentUpon>UcProfileAdmin.xaml</DependentUpon>
@@ -108,6 +122,12 @@
     </Compile>
     <Compile Include="UserControls\UcAddMatch.xaml.cs">
       <DependentUpon>UcAddMatch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcUserMyAttendances.xaml.cs">
+      <DependentUpon>UcUserMyAttendances.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCUserMemberships.xaml.cs">
+      <DependentUpon>UCUserMemberships.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
@@ -153,6 +173,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ToastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCManageMemberships.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\UcAttendancesUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,11 +189,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcUpdateMatch.xaml">
+    <Page Include="UserControls\UcMatchAttendanceCoach.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfileAdmin.xaml">
+    <Page Include="UserControls\UcTrainingAttendanceCoach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcTrainingsCoach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcUpdateMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,7 +213,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfileUser.xaml">
+    <Page Include="UserControls\UcEditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,11 +241,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\UCUserMemberships.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcUserMyAttendances.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcTrainings.xaml">
+    <Page Include="UserControls\UcTrainingsAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

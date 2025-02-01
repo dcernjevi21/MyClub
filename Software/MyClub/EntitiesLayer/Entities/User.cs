@@ -1,9 +1,11 @@
-namespace EntitiesLayer.Entities
+namespace DataAccessLayer
 {
+    using EntitiesLayer.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("User")]
     public partial class User
@@ -47,6 +49,8 @@ namespace EntitiesLayer.Entities
 
         public int? TeamID { get; set; }
 
+        public byte[] ProfilePicture { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AthleteEvaluation> AthleteEvaluations { get; set; }
 
@@ -56,12 +60,11 @@ namespace EntitiesLayer.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Membership> Memberships { get; set; }
 
+
         public virtual RoleType RoleType { get; set; }
 
         public virtual Status Status { get; set; }
 
         public virtual Team Team { get; set; }
-
-        public byte[] ProfilePicture { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAttendancesUser.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcAttendancesUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
@@ -30,6 +32,12 @@ namespace PresentationLayer.UserControls
         {
             InitializeComponent();
         
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
 
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -76,7 +84,7 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                MessageBox.Show("Please select a match or training to mark attendance for.");
+                ShowToast("Please select a match or training to mark attendance for.");
             }
         }
 

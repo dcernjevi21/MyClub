@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DataAccessLayer;
 using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
@@ -22,6 +23,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcProfileAdmin.xaml
     /// </summary>
+    /// 
+    ///Černjević kompletno
     public partial class UcProfileAdmin : UserControl
     {
         private UserProfileServices userProfileService = new UserProfileServices();
@@ -38,12 +41,11 @@ namespace PresentationLayer.UserControls
 
         public void DisplayCoachData()
         {
-            lblFirstName.Content = CurrentUser.User.FirstName;
-            lblLastName.Content = CurrentUser.User.LastName;
-            lblEmail.Content = CurrentUser.User.Email;
-            lblBirthDate.Content = CurrentUser.User.BirthDate;
-            lblRoleType.Content = "Admin";
-            dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2);
+            lblName.Content = "Name: " + CurrentUser.User.FirstName + " " + CurrentUser.User.LastName;
+            lblEmail.Content = "Email: " + CurrentUser.User.Email;
+            lblBirthDate.Content = "Birth date: " + CurrentUser.User.BirthDate;
+            lblRoleType.Content = "Role: Admin";
+            dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2); //userid 2 is for coach
         }
 
         public void btnEditCoachProfile_Click(object sender, RoutedEventArgs e)
@@ -51,14 +53,20 @@ namespace PresentationLayer.UserControls
             User coach = GetSelectedCoach();
             if (coach == null)
             {
-                MessageBox.Show("Please select a coach!");
+                ShowToast("Please select a coach!");
                 return;
             }
             else 
             {
-                GuiManager.OpenContent(new UcEditProfileUser(coach));
+                GuiManager.OpenContent(new UcEditProfile(coach));
             }
 
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
 
         private User GetSelectedCoach()
@@ -69,7 +77,7 @@ namespace PresentationLayer.UserControls
 
         public void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcEditProfileUser(CurrentUser.User));
+            GuiManager.OpenContent(new UcEditProfile(CurrentUser.User));
         }
 
     }
