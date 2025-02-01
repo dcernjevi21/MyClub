@@ -45,15 +45,23 @@ namespace BusinessLogicLayer.Services
                            .Include(x => x.Status);
         }
 
+        public IQueryable<Attendance> GetAttendancesByMatchId(int matchId)
+        {
+            return Entities.Where(x => x.MatchId == matchId)
+                           .Include(x => x.User)
+                           .Include(x => x.Status);
+        }
+
         public override int Update(Attendance entity, bool saveChanges = true)
         {
             var attendance = Entities.SingleOrDefault(x => x.AttendanceID == entity.AttendanceID);
             if (attendance != null)
             {
-                //dodati ostale atribute
                 attendance.TrainingID = entity.TrainingID;
                 attendance.UserID = entity.UserID;
                 attendance.StatusID = entity.StatusID;
+                attendance.Notes = entity.Notes;
+                attendance.MatchId = entity.MatchId;
 
                 if (saveChanges)
                 {

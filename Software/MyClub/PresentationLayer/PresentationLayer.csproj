@@ -67,6 +67,10 @@
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
+    <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
+      <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcTrainingAttendanceCoach.xaml.cs">
       <DependentUpon>UcTrainingAttendanceCoach.xaml</DependentUpon>
     </Compile>
@@ -165,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UcMarkAttendance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcMatchAttendanceCoach.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

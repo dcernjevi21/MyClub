@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helpers="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <helpers:DateToPastConverter x:Key="DateToPastConverter"/>
+    </UserControl.Resources>
+
     <DockPanel>
         <Label x:Name="header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="LightBlue" Content="Match management" DockPanel.Dock="Top"/>
         <Grid Margin="10">
@@ -20,13 +26,42 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="dgCoachGrid" Grid.Column="1" Margin="0,10,0,10" Grid.Row="0"/>
+            <DataGrid x:Name="dgCoachGrid" 
+                     Grid.Column="1" 
+                     Margin="0,10,0,10" 
+                     Grid.Row="0" 
+                     AutoGenerateColumns="False">
+                <!-- Prvo sve postojeće kolone -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}"/>
+                    <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}"/>
+                    <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                    <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
+                    <DataGridTextColumn Header="Result" Binding="{Binding Result}"/>
+                    <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}"/>
+                    <DataGridTextColumn Header="Summary" Binding="{Binding Summary}"/>
+                    <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}"/>
+                    <!-- Attendance kolona na kraju -->
+                    <DataGridTemplateColumn Header="Attendance" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnAttendance" 
+                                       Content="Attendance" 
+                                       Click="btnAttendance_Click"
+                                       Width="75"
+                                       IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
             <StackPanel x:Name="stackPanel" DockPanel.Dock="Left" Width="420" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
                 <Button x:Name="btnAddMatch" Content="Add match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnAddMatch_Click"/>
                 <Button x:Name="btnUpdateMatch" Content="Update match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnDeleteMatch" Content="Delete match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnDeleteMatch_Click"/>
                 <Button x:Name="btnPostponeMatch" Content="Postpone match" Width="100" Height="25" Margin="2" Background="LightBlue" Click="btnPostponeMatch_Click"/>
             </StackPanel>
-         </Grid>
+        </Grid>
     </DockPanel>
 </UserControl>
