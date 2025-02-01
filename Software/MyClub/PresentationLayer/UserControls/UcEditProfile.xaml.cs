@@ -101,7 +101,7 @@ namespace PresentationLayer.UserControls
             }
 
             //update image
-            if (imageBytes != null)
+            if (imageBytes != null && imageBytes.Length > 0)
             {
                 user.ProfilePicture = imageBytes;
                 bool a = userService.UpdateUser(user);
@@ -114,7 +114,12 @@ namespace PresentationLayer.UserControls
                     MessageBox.Show("Error updating profile picture!");
                 }
             }
-            GuiManager.CloseContent();
+            else
+            {
+                MessageBox.Show("Profile picture not updated!");
+            }
+        
+        GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)
