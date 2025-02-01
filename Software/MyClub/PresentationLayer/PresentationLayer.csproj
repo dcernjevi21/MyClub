@@ -174,7 +174,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcUpdateMatch.xaml">
     <Page Include="UserControls\UcAttendancesUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
