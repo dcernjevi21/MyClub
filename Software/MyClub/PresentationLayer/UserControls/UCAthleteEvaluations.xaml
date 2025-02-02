@@ -7,20 +7,32 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid >
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGridEvaluations" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="0" Margin="0,0,0,5">
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My Evaluations"
+                    Foreground="White"
+                    FontSize="26"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+        </Border>
+
+        <DataGrid x:Name="dataGridEvaluations" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Margin="0,0,0,5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
                 <DataGridTextColumn Header="Mark" Binding="{Binding Mark}" Width="*"/>
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="2*"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="3*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <lvc:CartesianChart x:Name="chartMarks" Grid.Row="1" Margin="0,0,0,5">
+        
+        <lvc:CartesianChart x:Name="chartMarks" Padding="0" Grid.Row="2" Margin="0,0,0,5">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Date" LabelFormatter="{Binding DateFormatter}" />
             </lvc:CartesianChart.AxisX>
@@ -28,6 +40,7 @@
                 <lvc:Axis Title="Mark" MinValue="0" MaxValue="10" />
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-        <TextBlock x:Name="lblStatus" Grid.Row="2" FontSize="14" Foreground="DarkBlue" TextAlignment="Center" Visibility="Collapsed" Margin="0,5,0,0"/>
+        <TextBlock x:Name="lblStatus" Grid.Row="3" FontSize="14" Foreground="DarkBlue" TextAlignment="Center" Visibility="Collapsed"/>
+        
     </Grid>
 </UserControl>

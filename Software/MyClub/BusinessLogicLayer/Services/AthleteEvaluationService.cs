@@ -27,5 +27,17 @@ namespace BusinessLogicLayer.Services
             int result = _evaluationRepository.AddEvaluation(evaluation);
             return result > 0;
         }
+
+        public bool UpdateEvaluation(AthleteEvaluation evaluation)
+        {
+            int result = _evaluationRepository.Update(evaluation);
+            return result > 0;
+        }
+
+        public bool DeleteEvaluation(AthleteEvaluation evaluation)
+        {
+            int result = _evaluationRepository.Remove(evaluation);
+            return result > 0;
+        }
     }
 }

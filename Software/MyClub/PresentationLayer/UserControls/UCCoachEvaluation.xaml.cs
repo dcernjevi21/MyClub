@@ -26,6 +26,8 @@ namespace PresentationLayer.UserControls
     {
         private readonly CoachEvaluationService _coachEvaluationService;
         private readonly AthleteEvaluationService _evaluationService;
+        private List<User> _athletes;
+        private List<AthleteEvaluation> _currentEvaluations;
 
         public UCCoachEvaluation()
         {
@@ -33,6 +35,7 @@ namespace PresentationLayer.UserControls
             _coachEvaluationService = new CoachEvaluationService();
             _evaluationService = new AthleteEvaluationService();
             LoadAthletes();
+            cmbAthletes.SelectionChanged += cmbAthletes_SelectionChanged;
             sldRating.ValueChanged += (s, e) =>
             {
                 txtRatingValue.Text = sldRating.Value.ToString("0");
@@ -41,27 +44,48 @@ namespace PresentationLayer.UserControls
 
         private void LoadAthletes()
         {
-            // Use the current coach's team ID from the presentation layer
-            if (CurrentUser.User == null)
+            if (CurrentUser.User != null)
             {
-                cmbAthletes.ItemsSource = new List<User>();
-                return;
+                int teamId = (int)CurrentUser.User.TeamID;
+                _athletes = _coachEvaluationService.GetPlayersForTeam(teamId);
+                cmbAthletes.ItemsSource = _athletes;
+                cmbAthletes.DisplayMemberPath = "FirstName";
+                if (_athletes.Any())
+                    cmbAthletes.SelectedIndex = 0;
             }
-            int teamId = (int)CurrentUser.User.TeamID;
-            var players = _coachEvaluationService.GetPlayersForTeam(teamId);
-            cmbAthletes.ItemsSource = players;
-            cmbAthletes.DisplayMemberPath = "FirstName"; // Optionally use a full name property
-            if (players.Any())
-                cmbAthletes.SelectedIndex = 0;
+            else
+            {
+                SetStatus("No coach logged in.", true);
+            }
         }
 
-        private void btnSubmitEvaluation_Click(object sender, RoutedEventArgs e)
+        private void cmbAthletes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbAthletes.SelectedItem is User selectedAthlete)
             {
-                // Slider ensures rating is between 1 and 10.
-                decimal rating = (decimal)sldRating.Value;
+                LoadEvaluations(selectedAthlete.UserID);
+            }
+        }
 
+        private void LoadEvaluations(int userId)
+        {
+            try
+            {
+                _currentEvaluations = _evaluationService.GetEvaluationsForAthlete(userId);
+                dataGridEvaluations.ItemsSource = _currentEvaluations;
+                SetStatus("Evaluations loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                SetStatus($"Error loading evaluations: {ex.Message}", true);
+            }
+        }
+
+        private void btnAddEvaluation_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbAthletes.SelectedItem is User selectedAthlete)
+            {
+                decimal rating = (decimal)sldRating.Value;
                 AthleteEvaluation evaluation = new AthleteEvaluation
                 {
                     UserID = selectedAthlete.UserID,
@@ -73,20 +97,73 @@ namespace PresentationLayer.UserControls
                 bool success = _evaluationService.AddEvaluation(evaluation);
                 if (success)
                 {
-                    SetStatus("Evaluation submitted successfully.");
-                    // Optionally clear the fields
-                    sldRating.Value = 5;
-                    txtComment.Clear();
+                    SetStatus("Evaluation added successfully.");
+                    LoadEvaluations(selectedAthlete.UserID);
+                    ClearEvaluationInput();
                 }
                 else
                 {
-                    SetStatus("Failed to submit evaluation.", true);
+                    SetStatus("Failed to add evaluation.", true);
                 }
             }
             else
             {
                 SetStatus("Please select an athlete.", true);
             }
+        }
+
+        private void btnModifyEvaluation_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridEvaluations.SelectedItem is AthleteEvaluation selectedEvaluation)
+            {
+                decimal rating = (decimal)sldRating.Value;
+                selectedEvaluation.Mark = rating;
+                selectedEvaluation.Comment = txtComment.Text.Trim();
+                bool success = _evaluationService.UpdateEvaluation(selectedEvaluation);
+                if (success)
+                {
+                    SetStatus("Evaluation modified successfully.");
+                    if (cmbAthletes.SelectedItem is User selectedAthlete)
+                        LoadEvaluations(selectedAthlete.UserID);
+                    ClearEvaluationInput();
+                }
+                else
+                {
+                    SetStatus("Failed to modify evaluation.", true);
+                }
+            }
+            else
+            {
+                SetStatus("Please select an evaluation to modify.", true);
+            }
+        }
+
+        private void btnDeleteEvaluation_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridEvaluations.SelectedItem is AthleteEvaluation selectedEvaluation)
+            {
+                bool success = _evaluationService.DeleteEvaluation(selectedEvaluation);
+                if (success)
+                {
+                    SetStatus("Evaluation deleted successfully.");
+                    if (cmbAthletes.SelectedItem is User selectedAthlete)
+                        LoadEvaluations(selectedAthlete.UserID);
+                }
+                else
+                {
+                    SetStatus("Failed to delete evaluation.", true);
+                }
+            }
+            else
+            {
+                SetStatus("Please select an evaluation to delete.", true);
+            }
+        }
+
+        private void ClearEvaluationInput()
+        {
+            sldRating.Value = 5;
+            txtComment.Clear();
         }
 
         private void SetStatus(string message, bool isError = false)

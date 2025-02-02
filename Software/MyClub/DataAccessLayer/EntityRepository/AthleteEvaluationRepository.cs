@@ -29,7 +29,28 @@ namespace DataAccessLayer.EntityRepository
 
         public override int Update(AthleteEvaluation entity, bool saveChanges = true)
         {
-            throw new NotImplementedException();
+            var query = from eval in Entities
+                        where eval.EvaluationID == entity.EvaluationID
+                        select eval;
+            var existingEvaluation = query.FirstOrDefault();
+            if (existingEvaluation == null)
+                return 0;
+
+            Context.Entry(existingEvaluation).CurrentValues.SetValues(entity);
+            return saveChanges ? SaveChanges() : 0;
+        }
+
+        public override int Remove(AthleteEvaluation entity, bool saveChanges = true)
+        {
+            var query = from eval in Entities
+                        where eval.EvaluationID == entity.EvaluationID
+                        select eval;
+            var existingEvaluation = query.FirstOrDefault();
+            if (existingEvaluation == null)
+                return 0;
+
+            Entities.Remove(existingEvaluation);
+            return saveChanges ? SaveChanges() : 0;
         }
     }
 }

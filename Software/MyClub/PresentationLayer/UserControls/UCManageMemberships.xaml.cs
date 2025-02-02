@@ -65,17 +65,6 @@ namespace PresentationLayer.UserControls
             cmbMonthFilter.SelectedItem = months.FirstOrDefault();
         }
 
-        private void btnLoadMonth_Click(object sender, RoutedEventArgs e)
-        {
-            if (cmbMonthFilter.SelectedItem is DateTime selectedMonth)
-            {
-                LoadMemberships(selectedMonth);
-            }
-            else
-            {
-                SetStatus("Please select a valid month.", true);
-            }
-        }
 
         private void cmbMonthFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

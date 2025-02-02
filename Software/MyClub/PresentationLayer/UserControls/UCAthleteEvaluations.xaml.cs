@@ -71,7 +71,6 @@ namespace PresentationLayer.UserControls
                         var marks = evaluations.Select(e => (double)e.Mark).ToArray();
                         var dates = evaluations.Select(e => e.Date.Ticks).ToArray();
 
-                        // Create a LineSeries for the chart.
                         chartMarks.Series = new SeriesCollection
                         {
                             new LineSeries
@@ -83,8 +82,7 @@ namespace PresentationLayer.UserControls
                             }
                         };
 
-                        // For simplicity, we use the index of the data as the X values.
-                        // More advanced: you can use a DateTime axis by converting ticks.
+
                         chartMarks.AxisX.Clear();
                         chartMarks.AxisX.Add(new Axis
                         {
