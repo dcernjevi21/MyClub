@@ -103,6 +103,5 @@ namespace DataAccessLayer.EntityRepositories
                         select u;
             return query;
         }
-
     }
 }

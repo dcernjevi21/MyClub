@@ -51,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AthleteEvaluationService.cs" />
     <Compile Include="Services\AttendanceService.cs" />
+    <Compile Include="Services\CoachEvaluationService.cs" />
     <Compile Include="Services\MatchManagementService.cs" />
     <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\TrainingService.cs" />

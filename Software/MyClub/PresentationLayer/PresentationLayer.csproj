@@ -112,11 +112,17 @@
     <Compile Include="Helper\AthleteReportModel.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
+      <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcAttendanceReport.xaml.cs">
       <DependentUpon>UcAttendanceReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToastWindow.xaml.cs">
       <DependentUpon>ToastWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCCoachEvaluation.xaml.cs">
+      <DependentUpon>UCCoachEvaluation.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcDeleteConfirmation.xaml.cs">
       <DependentUpon>UcDeleteConfirmation.xaml</DependentUpon>
@@ -224,6 +230,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ToastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCAthleteEvaluations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCCoachEvaluation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
