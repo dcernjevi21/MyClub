@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace PresentationLayer.UserControls
 {
@@ -23,20 +25,26 @@ namespace PresentationLayer.UserControls
     public partial class UCAthleteEvaluations : UserControl
     {
         private readonly AthleteEvaluationService _evaluationService;
+        public Func<double, string> DateFormatter { get; set; }
+
 
         public UCAthleteEvaluations()
         {
             InitializeComponent();
             _evaluationService = new AthleteEvaluationService();
+            DateFormatter = value => new DateTime((long)value).ToString("d");
+            DataContext = this;
             LoadEvaluations();
+            LoadChart();
         }
-    private void LoadEvaluations()
+
+        private void LoadEvaluations()
         {
             try
             {
                 if (CurrentUser.User != null)
                 {
-                    var evaluations = _evaluationService.GetEvaluationsForAthlete(CurrentUser.User.UserID);
+                    var evaluations = _evaluationService.GetEvaluationsForAthlete(CurrentUser.User.UserID).ToList();
                     dataGridEvaluations.ItemsSource = evaluations;
                     SetStatus("Evaluations loaded successfully.");
                 }
@@ -48,6 +56,47 @@ namespace PresentationLayer.UserControls
             catch (Exception ex)
             {
                 SetStatus($"Error loading evaluations: {ex.Message}", true);
+            }
+        }
+
+        private void LoadChart()
+        {
+            try
+            {
+                if (CurrentUser.User != null)
+                {
+                    var evaluations = _evaluationService.GetEvaluationsForAthlete(CurrentUser.User.UserID).OrderBy(e => e.Date).ToList();
+                    if (evaluations.Any())
+                    {
+                        var marks = evaluations.Select(e => (double)e.Mark).ToArray();
+                        var dates = evaluations.Select(e => e.Date.Ticks).ToArray();
+
+                        // Create a LineSeries for the chart.
+                        chartMarks.Series = new SeriesCollection
+                        {
+                            new LineSeries
+                            {
+                                Title = "Mark",
+                                Values = new ChartValues<double>(marks),
+                                PointGeometry = DefaultGeometries.Circle,
+                                PointGeometrySize = 10
+                            }
+                        };
+
+                        // For simplicity, we use the index of the data as the X values.
+                        // More advanced: you can use a DateTime axis by converting ticks.
+                        chartMarks.AxisX.Clear();
+                        chartMarks.AxisX.Add(new Axis
+                        {
+                            Title = "Date",
+                            Labels = evaluations.Select(e => e.Date.ToShortDateString()).ToList()
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SetStatus($"Error loading chart: {ex.Message}", true);
             }
         }
 
