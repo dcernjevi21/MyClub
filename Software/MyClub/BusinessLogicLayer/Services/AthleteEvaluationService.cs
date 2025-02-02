@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.EntityRepository;
+﻿using DataAccessLayer;
+using DataAccessLayer.EntityRepository;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
