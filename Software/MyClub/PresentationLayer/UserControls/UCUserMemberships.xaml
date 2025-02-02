@@ -9,9 +9,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="dataGridMemberships" AutoGenerateColumns="False" IsReadOnly="True" Margin="10">
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My Memberships"
+                       Foreground="White"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <DataGrid x:Name="dataGridMemberships" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Month" Binding="{Binding Month}" Width="*"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
@@ -19,8 +30,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" Margin="10">
-            <Button x:Name="btnPayMembership" Content="Pay Membership" Width="150" Height="30" Click="btnPayMembership_Click"/>
+        <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="btnPayMembership" Content="Pay Membership" Background="#0A234B" Foreground="White" Width="150" Height="30" Click="btnPayMembership_Click"/>
             <TextBlock x:Name="lblStatus" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="14" Foreground="DarkBlue" Visibility="Collapsed"/>
         </StackPanel>
     </Grid>

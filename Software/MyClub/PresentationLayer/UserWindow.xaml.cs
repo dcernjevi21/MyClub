@@ -55,5 +55,11 @@ namespace PresentationLayer
         {
             GuiManager.Logout();
         }
+
+        private void btnMyEvaluations_Click(object sender, RoutedEventArgs e)
+        {
+            UCAthleteEvaluations ucAthleteEvaluations = new UCAthleteEvaluations();
+            contentPanel.Content = ucAthleteEvaluations;
+        }
     }
 }

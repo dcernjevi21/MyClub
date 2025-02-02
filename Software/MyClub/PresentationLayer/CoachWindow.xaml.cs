@@ -48,5 +48,11 @@ namespace PresentationLayer
             UcAttendanceReport ucAttendance = new UcAttendanceReport();
             contentPanel.Content = ucAttendance;
         }
+
+        private void btnPlayerEvaluation_Click(object sender, RoutedEventArgs e)
+        {
+            UCCoachEvaluation ucCoachEvaluation = new UCCoachEvaluation();
+            contentPanel.Content = ucCoachEvaluation;
+        }
     }
 }
