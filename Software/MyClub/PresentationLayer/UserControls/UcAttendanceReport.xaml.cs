@@ -141,54 +141,56 @@ namespace PresentationLayer.UserControls
                     ShowMessage("No data to export!");
                     return;
                 }
-
-                var workbook = new XLWorkbook();
-                var worksheet = workbook.Worksheets.Add("Attendance Report");
-
-                worksheet.Cell("A1").Value = "Attendance Report";
-                worksheet.Cell("A2").Value = $"Period: {dpStartDate.SelectedDate:dd.MM.yyyy} - {dpEndDate.SelectedDate:dd.MM.yyyy}";
-                worksheet.Cell("A3").Value = $"Event Type: {cbEventType.Text}";
-
-                worksheet.Cell("A5").Value = "Summary Statistics";
-                worksheet.Cell("A6").Value = "Total Events";
-                worksheet.Cell("B6").Value = txtTotalEvents.Text;
-                worksheet.Cell("A7").Value = "Average Attendance";
-                worksheet.Cell("B7").Value = txtAverageAttendance.Text;
-                worksheet.Cell("A8").Value = "Total Absences";
-                worksheet.Cell("B8").Value = txtTotalAbsences.Text;
-
-                int rowIndex = 10;
-                worksheet.Cell(rowIndex, 1).Value = "Name";
-                worksheet.Cell(rowIndex, 2).Value = "Total Events";
-                worksheet.Cell(rowIndex, 3).Value = "Attendances";
-                worksheet.Cell(rowIndex, 4).Value = "Absences";
-                worksheet.Cell(rowIndex, 5).Value = "Attendance %";
-
-                foreach (var athlete in data)
-                {
-                    rowIndex++;
-                    worksheet.Cell(rowIndex, 1).Value = athlete.FullName;
-                    worksheet.Cell(rowIndex, 2).Value = athlete.TotalEvents;
-                    worksheet.Cell(rowIndex, 3).Value = athlete.Attendances;
-                    worksheet.Cell(rowIndex, 4).Value = athlete.Absences;
-                    worksheet.Cell(rowIndex, 5).Value = athlete.AttendancePercentage;
-                }
-
-                var headerRow = worksheet.Row(10);
-                headerRow.Style.Font.Bold = true;
-                worksheet.Columns().AdjustToContents();
-
                 var dialog = new SaveFileDialog
                 {
-                    Filter = "Excel Files|*.xlsx",
-                    DefaultExt = ".xlsx",
-                    FileName = $"AttendanceReport_{DateTime.Now:yyyyMMdd}"
+                    Filter = "PDF Files|*.pdf",
+                    DefaultExt = ".pdf",
+                    FileName = $"TeamReport_{DateTime.Now:yyyyMMdd}"
                 };
-
                 if (dialog.ShowDialog() == true)
                 {
-                    workbook.SaveAs(dialog.FileName);
+                    using (FileStream fs = new FileStream(dialog.FileName, FileMode.Create))
+                    {
+                        var document = new Document(PageSize.A4, 25, 25, 30, 30);
+                        PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                        document.Open();
+                        var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                        var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                        document.Add(new Paragraph("Team Report", titleFont));
+                        document.Add(new Paragraph($"Period: {dpStartDate.SelectedDate:dd.MM.yyyy} - {dpEndDate.SelectedDate:dd.MM.yyyy}", normalFont));
+                        document.Add(new Paragraph($"Event Type: {cbEventType.Text}", normalFont));
+                        document.Add(new Paragraph("\n"));
+                        document.Add(new Paragraph("Summary Statistics", titleFont));
+                        document.Add(new Paragraph($"Total Events: {txtTotalEvents.Text}", normalFont));
+                        document.Add(new Paragraph($"Average Attendance: {txtAverageAttendance.Text}", normalFont));
+                        document.Add(new Paragraph($"Total Absences: {txtTotalAbsences.Text}", normalFont));
+                        document.Add(new Paragraph("\n"));
+                        PdfPTable table = new PdfPTable(5);
+                        table.WidthPercentage = 100;
+                        table.SetWidths(new float[] { 3f, 2f, 2f, 2f, 2f });
+                        var headers = new[] { "Name", "Total Events", "Attendances", "Absences", "Attendance %" };
+                        foreach (var header in headers)
+                        {
+                            var cell = new PdfPCell(new Phrase(header, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)))
+                            {
+                                HorizontalAlignment = Element.ALIGN_CENTER,
+                                BackgroundColor = BaseColor.LIGHT_GRAY
+                            };
+                            table.AddCell(cell);
+                        }
+                        foreach (var athlete in data)
+                        {
+                            table.AddCell(new Phrase(athlete.FullName, normalFont));
+                            table.AddCell(new Phrase(athlete.TotalEvents.ToString(), normalFont));
+                            table.AddCell(new Phrase(athlete.Attendances.ToString(), normalFont));
+                            table.AddCell(new Phrase(athlete.Absences.ToString(), normalFont));
+                            table.AddCell(new Phrase($"{athlete.AttendancePercentage}%", normalFont));
+                        }
+                        document.Add(table);
+                        document.Close();
+                    }
                     ShowMessage("Report exported successfully!", false);
+                    lblMessage.Visibility = Visibility.Visible;
                 }
             } catch (Exception ex)
             {
