@@ -2,6 +2,8 @@
 using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +61,38 @@ namespace PresentationLayer
         private void UserControl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
+        }
+
+        private void CoachWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) OpenUserDocumentation();
+        }
+
+        private void OpenUserDocumentation()
+        {
+            try
+            {
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                string projectPath = Directory.GetParent(basePath).Parent.Parent.FullName;
+                string filePath = System.IO.Path.Combine(projectPath, "Resources", "MyClub-coach.pdf");
+
+                if (!File.Exists(filePath))
+                {
+                    throw new FileNotFoundException("The specified file was not found.", filePath);
+                }
+
+                byte[] pdf = File.ReadAllBytes(filePath);
+                using (MemoryStream ms = new MemoryStream(pdf))
+                using (FileStream f = new FileStream("help-coach.pdf", FileMode.OpenOrCreate))
+                {
+                    ms.WriteTo(f);
+                }
+                Process.Start(filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
     }
 }

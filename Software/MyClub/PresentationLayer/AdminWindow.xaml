@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:helper="clr-namespace:PresentationLayer.Helper"
+        PreviewKeyDown="AdminWindow_KeyDown"
         mc:Ignorable="d"
         Title="AdminWindow" 
         MinHeight="800" 

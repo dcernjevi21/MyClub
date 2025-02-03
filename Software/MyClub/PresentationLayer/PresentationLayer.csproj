@@ -359,6 +359,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\MyClub-admin.pdf" />
+    <None Include="Resources\MyClub-coach.pdf" />
+    <None Include="Resources\MyClub-user.pdf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
