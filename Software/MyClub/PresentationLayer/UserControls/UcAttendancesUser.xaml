@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <Border Background="#0A234B" Grid.Row="0" Padding="15">
-            <TextBlock Text="Match management"
+            <TextBlock Text="Schedule"
                Foreground="White"
                FontSize="26"
                FontWeight="Bold"

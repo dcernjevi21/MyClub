@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,9 +41,12 @@ namespace PresentationLayer.UserControls
             toast.Show();
         }
 
-        public void LoadMatches()
+        async public void LoadMatches()
         {
-            dgCoachGrid.ItemsSource = _matchManagementService.GetMatches();
+            var dbMatches = _matchManagementService.GetMatches();
+            var fetchedMatches = await dbMatches;
+            dgCoachGrid.ItemsSource = fetchedMatches;
+
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
