@@ -1,6 +1,10 @@
 ﻿using BusinessLogicLayer.Services;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +18,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Paragraph = iTextSharp.text.Paragraph;
+using Rectangle = iTextSharp.text.Rectangle;
 
 namespace PresentationLayer.UserControls
 {
@@ -30,7 +36,19 @@ namespace PresentationLayer.UserControls
         {
             InitializeComponent();
             match = fetchedMatch;
+            LoadMatchInfo();
         }
+
+        private void LoadMatchInfo()
+        {
+            if (match != null)
+            {
+                txtResult.Text = match.Result;
+                txtSummary.Text = match.Summary;
+                cmbStatus.SelectedItem = match.Status;
+            }
+        }
+
         private void ShowToast(string message)
         {
             ToastWindow toast = new ToastWindow(message);
@@ -83,6 +101,83 @@ namespace PresentationLayer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
+        }
+
+        private void btnGenerateReport_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateMatchReport(match.MatchID);
+        }
+
+        private void GenerateMatchReport(int matchId)
+        {
+            try
+            {
+                var matchService = new MatchManagementService();
+                var match = matchService.GetMatchById(matchId);
+
+                if (match == null)
+                {
+                    ShowToast("No match data available!");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF Files|*.pdf",
+                    DefaultExt = ".pdf",
+                    FileName = $"MatchReport_{match.MatchDate:yyyyMMdd}.pdf"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    using (FileStream stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                    {
+                        Document document = new Document(PageSize.A4, 50, 50, 25, 25);
+                        PdfWriter writer = PdfWriter.GetInstance(document, stream);
+                        document.Open();
+
+                        Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+                        Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK);
+                        Font contentFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+
+                        // Report Title
+                        Paragraph title = new Paragraph("Match Report", titleFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 20
+                        };
+                        document.Add(title);
+
+                        // Match Details Table
+                        PdfPTable table = new PdfPTable(2) { WidthPercentage = 100 };
+                        table.AddCell(new PdfPCell(new Phrase("Opponent:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.OpponentTeam, contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        table.AddCell(new PdfPCell(new Phrase("Date:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.MatchDate.ToShortDateString(), contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        table.AddCell(new PdfPCell(new Phrase("Start Time:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.StartTime.ToString(), contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        table.AddCell(new PdfPCell(new Phrase("Result:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.Result, contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        table.AddCell(new PdfPCell(new Phrase("Summary:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.Summary, contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        table.AddCell(new PdfPCell(new Phrase("Status:", headerFont)) { Border = Rectangle.NO_BORDER });
+                        table.AddCell(new PdfPCell(new Phrase(match.Status, contentFont)) { Border = Rectangle.NO_BORDER });
+
+                        document.Add(table);
+                        document.Close();
+                    }
+
+                    ShowToast("Match report generated successfully!");
+                }
+            } catch (Exception ex)
+            {
+                ShowToast($"Error generating report: {ex.Message}");
+            }
         }
     }
 }

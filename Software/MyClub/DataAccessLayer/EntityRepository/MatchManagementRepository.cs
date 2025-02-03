@@ -37,7 +37,15 @@ namespace DataAccessLayer.EntityRepository
 
         public int DeleteMatch(Match match)
         {
-            Entities.Remove(match);
+            if (Entities.Local.Contains(match))
+            {
+                Entities.Remove(match);
+            }
+            else
+            {
+                Entities.Attach(match);
+                Entities.Remove(match);
+            }
             return SaveChanges();
         }
 
