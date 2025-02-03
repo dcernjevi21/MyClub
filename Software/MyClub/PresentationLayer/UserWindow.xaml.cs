@@ -32,7 +32,7 @@ namespace PresentationLayer
         {
             GuiManager.OpenContent(new UcProfileUser());
         }
-
+        //Valec
         private void btnAttendances_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcAttendancesUser());

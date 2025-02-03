@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Helper
 {
+    //Valec kompletno
     public class AttendanceViewModel
     {
         public User User { get; set; }

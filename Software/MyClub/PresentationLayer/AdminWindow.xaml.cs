@@ -41,7 +41,7 @@ namespace PresentationLayer
             UCRegistrationRequests ucRegistrationRequests = new UCRegistrationRequests();
             contentPanel.Content = ucRegistrationRequests;
         }
-
+        //valec
         private void btnTrainingsAdmin_Click(object sender, RoutedEventArgs e)
         {
             UcTrainingsAdmin ucTrainings = new UcTrainingsAdmin();

@@ -27,7 +27,7 @@ namespace PresentationLayer.UserControls
     /// Interaction logic for UcAddMatch.xaml
     /// </summary>
     /// 
-    ///Černjević kompletno
+    ///Černjević
     public partial class UcUpdateMatch : UserControl
     {
         private EntitiesLayer.Entities.Match match;
@@ -108,6 +108,7 @@ namespace PresentationLayer.UserControls
             GenerateMatchReport(match.MatchID);
         }
 
+        //Valec
         private void GenerateMatchReport(int matchId)
         {
             try
@@ -140,7 +141,6 @@ namespace PresentationLayer.UserControls
                         Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK);
                         Font contentFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
 
-                        // Report Title
                         Paragraph title = new Paragraph("Match Report", titleFont)
                         {
                             Alignment = Element.ALIGN_CENTER,
@@ -148,7 +148,6 @@ namespace PresentationLayer.UserControls
                         };
                         document.Add(title);
 
-                        // Match Details Table
                         PdfPTable table = new PdfPTable(2) { WidthPercentage = 100 };
                         table.AddCell(new PdfPCell(new Phrase("Opponent:", headerFont)) { Border = Rectangle.NO_BORDER });
                         table.AddCell(new PdfPCell(new Phrase(match.OpponentTeam, contentFont)) { Border = Rectangle.NO_BORDER });

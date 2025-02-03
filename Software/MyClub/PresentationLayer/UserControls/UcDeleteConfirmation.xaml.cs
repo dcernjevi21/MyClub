@@ -18,6 +18,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcDeleteConfirmation.xaml
     /// </summary>
+    
+    //Valec kompletno
     public partial class UcDeleteConfirmation : UserControl
     {
         public event EventHandler<bool> DeleteConfirmed;

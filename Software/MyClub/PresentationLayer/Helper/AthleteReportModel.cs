@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Helper
 {
+    //Valec kompletno
     public class AthleteReportModel
     {
         public string FullName { get; set; }

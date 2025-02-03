@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Valec kompletno
 namespace DataAccessLayer.EntityRepository
 {
     public class TeamRepository : Repository<Team>

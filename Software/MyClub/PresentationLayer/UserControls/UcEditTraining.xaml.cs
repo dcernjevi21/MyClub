@@ -14,6 +14,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcEditTraining.xaml
     /// </summary>
+    
+    //Valec kompletno
     public partial class UcEditTraining : UserControl
     {
         private Training training;
