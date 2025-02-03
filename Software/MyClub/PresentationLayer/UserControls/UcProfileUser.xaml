@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcProfileUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+
+        <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0A234B" Offset="0.0"/>
+            <GradientStop Color="#1F3C88" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#1F3C88"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="{StaticResource GradientBackground}" Grid.Row="0" Padding="15">
+            <TextBlock Text="My profile"
+                Foreground="White"
+                FontSize="26"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,20,0,20" Grid.Row="1" Width="150">
+            <Label Content="Name:" x:Name="lblName" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <Label Content="Birth date:" x:Name="lblBirthDate"  Grid.Column="1" Grid.Row="1" Margin="2"/>
+            <Label Content="Email:" x:Name="lblEmail" Grid.Column="0" Grid.Row="3" FontWeight="Bold"/>
+            <Label Content="Role type:" x:Name="lblRoleType" Grid.Column="0" Grid.Row="4" Margin="2" />
+            <Label Content="Profile picture:" x:Name="lblProfilePicture"  Grid.Row="5" Margin="2" VerticalAlignment="Center"/>
+            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5"  Grid.Column="1" Grid.Row="5" Width="120" Height="100">
+                <Image x:Name="imgProfilePicture"
+Width="100" Height="80"
+Stretch="Uniform"
+VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
+                    <Image.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3"/>
+                    </Image.Effect>
+                </Image>
+            </Border>
+
+            <Button x:Name="btnEditProfile" Content="Edit profile" Style="{StaticResource ButtonStyle}" Click="btnEditProfile_Click"/>
+            <Button x:Name="btnMyAttendances" Content="My attendances" Style="{StaticResource ButtonStyle}" Width="120" Click="btnMyAttendances_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

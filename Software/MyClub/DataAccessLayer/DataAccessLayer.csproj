@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC6D03EB-9A7B-402B-8C2D-612058BBC426}</ProjectGuid>
+    <ProjectGuid>{F45FE330-52B2-4488-8459-268DB5883BAF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataAccessLayer</RootNamespace>
@@ -53,28 +53,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\AthleteEvaluation.cs" />
-    <Compile Include="Entities\Attendance.cs" />
-    <Compile Include="Entities\Club.cs" />
-    <Compile Include="Entities\Match.cs" />
-    <Compile Include="Entities\Membership.cs" />
-    <Compile Include="Entities\Method.cs" />
-    <Compile Include="MyClubContext.cs" />
+    <Compile Include="EntityRepository\AthleteEvaluationRepository.cs" />
+    <Compile Include="EntityRepository\AttendancesRepository.cs" />
+    <Compile Include="EntityRepository\MatchManagementRepository.cs" />
+    <Compile Include="EntityRepository\MembershipRepository.cs" />
+    <Compile Include="EntityRepository\Repository.cs" />
+    <Compile Include="EntityRepository\TeamRepository.cs" />
+    <Compile Include="EntityRepository\TrainingRepository.cs" />
+    <Compile Include="EntityRepository\UserRepository.cs" />
+    <Compile Include="MyClubModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\RoleType.cs" />
-    <Compile Include="Entities\Status.cs" />
-    <Compile Include="Entities\Team.cs" />
-    <Compile Include="Entities\Training.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="UserStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
+      <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>
+      <Name>EntitiesLayer</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

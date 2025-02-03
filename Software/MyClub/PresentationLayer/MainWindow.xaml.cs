@@ -1,6 +1,8 @@
-﻿using System;
+using PresentationLayer.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +22,22 @@ namespace PresentationLayer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        //černjević
+        public void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcProfileUser());
+        }
+
+        public void btnTrainings_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UcTrainingsAdmin());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GuiManager.CurrentWindow = this;
         }
     }
 }

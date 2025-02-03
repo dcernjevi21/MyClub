@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UCUserMemberships"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My Memberships"
+                       Foreground="White"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <DataGrid x:Name="dataGridMemberships" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Month" Binding="{Binding Month}" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
+                <DataGridTextColumn Header="Paid" Binding="{Binding Paid}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="btnPayMembership" Content="Pay Membership" Background="#0A234B" Foreground="White" Width="150" Height="30" Click="btnPayMembership_Click"/>
+            <TextBlock x:Name="lblStatus" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="14" Foreground="DarkBlue" Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
