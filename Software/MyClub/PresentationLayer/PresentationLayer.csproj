@@ -118,6 +118,7 @@
     <Compile Include="Helper\AthleteReportModel.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="Helper\DocumentationHelper.cs" />
     <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
       <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
     </Compile>

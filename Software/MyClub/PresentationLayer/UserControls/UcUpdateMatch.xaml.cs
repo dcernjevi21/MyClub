@@ -20,6 +20,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paragraph = iTextSharp.text.Paragraph;
 using Rectangle = iTextSharp.text.Rectangle;
+using Org.BouncyCastle.Crypto.Utilities;
+using System.Diagnostics;
 
 namespace PresentationLayer.UserControls
 {
@@ -54,7 +56,6 @@ namespace PresentationLayer.UserControls
             ToastWindow toast = new ToastWindow(message);
             toast.Show();
         }
-
 
         private void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
@@ -178,5 +179,33 @@ namespace PresentationLayer.UserControls
                 ShowToast($"Error generating report: {ex.Message}");
             }
         }
+        //Černjević
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == KeySplineConverter.F1) OpenUserDocumentation();
+        }
+        /*
+        private void OpenUserDocumentation()
+        {
+            try
+            {
+                //https://www.c-sharpcorner.com/forums/opening-pdf-files-from-resources
+
+                byte[] PDF = Properties.Resources.FintessSys___korisnici;
+                MemoryStream ms = new MemoryStream(PDF);
+                FileStream f = new FileStream("help-members.pdf", FileMode.OpenOrCreate);
+
+                ms.WriteTo(f);
+
+                f.Close();
+                ms.Close();
+
+                Process.Start("help-members.pdf");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nije moguće otvoriti dokumentaciju!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
     }
 }
