@@ -30,9 +30,9 @@ namespace PresentationLayer.UserControls
             InitializeComponent();
         }
 
-        public void UserControl_Loaded(object sender, RoutedEventArgs e)
+        public async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadMatches();
+            await LoadMatches();
         }
 
         private void ShowToast(string message)
@@ -41,11 +41,16 @@ namespace PresentationLayer.UserControls
             toast.Show();
         }
 
-        async public void LoadMatches()
+        public async Task LoadMatches()
         {
-            var dbMatches = _matchManagementService.GetMatches();
-            var fetchedMatches = await dbMatches;
+            var fetchedMatches = await _matchManagementService.GetMatches();
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("Nema dostupnih podataka za prikaz.");
+            }
             dgCoachGrid.ItemsSource = fetchedMatches;
+
+
 
         }
 

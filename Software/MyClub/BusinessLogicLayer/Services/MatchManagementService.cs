@@ -15,7 +15,9 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                return await repo.GetAllMatches().ToListAsync();
+                var matches = await repo.GetAllMatches().ToListAsync();
+                Console.WriteLine($"Dohvaćeno {matches.Count} mečeva iz baze.");
+                return matches;
             }
         }
 
