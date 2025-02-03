@@ -22,6 +22,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAddTraining.xaml
     /// </summary>
+
+    //Valec kompletno
     public partial class UcAddTraining : UserControl
     {
         public UcAddTraining()

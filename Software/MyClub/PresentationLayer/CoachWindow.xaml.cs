@@ -31,7 +31,7 @@ namespace PresentationLayer
             UcMatchManagement ucMatchManagement = new UcMatchManagement();
             contentPanel.Content = ucMatchManagement;
         }
-
+        //Valec
         private void btnMTrainings_Click(object sender, RoutedEventArgs e)
         {
             UcTrainingsCoach ucTrainings = new UcTrainingsCoach();
@@ -41,6 +41,18 @@ namespace PresentationLayer
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.Logout();
+        }
+        //Valec
+        private void btnAttendanceReport_Click(object sender, RoutedEventArgs e)
+        {
+            UcAttendanceReport ucAttendance = new UcAttendanceReport();
+            contentPanel.Content = ucAttendance;
+        }
+
+        private void btnPlayerEvaluation_Click(object sender, RoutedEventArgs e)
+        {
+            UCCoachEvaluation ucCoachEvaluation = new UCCoachEvaluation();
+            contentPanel.Content = ucCoachEvaluation;
         }
     }
 }

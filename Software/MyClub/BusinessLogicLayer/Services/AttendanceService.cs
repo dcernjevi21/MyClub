@@ -69,5 +69,13 @@ namespace BusinessLogicLayer.Services
                 return repo.GetUserAttendances(userId).ToList();
             }
         }
+
+        public List<Attendance> GetTeamAttendancesForPeriod(int teamId, DateTime startDate, DateTime endDate)
+        {
+            using (var repo = new AttendancesRepository())
+            {
+                return repo.GetTeamAttendancesForPeriod(teamId, startDate, endDate).ToList();
+            }
+        }
     }
 }

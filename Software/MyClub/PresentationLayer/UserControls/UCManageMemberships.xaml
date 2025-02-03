@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,11 +23,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!--Datagrid-->
+        <Border Background="#0A234B" Grid.Row="0" Grid.ColumnSpan="2" Padding="15">
+            <TextBlock Text="Manage memberships"
+                Foreground="White"
+                FontSize="26"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>        
+        </Border>
         <DataGrid Name="dataGridUsers" AutoGenerateColumns="False" CanUserSortColumns="False" SelectionMode="Single" 
                   Margin="10" CanUserReorderColumns="False" CanUserResizeColumns="False" Background="#FFF0F4FF" FontSize="14" 
-                  IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" 
-                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="9">
+                  IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Center" Width="Auto" 
+                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="9">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding User.FirstName}" Width="Auto"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding User.LastName}" Width="Auto"/>
@@ -38,15 +45,13 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Buttons -->
-        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10">
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10">
             <ComboBox x:Name="cmbMonthFilter" Width="150" Margin="5" SelectionChanged="cmbMonthFilter_SelectionChanged"/>
-            <Button Content="Load Month" Name="btnLoadMonth" Width="150" Height="30" Margin="5" Click="btnLoadMonth_Click"/>
-            <Button Content="Mark as Paid" Name="btnMarkAsPaid" Width="150" Height="30" Margin="5" Click="btnMarkAsPaid_Click"/>
-            <Button Content="Mark as Unpaid" Name="btnMarkAsUnpaid" Width="150" Height="30" Margin="5" Click="btnMarkAsUnpaid_Click"/>
-            <Button Content="Mark All as Not Paid" Name="btnMarkAllAsNotPaid" Width="150" Height="30" Margin="5" Click="btnMarkAllAsNotPaid_Click"/>
-            <Button Content="Delete Membership" Name="btnDeleteMembership" Width="150" Height="30" Margin="5" Click="btnDeleteMembership_Click"/>
-            <Button Content="Assign Memberships" Name="btnAssignMemberships" Width="150" Height="30" Margin="5" Click="btnAssignMemberships_Click"/>
+            <Button Content="Mark as Paid" Name="btnMarkAsPaid" Width="150" Background="#0A234B" Foreground="White" Height="30" Margin="5" Click="btnMarkAsPaid_Click"/>
+            <Button Content="Mark as Unpaid" Name="btnMarkAsUnpaid" Width="150" Background="#0A234B" Foreground="White" Height="30" Margin="5" Click="btnMarkAsUnpaid_Click"/>
+            <Button Content="Mark All as Not Paid" Name="btnMarkAllAsNotPaid" Background="#0A234B" Foreground="White" Width="150" Height="30" Margin="5" Click="btnMarkAllAsNotPaid_Click"/>
+            <Button Content="Delete Membership" Name="btnDeleteMembership" Background="#0A234B" Foreground="White" Width="150" Height="30" Margin="5" Click="btnDeleteMembership_Click"/>
+            <Button Content="Assign Memberships" Name="btnAssignMemberships" Width="150" Background="#0A234B" Foreground="White" Height="30" Margin="5" Click="btnAssignMemberships_Click"/>
             <TextBlock x:Name="lblStatus" FontSize="14" Foreground="DarkBlue" TextAlignment="Center" 
                        Visibility="Collapsed" Margin="5" TextWrapping="Wrap"/>
         </StackPanel>

@@ -20,6 +20,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchAttendanceCoach.xaml
     /// </summary>
+    
+    //Valec kompletno
     public partial class UcMatchAttendanceCoach : UserControl
     {
         private readonly EntitiesLayer.Entities.Match _match;
@@ -72,7 +74,7 @@ namespace PresentationLayer.UserControls
                 return new AttendanceViewModel
                 {
                     User = user,
-                    StatusID = existing?.StatusID ?? 4, // Default na Present
+                    StatusID = existing?.StatusID ?? 4,
                     Notes = existing?.Notes,
                     IsExistingAttendance = existing != null,
                     AttendanceID = existing?.AttendanceID

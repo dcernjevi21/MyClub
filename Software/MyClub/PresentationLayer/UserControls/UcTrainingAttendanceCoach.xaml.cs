@@ -21,6 +21,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcTrainingAttendanceCoach.xaml
     /// </summary>
+    
+    //Valec kompletno
     public partial class UcTrainingAttendanceCoach : UserControl
     {
         private readonly Training _training;
@@ -63,10 +65,8 @@ namespace PresentationLayer.UserControls
 
         private void LoadAttendanceData()
         {
-            // Dohvati sve korisnike iz tima
             var teamUsers = _userService.GetUsersFromTeam(_training.TeamID);
 
-            // Dohvati postojeće evidencije za ovaj trening
             var existingAttendances = _attendanceService.GetTrainingAttendanceById(_training.TeamID)
                 .Where(a => a.TrainingID == _training.TrainingID)
                 .ToList();
@@ -77,7 +77,7 @@ namespace PresentationLayer.UserControls
                 return new AttendanceViewModel
                 {
                     User = user,
-                    StatusID = existing?.StatusID ?? 4, // Default na Present
+                    StatusID = existing?.StatusID ?? 4,
                     Notes = existing?.Notes,
                     IsExistingAttendance = existing != null,
                     AttendanceID = existing?.AttendanceID
@@ -92,7 +92,6 @@ namespace PresentationLayer.UserControls
             {
                 if (attendance.IsExistingAttendance)
                 {
-                    // Update postojeće evidencije
                     var existingAttendance = new Attendance
                     {
                         AttendanceID = attendance.AttendanceID.Value,
@@ -105,7 +104,6 @@ namespace PresentationLayer.UserControls
                 }
                 else
                 {
-                    // Dodaj novu evidenciju
                     var newAttendance = new Attendance
                     {
                         TrainingID = _training.TrainingID,

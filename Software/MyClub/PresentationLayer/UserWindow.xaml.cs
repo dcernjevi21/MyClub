@@ -32,7 +32,7 @@ namespace PresentationLayer
         {
             GuiManager.OpenContent(new UcProfileUser());
         }
-
+        //Valec
         private void btnAttendances_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcAttendancesUser());
@@ -54,6 +54,12 @@ namespace PresentationLayer
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.Logout();
+        }
+
+        private void btnMyEvaluations_Click(object sender, RoutedEventArgs e)
+        {
+            UCAthleteEvaluations ucAthleteEvaluations = new UCAthleteEvaluations();
+            contentPanel.Content = ucAthleteEvaluations;
         }
     }
 }

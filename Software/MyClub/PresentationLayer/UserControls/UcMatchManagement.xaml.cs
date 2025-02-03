@@ -90,6 +90,7 @@ namespace PresentationLayer.UserControls
                 {
                     MatchManagementService _matchManagementService = new MatchManagementService();
                     _matchManagementService.RemoveMatch(match);
+                    LoadMatches();
                 }
             }
         }

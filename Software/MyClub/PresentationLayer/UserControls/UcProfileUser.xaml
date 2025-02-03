@@ -56,7 +56,7 @@ VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
             </Border>
 
             <Button x:Name="btnEditProfile" Content="Edit profile" Style="{StaticResource ButtonStyle}" Click="btnEditProfile_Click"/>
-            <Button x:Name="btnMyAttendances" Content="My attendances" Style="{StaticResource ButtonStyle}" Width="120"/>
+            <Button x:Name="btnMyAttendances" Content="My attendances" Style="{StaticResource ButtonStyle}" Width="120" Click="btnMyAttendances_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

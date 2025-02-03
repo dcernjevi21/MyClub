@@ -7,7 +7,7 @@
              xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
-
+   
     <UserControl.Resources>
         <helper:DateToPastConverter x:Key="DateToPastConverter"/>
         
@@ -44,15 +44,14 @@
 
         <DataGrid x:Name="dgCoachGrid" 
          Margin="0,50,0,20"
-
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top"
+         IsReadOnly="True"
+         HorizontalAlignment="Center"
+         VerticalAlignment="Top"
          Height="auto"
          Width="Auto"
          Grid.Row="1"
          FontSize="14"
          AutoGenerateColumns="False">
-            <!-- Prvo sve postojeće kolone -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}" Width="80"/>
                 <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="80"/>
@@ -62,8 +61,6 @@
                 <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="100"/>
                 <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="120"/>
                 <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="150"/>
-                <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="90"/>
-                <!-- Attendance kolona na kraju -->
                 <DataGridTemplateColumn Header="Attendance" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
