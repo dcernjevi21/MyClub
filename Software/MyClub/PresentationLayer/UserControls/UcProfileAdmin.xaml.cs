@@ -4,6 +4,7 @@ using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace PresentationLayer.UserControls
             lblEmail.Content = "Email: " + CurrentUser.User.Email;
             lblBirthDate.Content = "Birth date: " + CurrentUser.User.BirthDate;
             lblRoleType.Content = "Role: Admin";
+            imgProfilePicture.Source = ConvertToImage(CurrentUser.User.ProfilePicture);
             dgCoachGrid.ItemsSource = userProfileService.GetUsersByRoleId(2); //userid 2 is for coach
         }
 
@@ -73,6 +75,21 @@ namespace PresentationLayer.UserControls
         {
             return dgCoachGrid.SelectedItem as User;
 
+        }
+
+        private BitmapImage ConvertToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+            }
+            return image;
         }
 
         public void btnEditProfile_Click(object sender, RoutedEventArgs e)

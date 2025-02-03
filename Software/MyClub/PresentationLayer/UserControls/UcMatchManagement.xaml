@@ -7,51 +7,76 @@
              xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
-   
+
     <UserControl.Resources>
         <helper:DateToPastConverter x:Key="DateToPastConverter"/>
-        
+
+        <!-- Gradient Background Style -->
+        <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0A234B" Offset="0.0"/>
+            <GradientStop Color="#1F3C88" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Modern Button Style -->
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Background" Value="#1F3C88"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="BorderBrush" Value="#041633"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Top">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#0A234B" Grid.Row="0" Padding="15">
-            <TextBlock Text="Match management"
+        <!-- Header with Shadow -->
+        <Border Background="{StaticResource GradientBackground}" Grid.Row="0" Padding="15">
+            <TextBlock Text="Match Management"
                    Foreground="White"
-                   FontSize="26"
+                   FontSize="28"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"
+                   />
         </Border>
 
-        <DataGrid x:Name="dgCoachGrid" 
-         Margin="0,50,0,20"
-         IsReadOnly="True"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Top"
-         Height="auto"
-         Width="Auto"
-         Grid.Row="1"
-         FontSize="14"
-         AutoGenerateColumns="False">
+        <!-- DataGrid with Modern Styling -->
+        <DataGrid x:Name="dgCoachGrid"
+              Margin="10"
+              IsReadOnly="True"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Stretch"
+              Grid.Row="1"
+              FontSize="14"
+              AutoGenerateColumns="False"
+              AlternatingRowBackground="#E3E8F1"
+              BorderThickness="1"
+              BorderBrush="#1F3C88">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}" Width="80"/>
                 <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="80"/>
@@ -64,21 +89,29 @@
                 <DataGridTemplateColumn Header="Attendance" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                         <Button x:Name="btnAttendance" 
-                           Content="Attendance" 
-                           Width="75"
-                           Click="btnAttendance_Click"
-                           IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
+                            <Button x:Name="btnAttendance"
+                                Content="Attendance"
+                                Style="{StaticResource ButtonStyle}"
+                                Click="btnAttendance_Click"
+                                IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="btnAddMatch" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
-            <Button x:Name="btnUpdateMatch" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
-            <Button x:Name="btnDeleteMatch" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
-            <Button x:Name="btnPostponeMatch" Content="Postpone" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
-        </StackPanel>
+
+        <Border Grid.Row="2" Background="{StaticResource GradientBackground}">
+            <StackPanel x:Name="stackPanel"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="10">
+                <Button x:Name="btnAddMatch" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
+                <Button x:Name="btnUpdateMatch" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
+                <Button x:Name="btnDeleteMatch" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
+                <Button x:Name="btnPostponeMatch" Content="Postpone" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
+            </StackPanel>
+        </Border>
+
     </Grid>
+
 </UserControl>
