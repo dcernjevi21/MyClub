@@ -71,38 +71,9 @@ namespace PresentationLayer.UserControls
             GuiManager.CloseContent();
         }
 
-            private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
         }
-
-        //Černjević
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (e.KeyCode == KeySplineConverter.F1) OpenUserDocumentation();
-        }
-        /*
-        private void OpenUserDocumentation()
-        {
-            try
-            {
-                //https://www.c-sharpcorner.com/forums/opening-pdf-files-from-resources
-
-                byte[] PDF = Properties.Resources.FintessSys___korisnici;
-                MemoryStream ms = new MemoryStream(PDF);
-                FileStream f = new FileStream("help-members.pdf", FileMode.OpenOrCreate);
-
-                ms.WriteTo(f);
-
-                f.Close();
-                ms.Close();
-
-                Process.Start("help-members.pdf");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Nije moguće otvoriti dokumentaciju!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }*/
     }
 }

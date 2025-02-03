@@ -21,15 +21,15 @@ namespace PresentationLayer.Helper
                 byte[] PDF = null;
                 if (CurrentUser.User.RoleID == 1)
                 {
-                    PDF = Properties.Resources.MyClub_admini;
+                    //PDF = Properties.Resources.MyClub_admini;
                 }
                 else if (CurrentUser.User.RoleID == 2)
                 {
-                    PDF = Properties.Resources.MyClub_treneri;
+                    //PDF = Properties.Resources.MyClub_treneri;
                 }
                 else
                 {
-                    PDF = Properties.Resources.FintessSys_korisnici;
+                    //PDF = Properties.Resources.FintessSys_korisnici;
                 }
                 MemoryStream ms = new MemoryStream(PDF);
                 FileStream f = new FileStream("help-members.pdf", FileMode.OpenOrCreate);

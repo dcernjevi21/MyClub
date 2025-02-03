@@ -32,7 +32,6 @@ namespace PresentationLayer.UserControls
         public UcAddMatch()
         {
             InitializeComponent();
-            this.KeyDown += UserControl_KeyDown;
         }
 
         private void ShowToast(string message)
@@ -99,13 +98,6 @@ namespace PresentationLayer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
-        }
-
-
-        //Černjević
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
         }
     }
 }

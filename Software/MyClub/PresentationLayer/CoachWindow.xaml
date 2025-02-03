@@ -9,7 +9,8 @@
         MinHeight="800" 
         MinWidth="1200" 
         ResizeMode="CanResize"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow"
+        KeyDown="UserControl_KeyDown">
     <DockPanel>
         <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="200" Background="#0A234B">
             <Image Source="./Assets/MyClub.jpg" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 -50" />

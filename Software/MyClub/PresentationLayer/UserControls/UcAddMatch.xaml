@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200" KeyDown="UserControl_KeyDown">
+             d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
 
@@ -51,7 +51,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="{StaticResource GradientBackground}" Padding="15">
-            <TextBlock Text="Match management"
+            <TextBlock Text="Add match"
                 Foreground="White"
                 FontSize="26"
                 FontWeight="Bold"

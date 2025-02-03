@@ -50,7 +50,7 @@
         </Grid.RowDefinitions>
 
         <Border Background="{StaticResource GradientBackground}" Grid.Row="0" Padding="15">
-            <TextBlock Text="Profile"
+            <TextBlock Text="My profile"
                Foreground="White"
                FontSize="26"
                FontWeight="Bold"

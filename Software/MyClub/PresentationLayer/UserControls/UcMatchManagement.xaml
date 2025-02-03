@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded" KeyDown="UserControl_KeyDown">
+             d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
         <helper:DateToPastConverter x:Key="DateToPastConverter"/>

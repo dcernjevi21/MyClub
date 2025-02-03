@@ -1,4 +1,5 @@
-﻿using PresentationLayer.UserControls;
+﻿using PresentationLayer.Helper;
+using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,11 @@ namespace PresentationLayer
         {
             UCCoachEvaluation ucCoachEvaluation = new UCCoachEvaluation();
             contentPanel.Content = ucCoachEvaluation;
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
         }
     }
 }
