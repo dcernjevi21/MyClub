@@ -1,4 +1,5 @@
-﻿using PresentationLayer.UserControls;
+﻿using PresentationLayer.Helper;
+using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace PresentationLayer
             UcMatchManagement ucMatchManagement = new UcMatchManagement();
             contentPanel.Content = ucMatchManagement;
         }
-
+        //Valec
         private void btnMTrainings_Click(object sender, RoutedEventArgs e)
         {
             UcTrainingsCoach ucTrainings = new UcTrainingsCoach();
@@ -42,7 +43,7 @@ namespace PresentationLayer
         {
             GuiManager.Logout();
         }
-
+        //Valec
         private void btnAttendanceReport_Click(object sender, RoutedEventArgs e)
         {
             UcAttendanceReport ucAttendance = new UcAttendanceReport();
@@ -53,6 +54,11 @@ namespace PresentationLayer
         {
             UCCoachEvaluation ucCoachEvaluation = new UCCoachEvaluation();
             contentPanel.Content = ucCoachEvaluation;
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
         }
     }
 }

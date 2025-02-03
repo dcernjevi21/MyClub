@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Services;
 using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
@@ -26,6 +27,7 @@ namespace PresentationLayer.UserControls
     public partial class UcAttendancesUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
+        private TrainingService _trainingService = new TrainingService();
         private int teamId = CurrentUser.User.TeamID.Value;
 
         public UcAttendancesUser()
@@ -49,7 +51,7 @@ namespace PresentationLayer.UserControls
 
         public void LoadTrainings()
         {
-            //dgTrainingGrid.ItemsSource = _trainingManagementService.GetTrainingsByTeamId((int)CurrentUser.User.TeamID);
+            dgTrainingGrid.ItemsSource = _trainingService.GetTrainingsForTeam((int)CurrentUser.User.TeamID);
         }
         public void LoadMatches()
         {

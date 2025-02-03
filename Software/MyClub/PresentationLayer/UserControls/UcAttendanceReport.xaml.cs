@@ -27,6 +27,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcAttendanceReport.xaml
     /// </summary>
+    
+    //Valec kompletno
     public partial class UcAttendanceReport : UserControl
     {
         private readonly AttendanceService _attendanceService = new AttendanceService();

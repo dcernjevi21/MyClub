@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Valec kompletno
 namespace BusinessLogicLayer.Services
 {
     public class TeamService

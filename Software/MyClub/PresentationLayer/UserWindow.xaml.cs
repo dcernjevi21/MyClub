@@ -32,7 +32,7 @@ namespace PresentationLayer
         {
             GuiManager.OpenContent(new UcProfileUser());
         }
-
+        //Valec
         private void btnAttendances_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcAttendancesUser());
@@ -49,8 +49,6 @@ namespace PresentationLayer
             contentPanel.Content = ucUserMemberships;
         }
 
-
-
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.Logout();
@@ -60,6 +58,11 @@ namespace PresentationLayer
         {
             UCAthleteEvaluations ucAthleteEvaluations = new UCAthleteEvaluations();
             contentPanel.Content = ucAthleteEvaluations;
+        }
+        //Černjević
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
         }
     }
 }

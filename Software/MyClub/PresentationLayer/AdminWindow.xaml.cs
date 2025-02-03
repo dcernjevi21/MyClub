@@ -41,7 +41,13 @@ namespace PresentationLayer
             UCRegistrationRequests ucRegistrationRequests = new UCRegistrationRequests();
             contentPanel.Content = ucRegistrationRequests;
         }
+        private void btnMatchesAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            //UcMatchesAdmin ucMatchesAdmin = new UcMatchesAdmin();
+            //contentPanel.Content = ucMatchesAdmin;
+        }
 
+        //valec
         private void btnTrainingsAdmin_Click(object sender, RoutedEventArgs e)
         {
             UcTrainingsAdmin ucTrainings = new UcTrainingsAdmin();
@@ -57,6 +63,11 @@ namespace PresentationLayer
         {
             UCManageMemberships uCManageMemberships = new UCManageMemberships();
             contentPanel.Content = uCManageMemberships;
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) DocumentationHelper.OpenUserDocumentation();
         }
     }
 }

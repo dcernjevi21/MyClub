@@ -118,6 +118,7 @@
     <Compile Include="Helper\AthleteReportModel.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="Helper\DocumentationHelper.cs" />
     <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
       <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
     </Compile>
@@ -216,7 +217,6 @@
     <Compile Include="CoachWindow.xaml.cs">
       <DependentUpon>CoachWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GuiManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -367,10 +367,6 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
       <Project>{2a1de6db-81da-440c-9f47-01abbe39a566}</Project>
       <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{F45FE330-52B2-4488-8459-268DB5883BAF}</Project>
-      <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>

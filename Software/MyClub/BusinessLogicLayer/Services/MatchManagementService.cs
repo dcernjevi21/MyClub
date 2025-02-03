@@ -2,6 +2,7 @@
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,11 @@ namespace BusinessLogicLayer.Services
 {
     public class MatchManagementService
     {
-        public List<Match> GetMatches()
+        public async Task<List<Match>> GetMatches()
         {
             using (var repo = new MatchManagementRepository())
             {
-                return repo.GetAllMatches().ToList();
+                return await repo.GetAllMatches().ToListAsync();
             }
         }
 

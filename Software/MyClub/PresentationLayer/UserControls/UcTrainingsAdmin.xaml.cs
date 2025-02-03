@@ -20,6 +20,8 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcTrainingsAdmin.xaml
     /// </summary>
+
+    //Valec kompletno
     public partial class UcTrainingsAdmin : UserControl
     {
         private TrainingService services = new TrainingService();

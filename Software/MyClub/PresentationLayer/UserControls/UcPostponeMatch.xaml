@@ -6,44 +6,101 @@
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
+
     <UserControl.Resources>
+        <!-- Gradient Header Background -->
+        <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0A234B" Offset="0.0"/>
+            <GradientStop Color="#1F3C88" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Modern Button Style -->
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Background" Value="#1F3C88"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="BorderBrush" Value="#041633"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern TextBox Style -->
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#1F3C88"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <!-- Ako koristite .NET Core/5+ s podrškom za CornerRadius, inače koristite prilagođene kontrole -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Top">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#0A234B" Grid.Row="0" Padding="15">
-            <TextBlock Text="Match management"
-                Foreground="White"
-                FontSize="26"
-                FontWeight="Bold"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
+        <!-- Zaglavlje s gradientnom pozadinom -->
+        <Border Grid.Row="0" Background="{StaticResource GradientBackground}" Padding="20" >
+            <TextBlock Text="Postpone match"
+                       Foreground="White"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
         </Border>
-        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Margin="0,50,0,0">
-            <Label Content="Explanation:" Grid.Column="1" Grid.Row="1" FontWeight="Bold"/>
-            <TextBox x:Name="txtExplanation" Grid.Column="1" Grid.Row="2" Margin="2"/>
-            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                <Button x:Name="btnPostponeMatch" Content="Postpone match" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click"/>
+
+        <!-- Sadržaj forme -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Label Content="Explanation:" FontWeight="Bold" FontSize="16" Margin="5"/>
+            <TextBox x:Name="txtExplanation" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="btnPostponeMatch" Content="Postpone Match" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancel_Click"/>
             </StackPanel>
         </StackPanel>
+
+        <Border Grid.Row="2" Background="{StaticResource GradientBackground}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="btnUpdateMatch" Visibility="Hidden" Content="Update Match" Style="{StaticResource ButtonStyle}"/>
+                <Button x:Name="btnGenerateReport"  Visibility="Hidden"  Content="Generate Report" Style="{StaticResource ButtonStyle}"/>
+                <Button x:Name="btnCancel2" Visibility="Hidden"  Content="Cancel" Style="{StaticResource ButtonStyle}"></Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
