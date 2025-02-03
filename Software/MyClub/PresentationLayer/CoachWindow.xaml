@@ -17,6 +17,7 @@
             <Button x:Name="btnMatchManagement" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Content="Match management" Background="#0A234B" Foreground="White" Padding="10" Click="btnMatchManagement_Click"></Button>
             <Button x:Name="btnMTrainings" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Training management" Background="#0A234B" Foreground="White" Padding="10" Click="btnMTrainings_Click"></Button>
             <Button x:Name="btnAttendanceReport" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Attendance report" Background="#0A234B" Foreground="White" Padding="10" Click="btnAttendanceReport_Click"></Button>
+            <Button x:Name="btnPlayerEvaluation" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Player evaluation" Background="#0A234B" Foreground="White" Padding="10" Click="btnPlayerEvaluation_Click"></Button>
             <Button x:Name="btnLogout" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Log out" Background="#0A234B" Foreground="White" Padding="10" Click="btnLogout_Click"></Button>
             <!--<TextBlock Text="{Binding Source={x:Static helper:CurrentUser.User}, Path=Username, StringFormat='Welcome {0}!'}"
                     FontSize="14"

@@ -51,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AthleteEvaluationService.cs" />
     <Compile Include="Services\AttendanceService.cs" />
+    <Compile Include="Services\CoachEvaluationService.cs" />
     <Compile Include="Services\MatchManagementService.cs" />
     <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\TrainingService.cs" />
@@ -62,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{f45fe330-52b2-4488-8459-268db5883baf}</Project>
+      <Project>{F45FE330-52B2-4488-8459-268DB5883BAF}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
