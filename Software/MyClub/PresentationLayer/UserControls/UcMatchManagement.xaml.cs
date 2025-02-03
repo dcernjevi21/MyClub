@@ -56,20 +56,26 @@ namespace PresentationLayer.UserControls
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                if (match.MatchDate > DateTime.Now)
-                {
-                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
-                                  
-                    return;
-                }
-                else if(match.Status == "Cancelled")
+                if (match.Status == "Cancelled")
                 {
                     ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.");
                     return;
                 }
-                else {
+                else if (match.MatchDate > DateTime.Now)
+                {
+                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
+
+                    return;
+                }
+                else
+                {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
                 }
+            }
+            else
+            {
+                ShowToast("Please select a match.");
+                return;
             }
         }
         //Černjević
@@ -106,7 +112,14 @@ namespace PresentationLayer.UserControls
 
         public EntitiesLayer.Entities.Match GetMatch()
         {
-            return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
+            if (dgCoachGrid.SelectedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
+            }
         }
 
         //Valec
