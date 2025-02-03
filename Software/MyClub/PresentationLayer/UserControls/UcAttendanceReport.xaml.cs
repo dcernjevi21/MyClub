@@ -121,6 +121,12 @@ namespace PresentationLayer.UserControls
                 return;
             }
 
+            if (dpEndDate.SelectedDate > DateTime.Today)
+            {
+                ShowMessage("End date cannot be in the future!");
+                return;
+            }
+
             LoadData();
             lblMessage.Visibility = Visibility.Collapsed;
         }
