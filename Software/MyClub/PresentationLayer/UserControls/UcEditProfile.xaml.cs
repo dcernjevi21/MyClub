@@ -3,21 +3,10 @@ using EntitiesLayer.Entities;
 using Microsoft.Win32;
 using PresentationLayer.Helper;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BusinessLogicLayer.Services;
 using DataAccessLayer;
 
 namespace PresentationLayer.UserControls
@@ -39,9 +28,12 @@ namespace PresentationLayer.UserControls
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            txtEmail.Text = user.Email;
+            imgProfile.Source = ConvertToImage(user.ProfilePicture);
+            txtFirstName.Text = user.FirstName;
+            txtLastName.Text = user.LastName;
         }
-
+        //černjević
         private void ShowToast(string message)
         {
             ToastWindow toast = new ToastWindow(message);
@@ -92,7 +84,7 @@ namespace PresentationLayer.UserControls
             {
                 if (userService.ValidatePassword(password))
                 {
-                    if (password == confirmPassword) // Proveravamo da li je drugačija od stare lozinke
+                    if (password == confirmPassword) 
                     {
                         user.Password = password;
                         userService.UpdateUser(user);
@@ -124,12 +116,8 @@ namespace PresentationLayer.UserControls
                     ShowToast("Error updating profile picture!");
                 }
             }
-            else
-            {
-                ShowToast("Profile picture not updated!");
-            }
         
-        GuiManager.CloseContent();
+            GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)
@@ -162,6 +150,21 @@ namespace PresentationLayer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
+        }
+
+        private BitmapImage ConvertToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+            }
+            return image;
         }
     }
 }

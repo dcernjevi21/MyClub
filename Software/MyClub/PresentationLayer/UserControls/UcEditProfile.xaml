@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200">
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
     <UserControl.Resources>
 
         <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
@@ -59,6 +59,10 @@
                VerticalAlignment="Center"/>
         </Border>
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2" Margin="0,50,0,0">
+            <Label Content="Ime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
+            <Label Content="Prezime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtLastName" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Email:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="New password:" Grid.Column="0" Grid.Row="1" Margin="2" FontWeight="Bold"/>
