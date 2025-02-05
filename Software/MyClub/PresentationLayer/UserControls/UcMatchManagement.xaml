@@ -78,18 +78,18 @@
               BorderThickness="1"
               BorderBrush="#1F3C88">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="MatchID" Binding="{Binding MatchID}" Width="80"/>
-                <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="80"/>
-                <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
+                <DataGridTextColumn Header="Team name" Binding="{Binding Team.Name}" Width="150"/>
                 <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}" Width="120"/>
+                <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
                 <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="100"/>
-                <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="100"/>
-                <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="120"/>
-                <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="150"/>
+                <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="70"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="70"/>
+                <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="50"/>
+                <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="180"/>
                 <DataGridTemplateColumn Header="Attendance" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="btnAttendance"
+                            <Button x:Name="btnAttendance" Width="100" Height="40"
                                 Content="Attendance"
                                 Style="{StaticResource ButtonStyle}"
                                 Click="btnAttendance_Click"

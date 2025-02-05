@@ -90,7 +90,7 @@ VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
                     <DataGridTextColumn Header="Last name" Binding="{Binding LastName }" Width="80"/>
                     <DataGridTextColumn Header="Birth date" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="100"/>
-                    <DataGridTextColumn Header="TeamID" Binding="{Binding TeamID}" Width="120"/>
+                    <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
                     <DataGridTextColumn Header="StatusID" Binding="{Binding StatusID}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
