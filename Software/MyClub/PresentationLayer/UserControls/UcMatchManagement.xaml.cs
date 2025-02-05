@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -43,15 +44,13 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
-            var fetchedMatches = await _matchManagementService.GetMatches();
+            int teamId = (int)CurrentUser.User.TeamID;
+            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
                 MessageBox.Show("Nema dostupnih podataka za prikaz.");
             }
             dgCoachGrid.ItemsSource = fetchedMatches;
-
-
-
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)

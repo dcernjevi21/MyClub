@@ -143,8 +143,8 @@
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcAttendancesUser.xaml.cs">
-      <DependentUpon>UcAttendancesUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcScheduleUser.xaml.cs">
+      <DependentUpon>UcScheduleUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
@@ -259,7 +259,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcAttendancesUser.xaml">
+    <Page Include="UserControls\UcScheduleUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

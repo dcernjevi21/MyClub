@@ -37,7 +37,7 @@ namespace PresentationLayer
         //Valec
         private void btnAttendances_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcAttendancesUser());
+            GuiManager.OpenContent(new UcScheduleUser());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

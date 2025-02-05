@@ -28,11 +28,11 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public List<Match> GetMatchesByTeamId(int teamId)
+        public async Task<List<Match>> GetMatchesByTeamId(int teamId)
         {
             using (var repo = new MatchManagementRepository())
             {
-                return repo.GetMatchesByTeamId(teamId).ToList();
+                return await repo.GetMatchesByTeamId(teamId).ToListAsync();
             }
         }
 

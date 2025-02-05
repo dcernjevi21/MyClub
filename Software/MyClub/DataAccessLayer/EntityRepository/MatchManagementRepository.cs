@@ -25,9 +25,9 @@ namespace DataAccessLayer.EntityRepository
         {
             var query = from t in Entities.Include("Team")
                         orderby
-                        t.Status == "Scheduled" && t.MatchDate >= DateTime.Now ? 0 : 1, // Prvo buduće utakmice (0), zatim prošle (1)
-                        t.MatchDate ascending,  // Buduće utakmice sortirane od najbliže do najdalje
-                        t.MatchDate descending  // Prošle utakmice sortirane od najnovije do najstarije
+                        t.Status == "Scheduled" && t.MatchDate >= DateTime.Now ? 0 : 1, //buduće utakmice (0), prošle (1)
+                        t.MatchDate ascending,  //(1) od najbližeg do najdaljeg
+                        t.MatchDate descending  //(0) od najnovijeg do najstarijeg
                         select t;
             return query;
         }
