@@ -26,7 +26,7 @@
             <Button x:Name="btnManageMemberships" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Content="Manage Memeberships" Background="#0A234B" Foreground="White" Padding="10" Click="btnManageMemberships_Click"/>
             <Button x:Name="btnMatchesAdmin" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Content="Match Management" Background="#0A234B" Foreground="White" Padding="10" Click="btnMatchesAdmin_Click"/>
             <Button x:Name="btnTrainingsAdmin" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Content="Training Management" Background="#0A234B" Foreground="White" Padding="10" Click="btnTrainingsAdmin_Click"/>
-            <Button x:Name="btnEditProfile" Content="Edit profile" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"/>
+            <Button x:Name="btnEditProfile" Content="Profile management" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 10 0 0" FontSize="18" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"/>
             <Button x:Name="btnLogout" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Log out" Background="#0A234B" Foreground="White" Padding="10" Click="btnLogout_Click"></Button>
         </StackPanel>
 
