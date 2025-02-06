@@ -51,7 +51,7 @@
         </Grid.RowDefinitions>
 
         <Border Background="{StaticResource GradientBackground}" Grid.Row="0" Padding="15">
-            <TextBlock Text="Match management"
+            <TextBlock Text="Edit profile"
                Foreground="White"
                FontSize="26"
                FontWeight="Bold"
@@ -59,11 +59,15 @@
                VerticalAlignment="Center"/>
         </Border>
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2" Margin="0,50,0,0">
+            <Label Content="Ime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
+            <Label Content="Prezime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtLastName" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Email:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="New password:" Grid.Column="0" Grid.Row="1" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtPassword" Grid.Column="1" Grid.Row="1" Margin="2"/>
-            <Label Content="Confirm password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
+            <Label Content="Confirm new password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtConfirmPassword" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <Label Content="Drop profile picture:" x:Name="lblProfilePicture" Grid.Column="0" Grid.Row="3" Margin="2" VerticalAlignment="Center" FontWeight="Bold"/>
             <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5" Width="120" Height="100" Grid.Column="1" Grid.Row="3">

@@ -1,10 +1,9 @@
 ﻿using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
+using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,24 +16,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PresentationLayer.UserControls
+namespace PresentationLayer.UcBaseUserControls
 {
-    /// <summary>
-    /// Interaction logic for UcMatchManagement.xaml
-    /// </summary>
-    public partial class UcMatchManagement : UserControl
+    public abstract class UcBaseMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcMatchManagement()
+        public UcBaseMatchManagement()
         {
             InitializeComponent();
         }
 
-        public async void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            await LoadMatches();
-        }
+        public abstract void UserControl_Loaded();
 
         private void ShowToast(string message)
         {
@@ -42,25 +35,7 @@ namespace PresentationLayer.UserControls
             toast.Show();
         }
 
-        public async Task LoadMatches()
-        {
-            if (!CurrentUser.User.TeamID.HasValue)
-            {
-                ShowToast("You aren't assigned to a team.");
-                return;
-            }
-
-
-            int teamId = (int)CurrentUser.User.TeamID;
-            
-            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
-            {
-                MessageBox.Show("Nema dostupnih podataka za prikaz.");
-                return;
-            }
-            dgCoachGrid.ItemsSource = fetchedMatches;
-        }
+        public abstract Task LoadMatches();
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
         {
@@ -165,4 +140,5 @@ namespace PresentationLayer.UserControls
             }
         }
     }
+}
 }

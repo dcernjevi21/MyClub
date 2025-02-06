@@ -118,6 +118,10 @@
     <Compile Include="Helper\AthleteReportModel.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="Helper\DocumentationHelper.cs" />
+    <Compile Include="UcBaseUserControls\UcBaseMatchManagement.xaml.cs">
+      <DependentUpon>UcBaseMatchManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
       <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
     </Compile>
@@ -142,8 +146,8 @@
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcAttendancesUser.xaml.cs">
-      <DependentUpon>UcAttendancesUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcScheduleUser.xaml.cs">
+      <DependentUpon>UcScheduleUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
@@ -216,7 +220,6 @@
     <Compile Include="CoachWindow.xaml.cs">
       <DependentUpon>CoachWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GuiManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -236,6 +239,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ToastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UcBaseUserControls\UcBaseMatchManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +266,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcAttendancesUser.xaml">
+    <Page Include="UserControls\UcScheduleUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,6 +366,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\MyClub-admin.pdf" />
+    <None Include="Resources\MyClub-coach.pdf" />
+    <None Include="Resources\MyClub-user.pdf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -367,10 +377,6 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
       <Project>{2a1de6db-81da-440c-9f47-01abbe39a566}</Project>
       <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{F45FE330-52B2-4488-8459-268DB5883BAF}</Project>
-      <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>

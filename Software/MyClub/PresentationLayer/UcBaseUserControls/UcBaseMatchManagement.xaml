@@ -1,15 +1,13 @@
-﻿<UserControl x:Class="PresentationLayer.UserControls.UcMatchManagement"
+﻿<UserControl x:Class="PresentationLayer.UcBaseUserControls.UcBaseMatchManagement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PresentationLayer.UserControls"
-             xmlns:helper="clr-namespace:PresentationLayer.Helper"
+             xmlns:local="clr-namespace:PresentationLayer.UcBaseUserControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
 
         <!-- Gradient Background Style -->
         <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">

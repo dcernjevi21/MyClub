@@ -20,6 +20,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paragraph = iTextSharp.text.Paragraph;
 using Rectangle = iTextSharp.text.Rectangle;
+using Org.BouncyCastle.Crypto.Utilities;
+using System.Diagnostics;
 
 namespace PresentationLayer.UserControls
 {
@@ -54,7 +56,6 @@ namespace PresentationLayer.UserControls
             ToastWindow toast = new ToastWindow(message);
             toast.Show();
         }
-
 
         private void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
