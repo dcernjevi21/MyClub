@@ -32,7 +32,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                return await repo.GetMatchesByTeamId(teamId).ToListAsync();
+                return await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
             }
         }
 

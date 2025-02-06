@@ -57,22 +57,24 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
         </Border>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,50,0,20" Grid.Row="1" VerticalAlignment="Center">
-            <Label Content="Name:" x:Name="lblName" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
-            <Label Content="Birth date:" x:Name="lblBirthDate"  Grid.Column="1" Grid.Row="1" Margin="2"/>
-            <Label Content="Email:" x:Name="lblEmail" Grid.Column="0" Grid.Row="3" FontWeight="Bold"/>
-            <Label Content="Role type:" x:Name="lblRoleType" Grid.Column="0" Grid.Row="4" Margin="2" />
-            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5"  Grid.Column="1" Grid.Row="5" Width="120" Height="100">
-                <Image x:Name="imgProfilePicture"
+        <StackPanel Orientation="Vertical" Width="auto" HorizontalAlignment="Center" Margin="10,50,0,20" Grid.Row="1" VerticalAlignment="Center">
+            <StackPanel Width="250">
+                <Label Content="Name:" x:Name="lblName" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+                <Label Content="Birth date:" x:Name="lblBirthDate"  Grid.Column="1" Grid.Row="1" Margin="2" FontWeight="Bold"/>
+                <Label Content="Email:" x:Name="lblEmail" Grid.Column="0" Grid.Row="3" FontWeight="Bold"/>
+                <Label Content="Role type:" x:Name="lblRoleType" Grid.Column="0" Grid.Row="4" Margin="2" FontWeight="Bold" />
+                <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5"  Grid.Column="1" Grid.Row="5" Width="120" Height="100">
+                    <Image x:Name="imgProfilePicture"
 Width="100" Height="80"
 Stretch="Uniform"
 VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
-                    <Image.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3"/>
-                    </Image.Effect>
-                </Image>
-            </Border>
-            <Button x:Name="btnEditProfile" Content="Edit your profile" Style="{StaticResource ButtonStyle}" Width="120" Click="btnEditProfile_Click"/>
+                        <Image.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3"/>
+                        </Image.Effect>
+                    </Image>
+                </Border>
+                <Button x:Name="btnEditProfile" Content="Edit your profile" Style="{StaticResource ButtonStyle}" Width="120" Click="btnEditProfile_Click"/>
+            </StackPanel>
             <DataGrid x:Name="dgCoachGrid"
                        Margin="0,50,0,20"
 
@@ -83,18 +85,18 @@ VerticalAlignment="Top"  Grid.Column="1" Grid.Row="5">
                      Grid.Row="1"
                      FontSize="14"
                      AutoGenerateColumns="False">
-                <!-- Prvo sve postojeće kolone -->
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="UserID" Binding="{Binding UserID}" Width="80"/>
-                    <DataGridTextColumn Header="First name" Binding="{Binding FirstName }" Width="80"/>
-                    <DataGridTextColumn Header="Last name" Binding="{Binding LastName }" Width="80"/>
-                    <DataGridTextColumn Header="Birth date" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="100"/>
-                    <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
-                    <DataGridTextColumn Header="StatusID" Binding="{Binding StatusID}" Width="100"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button x:Name="btnEditCoachProfile" Content="Edit selected coach profile" Style="{StaticResource ButtonStyle}" Width="200" Click="btnEditCoachProfile_Click"/>
-        </StackPanel>
+                    <!-- Prvo sve postojeće kolone -->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="UserID" Binding="{Binding UserID}" Width="80"/>
+                        <DataGridTextColumn Header="First name" Binding="{Binding FirstName }" Width="80"/>
+                        <DataGridTextColumn Header="Last name" Binding="{Binding LastName }" Width="80"/>
+                        <DataGridTextColumn Header="Birth date" Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="100"/>
+                        <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="200"/>
+                        <DataGridTextColumn Header="StatusID" Binding="{Binding StatusID}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="btnEditCoachProfile" Content="Edit selected coach profile" Style="{StaticResource ButtonStyle}" Width="200" Click="btnEditCoachProfile_Click"/>
+            </StackPanel>
     </Grid>
 </UserControl>

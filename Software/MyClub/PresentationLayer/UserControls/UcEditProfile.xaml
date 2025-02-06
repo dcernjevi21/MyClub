@@ -67,7 +67,7 @@
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="New password:" Grid.Column="0" Grid.Row="1" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtPassword" Grid.Column="1" Grid.Row="1" Margin="2"/>
-            <Label Content="Confirm password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
+            <Label Content="Confirm new password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtConfirmPassword" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <Label Content="Drop profile picture:" x:Name="lblProfilePicture" Grid.Column="0" Grid.Row="3" Margin="2" VerticalAlignment="Center" FontWeight="Bold"/>
             <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5" Width="120" Height="100" Grid.Column="1" Grid.Row="3">

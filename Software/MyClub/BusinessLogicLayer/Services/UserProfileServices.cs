@@ -52,11 +52,11 @@ namespace BusinessLogicLayer
             return isSuccessful;
         }
 
-        public List<User> GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetUserByEmail(email).ToList();
+                return repo.GetUserByEmail(email).FirstOrDefault();
             }
         }
 

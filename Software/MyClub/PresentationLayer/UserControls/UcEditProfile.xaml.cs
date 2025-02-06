@@ -84,13 +84,21 @@ namespace PresentationLayer.UserControls
 
             if (!string.IsNullOrEmpty(newEmail) && newEmail != user.Email)
             {
-                if (!userService.ValidateEmail(newEmail))
+                if (userService.GetUserByEmail(newEmail) != null)
                 {
-                    ShowToast("Invalid email format! Correct format: example@example.com");
+                    ShowToast("A user already exist with the given email.");
                     return;
                 }
-                user.Email = newEmail;
-                isUpdated = true;
+                else
+                {
+                    if (!userService.ValidateEmail(newEmail))
+                    {
+                        ShowToast("Invalid email format! Correct format: example@example.com");
+                        return;
+                    }
+                    user.Email = newEmail;
+                    isUpdated = true;
+                }
             }
 
             if (!string.IsNullOrEmpty(newPassword))

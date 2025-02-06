@@ -44,19 +44,34 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
+            if (!CurrentUser.User.TeamID.HasValue)
+            {
+                ShowToast("You aren't assigned to a team.");
+                return;
+            }
+
+
             int teamId = (int)CurrentUser.User.TeamID;
+            
             var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
                 MessageBox.Show("Nema dostupnih podataka za prikaz.");
+                return;
             }
             dgCoachGrid.ItemsSource = fetchedMatches;
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
         {
-
-            GuiManager.OpenContent(new UcAddMatch());
+            if (CurrentUser.User.TeamID != null || CurrentUser.User.RoleID == 1)
+            {
+                GuiManager.OpenContent(new UcAddMatch());
+            }
+            else
+            {
+                ShowToast("Ne mozete dodati utakmicu jer niste dio nekog tima");
+            }
         }
         //Černjević
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
@@ -94,8 +109,8 @@ namespace PresentationLayer.UserControls
             {
                 // Prikaz poruke s potvrdom brisanja
                 MessageBoxResult result = MessageBox.Show(
-                    "Jeste li sigurni da želite izbrisati zapis?",
-                    "Potvrda brisanja",
+                    "Are you sure you want to delete this match",
+                    "Confirm delete",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
@@ -107,6 +122,10 @@ namespace PresentationLayer.UserControls
                     LoadMatches();
                 }
             }
+            else
+            {
+                ShowToast("Please select a match.");
+            }
         }
         //Černjević
         public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
@@ -115,6 +134,10 @@ namespace PresentationLayer.UserControls
             if (match != null)
             {
                 GuiManager.OpenContent(new UcPostponeMatch(match));
+            }
+            else
+            {
+                ShowToast("Please select a match.");
             }
         }
 
