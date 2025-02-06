@@ -71,7 +71,7 @@ namespace PresentationLayer.UserControls
             GuiManager.CloseContent();
         }
 
-            private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
         }

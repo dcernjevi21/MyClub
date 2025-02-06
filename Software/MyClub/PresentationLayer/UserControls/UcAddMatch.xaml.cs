@@ -1,6 +1,5 @@
 ﻿using System;
 using BusinessLogicLayer;
-using EntitiesLayer.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +27,7 @@ namespace PresentationLayer.UserControls
     public partial class UcAddMatch : UserControl
     {
         MatchManagementService _matchManagementService = new MatchManagementService();
+        
 
         public UcAddMatch()
         {

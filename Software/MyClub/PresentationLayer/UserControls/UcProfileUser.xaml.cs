@@ -41,17 +41,18 @@ namespace PresentationLayer.UserControls
         //TODO: Add 10 last login dates and time
         private void DisplayUserData()
         {
-            //needs refactoring
-            var users = userProfileService.GetUserByEmail(CurrentUser.User.Email);
-            CurrentUser.User = users.FirstOrDefault();
-            if (users != null && users.Count > 0)
+            CurrentUser.User = userProfileService.GetUserByEmail(CurrentUser.User.Email);
+            if (CurrentUser.User != null)
             {
-                var user = users.First();
                 lblName.Content = "Name: " + CurrentUser.User.FirstName + " " + CurrentUser.User.LastName;
                 lblEmail.Content = "Email: " + CurrentUser.User.Email;
                 lblBirthDate.Content = "Birth date: " + CurrentUser.User.BirthDate;
                 lblRoleType.Content = "Role: User";
-                imgProfilePicture.Source = ConvertToImage(user.ProfilePicture);
+                imgProfilePicture.Source = ConvertToImage(CurrentUser.User.ProfilePicture);
+            }
+            else 
+            { 
+                ShowToast("How did you even get here??"); 
             }
         }
 
@@ -78,6 +79,11 @@ namespace PresentationLayer.UserControls
         private void btnMyAttendances_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcUserMyAttendances());
+        }
+
+        private void ShowToast(string message)
+        {
+            new ToastWindow(message).Show();
         }
     }
 }

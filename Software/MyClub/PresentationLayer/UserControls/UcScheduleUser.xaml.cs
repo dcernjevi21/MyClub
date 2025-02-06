@@ -24,13 +24,13 @@ namespace PresentationLayer.UserControls
     /// </summary>
     /// 
     ///Černjević kompletno
-    public partial class UcAttendancesUser : UserControl
+    public partial class UcScheduleUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
         private TrainingService _trainingService = new TrainingService();
         private int teamId = CurrentUser.User.TeamID.Value;
 
-        public UcAttendancesUser()
+        public UcScheduleUser()
         {
             InitializeComponent();
         
@@ -45,17 +45,16 @@ namespace PresentationLayer.UserControls
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTrainings();
-
-            LoadMatches();
+            _ = LoadMatches(); //fire and forget
         }
 
         public void LoadTrainings()
         {
             dgTrainingGrid.ItemsSource = _trainingService.GetTrainingsForTeam((int)CurrentUser.User.TeamID);
         }
-        public void LoadMatches()
+        public async Task LoadMatches()
         {
-            dgMatchGrid.ItemsSource = _matchManagementService.GetMatchesByTeamId((int)CurrentUser.User.TeamID);
+            dgMatchGrid.ItemsSource = await _matchManagementService.GetMatchesByTeamId((int)CurrentUser.User.TeamID);
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)

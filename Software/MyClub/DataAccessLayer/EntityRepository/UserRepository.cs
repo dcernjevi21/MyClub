@@ -78,7 +78,7 @@ namespace DataAccessLayer.EntityRepositories
 
         public IQueryable<User> GetUsersByRoleId(int roleId)
         {
-            var query = from s in Entities
+            var query = from s in Entities.Include("Team")
                         where s.RoleID == roleId
                         select s;
 

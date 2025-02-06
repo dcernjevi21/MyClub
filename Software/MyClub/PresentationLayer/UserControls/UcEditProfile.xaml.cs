@@ -3,139 +3,146 @@ using EntitiesLayer.Entities;
 using Microsoft.Win32;
 using PresentationLayer.Helper;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BusinessLogicLayer.Services;
 using DataAccessLayer;
+using System.Data.SqlTypes;
 
 namespace PresentationLayer.UserControls
 {
-    /// <summary>
-    /// Interaction logic for UcEditProfileUser.xaml
-    /// </summary>
-    /// 
-    ///Černjević kompletno
     public partial class UcEditProfile : UserControl
     {
         private User user;
-        byte[] imageBytes;
+        private byte[] imageBytes;
+        private readonly UserProfileServices userService;
 
         public UcEditProfile(User fetchedUser)
         {
             InitializeComponent();
             user = fetchedUser;
+            userService = new UserProfileServices();
         }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            txtEmail.Text = user.Email;
+            imgProfile.Source = ConvertToImage(user.ProfilePicture);
+            txtFirstName.Text = user.FirstName;
+            txtLastName.Text = user.LastName;
         }
 
         private void ShowToast(string message)
         {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
+            new ToastWindow(message).Show();
         }
-
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var userService = new UserProfileServices();
             if (user == null)
             {
                 ShowToast("User not found!");
                 return;
             }
 
-            string password = txtPassword.Text;
+            string firstName = txtFirstName.Text;
+            string lastName = txtLastName.Text;
+            string newEmail = txtEmail.Text;
+            string newPassword = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
-            string email = txtEmail.Text;
 
-            //update email
-            if (!string.IsNullOrEmpty(email) && email != user.Email)
+            bool isUpdated = false;
+
+            if (!string.IsNullOrEmpty(firstName) && firstName != user.FirstName)
             {
-                if (userService.ValidateEmail(email))
+                if (userService.ValidateName(firstName))
                 {
-                    //change email
-                    user.Email = email;
-                    bool a = userService.UpdateUser(user);
-                    if (a)
-                    {
-                        ShowToast("Email updated successfully!");
-                    }
-                    else
-                    {
-                        ShowToast("Error updating email!");
-                        return;
-                    }
+                    user.FirstName = firstName;
+                    isUpdated = true;
                 }
                 else
                 {
-                    ShowToast("Email is not valid! Correct format: example@example.com");
+                    ShowToast($"{firstName} is not valid.");
                     return;
                 }
             }
 
-            //update password
-            if (!string.IsNullOrEmpty(password))
+            if(!string.IsNullOrEmpty(lastName) && lastName != user.LastName)
             {
-                if (userService.ValidatePassword(password))
+                if(userService.ValidateName(lastName))
                 {
-                    if (password == confirmPassword) // Proveravamo da li je drugačija od stare lozinke
-                    {
-                        user.Password = password;
-                        userService.UpdateUser(user);
-                    }
-                    else
-                    {
-                        ShowToast("New password must be different from the old one!");
-                        return;
-                    }
+                    user.LastName = lastName;
+                    isUpdated |= true;
                 }
                 else
+                {
+                    ShowToast($"{lastName} is not valid.");
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(newEmail) && newEmail != user.Email)
+            {
+                if (userService.GetUserByEmail(newEmail) != null)
+                {
+                    ShowToast("A user already exist with the given email.");
+                    return;
+                }
+                else
+                {
+                    if (!userService.ValidateEmail(newEmail))
+                    {
+                        ShowToast("Invalid email format! Correct format: example@example.com");
+                        return;
+                    }
+                    user.Email = newEmail;
+                    isUpdated = true;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(newPassword))
+            {
+                if (!userService.ValidatePassword(newPassword))
                 {
                     ShowToast("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one digit!");
                     return;
                 }
+                if (newPassword != confirmPassword)
+                {
+                    ShowToast("Passwords do not match!");
+                    return;
+                }
+                user.Password = newPassword;
+                isUpdated = true;
             }
 
-            //update image
             if (imageBytes != null && imageBytes.Length > 0)
             {
                 user.ProfilePicture = imageBytes;
-                bool a = userService.UpdateUser(user);
-                if (a)
-                {
-                    ShowToast("Profile picture updated successfully!");
-                }
-                else
-                {
-                    ShowToast("Error updating profile picture!");
-                }
+                isUpdated = true;
+            }
+
+            // Ažuriranje korisnika samo ako je bilo promjena
+            if (isUpdated)
+            {
+                bool updateSuccess = userService.UpdateUser(user);
+                ShowToast(updateSuccess ? "Profile updated successfully!" : "Error updating profile!");
             }
             else
             {
-                ShowToast("Profile picture not updated!");
+                ShowToast("No changes made.");
             }
-        
-        GuiManager.CloseContent();
+
+            GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp"
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -162,6 +169,21 @@ namespace PresentationLayer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
+        }
+
+        private BitmapImage ConvertToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                image.BeginInit();
+                image.StreamSource = ms;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+            }
+            return image;
         }
     }
 }
