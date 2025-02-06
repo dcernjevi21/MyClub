@@ -114,12 +114,12 @@ namespace PresentationLayer.UserControls
             }
 
             MessageBox.Show("Attendance saved successfully!");
-            GuiManager.OpenContent(new UcMatchManagement());
+            GuiManager.CloseContent();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcMatchManagement());
+            GuiManager.CloseContent();
         }
     }
 }

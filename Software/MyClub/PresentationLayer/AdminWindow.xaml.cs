@@ -45,7 +45,7 @@ namespace PresentationLayer
         }
         private void btnMatchesAdmin_Click(object sender, RoutedEventArgs e)
         {
-            UcMatchManagement ucMatchesAdmin = new UcMatchManagement();
+            UcAdminMatchManagement ucMatchesAdmin = new UcAdminMatchManagement();
             contentPanel.Content = ucMatchesAdmin;
         }
 

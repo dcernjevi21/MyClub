@@ -1,9 +1,10 @@
 ﻿using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
-using PresentationLayer.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,26 +17,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PresentationLayer.UcBaseUserControls
+namespace PresentationLayer.UserControls
 {
-    public abstract class UcBaseMatchManagement : UserControl
+    /// <summary>
+    /// Interaction logic for UcMatchManagement.xaml
+    /// </summary>
+    public partial class UcAdminMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcBaseMatchManagement()
+        public UcAdminMatchManagement()
         {
             InitializeComponent();
         }
 
-        public abstract void UserControl_Loaded();
-
-        private void ShowToast(string message)
+        public async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
+            await LoadMatches();
         }
 
-        public abstract Task LoadMatches();
+        public async Task LoadMatches()
+        {
+            var fetchedMatches = await _matchManagementService.GetMatches();
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("Nema dostupnih podataka za prikaz.");
+                return;
+            }
+            dgCoachGrid.ItemsSource = fetchedMatches;
+        }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
         {
@@ -128,17 +138,10 @@ namespace PresentationLayer.UcBaseUserControls
             }
         }
 
-        //Valec
-        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        private void ShowToast(string message)
         {
-            var button = sender as Button;
-            var match = button.DataContext as EntitiesLayer.Entities.Match;
-            if (match != null)
-            {
-                var attendanceControl = new UcMatchAttendanceCoach(match);
-                GuiManager.OpenContent(attendanceControl);
-            }
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
-}
 }

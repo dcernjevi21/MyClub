@@ -23,16 +23,39 @@ namespace PresentationLayer.UserControls
     /// Interaction logic for UcAddatch.xaml
     /// </summary>
     /// 
+    /// 
     ///Černjević kompletno
     public partial class UcAddMatch : UserControl
     {
         MatchManagementService _matchManagementService = new MatchManagementService();
-        
+        TeamService _teamService = new TeamService();
 
         public UcAddMatch()
         {
             InitializeComponent();
         }
+
+        public void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(CurrentUser.User.RoleID == 1)
+            {
+                LoadTeams();
+            }
+        }
+
+        private async void LoadTeams()
+        {
+            try
+            {
+                var teams = await _teamService.GetTeamsAsync(); 
+                cmbTeams.ItemsSource = teams; 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load teams: " + ex.Message);
+            }
+        }
+
 
         private void ShowToast(string message)
         {
@@ -47,10 +70,17 @@ namespace PresentationLayer.UserControls
             string startTime = txtStartTime.Text;
             TimeSpan startTimeParsed = TimeSpan.Parse(startTime);
             DateTime matchDate = dtMatchDate.SelectedDate.Value;
+            int teamId;
+            if (CurrentUser.User.RoleID == 1) //ako admin
+            {
+                teamId = (int)cmbTeams.SelectedValue;
+            }
+            else //ako coach
+            {
+                teamId = (int)CurrentUser.User.TeamID;
+            }
 
-            int teamId = (int)CurrentUser.User.TeamID;
             bool matchExists = _matchManagementService.DoesMatchExist(teamId, matchDate, startTimeParsed);
-
 
 
             //dodati logiku ako se stavlja utakmica u isto vrijeme kada je trening
@@ -58,7 +88,12 @@ namespace PresentationLayer.UserControls
 
 
             string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
-            if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
+            if (matchExists)
+            {
+                ShowToast("Match already exists on this date and time.");
+                return;
+            }
+            else if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
             {
                 ShowToast("Please fill in all fields.");
                 return;
@@ -73,16 +108,11 @@ namespace PresentationLayer.UserControls
                 ShowToast("Invalid time format. Please enter time in HH:mm format.");
                 return;
             }
-            else if (matchExists)
-            {
-                ShowToast("Match already exists on this date and time.");
-                return;
-            }
             else
             {
                 var match = new EntitiesLayer.Entities.Match
                 {
-                    TeamID = (int)CurrentUser.User.TeamID,
+                    TeamID = teamId,
                     MatchDate = matchDate,
                     OpponentTeam = opponentTeam,
                     Location = location,

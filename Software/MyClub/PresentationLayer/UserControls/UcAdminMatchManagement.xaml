@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="PresentationLayer.UcBaseUserControls.UcBaseMatchManagement"
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcAdminMatchManagement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PresentationLayer.UcBaseUserControls"
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+                          d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
 
@@ -84,17 +84,6 @@
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="70"/>
                 <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="50"/>
                 <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="180"/>
-                <DataGridTemplateColumn Header="Attendance" Width="Auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="btnAttendance" Width="100" Height="40"
-                                Content="Attendance"
-                                Style="{StaticResource ButtonStyle}"
-                                Click="btnAttendance_Click"
-                                IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -109,7 +98,5 @@
                 <Button x:Name="btnPostponeMatch" Content="Postpone" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
             </StackPanel>
         </Border>
-
     </Grid>
-
 </UserControl>

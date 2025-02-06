@@ -119,8 +119,9 @@
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
     <Compile Include="Helper\DocumentationHelper.cs" />
-    <Compile Include="UcBaseUserControls\UcBaseMatchManagement.xaml.cs">
-      <DependentUpon>UcBaseMatchManagement.xaml</DependentUpon>
+    <Compile Include="Helper\RoleVisibilityConverter.cs" />
+    <Compile Include="UserControls\UcAdminMatchManagement.xaml.cs">
+      <DependentUpon>UcAdminMatchManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
       <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
@@ -164,8 +165,8 @@
     <Compile Include="UserControls\UcEditTraining.xaml.cs">
       <DependentUpon>UcEditTraining.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcMatchManagement.xaml.cs">
-      <DependentUpon>UcMatchManagement.xaml</DependentUpon>
+    <Compile Include="UserControls\UcCoachMatchManagement.xaml.cs">
+      <DependentUpon>UcCoachMatchManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcPostponeMatch.xaml.cs">
       <DependentUpon>UcPostponeMatch.xaml</DependentUpon>
@@ -242,7 +243,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UcBaseUserControls\UcBaseMatchManagement.xaml">
+    <Page Include="UserControls\UcAdminMatchManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -302,7 +303,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcMatchManagement.xaml">
+    <Page Include="UserControls\UcCoachMatchManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

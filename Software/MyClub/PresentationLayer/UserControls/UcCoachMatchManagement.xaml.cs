@@ -22,11 +22,11 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
-    public partial class UcMatchManagement : UserControl
+    public partial class UcCoachMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcMatchManagement()
+        public UcCoachMatchManagement()
         {
             InitializeComponent();
         }
