@@ -119,6 +119,9 @@
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
     <Compile Include="Helper\DocumentationHelper.cs" />
+    <Compile Include="UcBaseUserControls\UcBaseMatchManagement.xaml.cs">
+      <DependentUpon>UcBaseMatchManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
       <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ToastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UcBaseUserControls\UcBaseMatchManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
