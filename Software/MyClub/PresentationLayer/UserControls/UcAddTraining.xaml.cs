@@ -31,32 +31,54 @@ namespace PresentationLayer.UserControls
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var training = new Training
+            if (ValidateData())
             {
-                TrainingDate = dpDate.SelectedDate.Value,
-                StartTime = TimeSpan.Parse(tbStartTime.Text),
-                EndTime = TimeSpan.Parse(tbEndTime.Text),
-                TeamID = (int)cbTeam.SelectedValue
-            };
+                var training = new Training
+                {
+                    TrainingDate = dpDate.SelectedDate.Value,
+                    StartTime = TimeSpan.Parse(tbStartTime.Text),
+                    EndTime = TimeSpan.Parse(tbEndTime.Text),
+                    TeamID = (int)cbTeam.SelectedValue
+                };
 
-            var trainingService = new TrainingService();
-            trainingService.AddTraining(training);
+                var trainingService = new TrainingService();
+                bool IsAdded = trainingService.AddTraining(training);
 
-            var userRole = CurrentUser.User.RoleID;
+                var userRole = CurrentUser.User.RoleID;
+
+                OpenUserControl(userRole, IsAdded);
+            }
+        }
+
+        private void OpenUserControl(int? userRole, bool IsAdded)
+        {
             if (userRole == 1)
             {
-                GuiManager.OpenContent(new UcTrainingsAdmin());
+                var trainingAdmin = new UcTrainingsAdmin();
+                if (IsAdded)
+                {
+                    trainingAdmin.ShowMessage("Training successfully added!", true);
+                }
+                else
+                {
+                    trainingAdmin.ShowMessage("Failed to add training!", false);
+                }
+                GuiManager.OpenContent(trainingAdmin);
             }
             else
             {
-                GuiManager.OpenContent(new UcTrainingsCoach());
+                var trainingCoach = new UcTrainingsCoach();
+                if (IsAdded)
+                {
+                    trainingCoach.ShowMessage("Training successfully added!", true);
+                }
+                else
+                {
+                    trainingCoach.ShowMessage("Failed to add training!", false);
+                }
+                GuiManager.OpenContent(trainingCoach);
             }
         }
 
@@ -70,9 +92,21 @@ namespace PresentationLayer.UserControls
             var teamsServices = new TeamService();
             var teams = teamsServices.GetTeams();
 
-            cbTeam.ItemsSource = teams;
-            cbTeam.DisplayMemberPath = "Name";
-            cbTeam.SelectedValuePath = "TeamID";
+            if (CurrentUser.User.RoleID == 2)
+            {
+                teams = teams.Where(t => t.TeamID == CurrentUser.User.TeamID).ToList();
+                cbTeam.ItemsSource = teams;
+                cbTeam.DisplayMemberPath = "Name";
+                cbTeam.SelectedValuePath = "TeamID";
+                cbTeam.IsEnabled = false;
+                cbTeam.SelectedIndex = 0;
+            }
+            else
+            {
+                cbTeam.ItemsSource = teams;
+                cbTeam.DisplayMemberPath = "Name";
+                cbTeam.SelectedValuePath = "TeamID";
+            }
         }
 
 
@@ -89,9 +123,38 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        private void btnCancel_Click_1(object sender, RoutedEventArgs e)
+        private bool ValidateData()
         {
+            bool isValid = true;
+            if (dpDate.SelectedDate == null)
+            {
+                lblMessageDate.Content = "Please select date!";
+                isValid = false;
+            }
+            else lblMessageDate.Content = "";
 
+            if (tbStartTime.Text == "")
+            {
+                lblMessageStartTime.Content = "Please select start time!";
+                isValid = false;
+            }
+            else lblMessageStartTime.Content = "";
+
+            if (tbEndTime.Text == "")
+            {
+                lblMessageEndTime.Content = "Please select end time!";
+                isValid = false;
+            }
+            else lblMessageEndTime.Content = "";
+
+            if (cbTeam.SelectedValue == null)
+            {
+                lblMessageTeam.Content = "Please select team!";
+                isValid = false;
+            }
+            else lblMessageTeam.Content = "";
+
+            return isValid;
         }
     }
 }

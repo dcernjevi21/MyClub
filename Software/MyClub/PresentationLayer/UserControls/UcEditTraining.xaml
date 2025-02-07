@@ -34,25 +34,24 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
         </Border>
-        <Grid Grid.Row="1" Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Label Content="Date:" Grid.Row="0" VerticalAlignment="Center" Margin="10"/>
-            <DatePicker x:Name="dpDate" Grid.Row="0" Width="206" Height="30" HorizontalAlignment="Center" Margin="10"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,50,0,20" Grid.Row="1" Width="200">
+            <Label Content="Date:"/>
+            <DatePicker x:Name="dpDate" Height="30"/>
+            <Label x:Name="lblMessageDate" Foreground="Red" FontWeight="Bold" Height="30"/>
 
-            <Label Content="Start Time:" Grid.Row="1" VerticalAlignment="Center" Margin="10"/>
-            <TextBox x:Name="tbStartTime" Grid.Row="1" Width="206" Height="30" HorizontalAlignment="Center" Margin="10"/>
+            <Label Content="Start Time:"/>
+            <TextBox x:Name="tbStartTime" Height="30"/>
+            <Label x:Name="lblMessageStartTime" Foreground="Red" FontWeight="Bold" Height="30"/>
 
-            <Label Content="End Time:" Grid.Row="2" VerticalAlignment="Center" Margin="10"/>
-            <TextBox x:Name="tbEndTime" Grid.Row="2" Width="206" Height="30" HorizontalAlignment="Center" Margin="10"/>
 
-            <Label Content="Team:" Grid.Row="3" VerticalAlignment="Center" Margin="10"/>
-            <ComboBox x:Name="cbTeam" Grid.Row="3" Width="206" Height="30" HorizontalAlignment="Center" Margin="10"/>
-        </Grid>
+            <Label Content="End Time:"/>
+            <TextBox x:Name="tbEndTime" Height="30"/>
+            <Label x:Name="lblMessageEndTime" Foreground="Red" FontWeight="Bold" Height="30"/>
+
+            <Label x:Name="lblTeam" Content="Team:"/>
+            <ComboBox x:Name="cbTeam" Height="30"/>
+            <Label x:Name="lblMessageTeam" Foreground="Red" FontWeight="Bold" Height="30"/>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="10">
             <Button x:Name="btnAdd" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnAdd_Click"/>
             <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancel_Click"/>

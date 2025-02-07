@@ -31,8 +31,8 @@ namespace PresentationLayer.UserControls
     //Valec kompletno
     public partial class UcAttendanceReport : UserControl
     {
-        private readonly AttendanceService _attendanceService = new AttendanceService();
-        private readonly UserService _userService = new UserService();
+        private readonly AttendanceService attendanceService = new AttendanceService();
+        private readonly UserService userService = new UserService();
         public UcAttendanceReport()
         {
             InitializeComponent();
@@ -59,22 +59,16 @@ namespace PresentationLayer.UserControls
         private void UpdateReport(DateTime startDate, DateTime endDate, int eventType)
         {
             var teamId = (int)CurrentUser.User.TeamID;
-            var attendances = _attendanceService.GetTeamAttendancesForPeriod(teamId, startDate, endDate);
+            var attendances = attendanceService.GetTeamAttendancesForPeriod(teamId, startDate, endDate);
+            attendances = attendanceService.FilterAttendancesByEventType(attendances, eventType);
 
-            if (eventType == 1)
-                attendances = attendances.Where(a => a.TrainingID != null).ToList();
-            else if (eventType == 2)
-                attendances = attendances.Where(a => a.MatchId != null).ToList();
-
-            var athletes = _userService.GetUsersFromTeam(teamId)
-                .Where(u => u.RoleID == 3)
-                .ToList();
+            var athletes = userService.GetUsersFromTeam(teamId);
 
             var reportData = athletes.Select(athlete =>
             {
-                var athleteAttendances = attendances.Where(a => a.UserID == athlete.UserID).ToList();
+                var athleteAttendances = attendanceService.GetAttendancesForUser(attendances, athlete.UserID);
                 var athleteTotalEvents = athleteAttendances.Count;
-                var presentCount = athleteAttendances.Count(a => a.StatusID == 4);
+                var presentCount = attendanceService.CountAttendancesByStatus(athleteAttendances, 4);
                 var absentCount = athleteTotalEvents - presentCount;
 
                 return new AthleteReportModel

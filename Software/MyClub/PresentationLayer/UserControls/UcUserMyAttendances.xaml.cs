@@ -24,7 +24,7 @@ namespace PresentationLayer.UserControls
     //Valec kompletno
     public partial class UcUserMyAttendances : UserControl
     {
-        private readonly AttendanceService _attendanceService = new AttendanceService();
+        private readonly AttendanceService attendanceService = new AttendanceService();
 
         public UcUserMyAttendances()
         {
@@ -35,12 +35,12 @@ namespace PresentationLayer.UserControls
         private void LoadData()
         {
             var userId = CurrentUser.User.UserID;
-            var attendances = _attendanceService.GetUserAttendances(userId);
+            var attendances = attendanceService.GetUserAttendances(userId);
 
             int totalEvents = attendances.Count;
-            int presentCount = attendances.Count(a => a.StatusID == 4);
-            int absentCount = attendances.Count(a => a.StatusID == 5);
-            int excusedCount = attendances.Count(a => a.StatusID == 6);
+            int presentCount = attendanceService.CountAttendancesByStatus(attendances, 4);
+            int absentCount = attendanceService.CountAttendancesByStatus(attendances, 5);
+            int excusedCount = attendanceService.CountAttendancesByStatus(attendances, 6);
 
             txtTotalEvents.Text = totalEvents.ToString();
             txtPresentPercentage.Text = totalEvents > 0
@@ -49,7 +49,6 @@ namespace PresentationLayer.UserControls
             txtAbsences.Text = absentCount.ToString();
             txtExcused.Text = excusedCount.ToString();
 
-            // Pripremamo podatke za DataGrid
             var attendanceViewModels = attendances.Select(a => new
             {
                 EventDate = a.Training?.TrainingDate ?? a.Match?.MatchDate,
