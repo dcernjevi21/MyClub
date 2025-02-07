@@ -35,7 +35,7 @@ namespace PresentationLayer.UserControls
             await LoadMatches();
         }
 
-        private void ShowToast(string message)
+        public void ShowToast(string message)
         {
             ToastWindow toast = new ToastWindow(message);
             toast.Show();

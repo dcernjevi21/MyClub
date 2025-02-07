@@ -43,14 +43,23 @@ namespace PresentationLayer.UserControls
 
         private void LoadTeams()
         {
-            var teamServices = new TeamService();
-            teams = teamServices.GetTeams();
+            if (CurrentUser.User.RoleID == 2)
+            {
+                cbTeam.Visibility = Visibility.Collapsed;
+                lblTeam.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                var teamServices = new TeamService();
+                teams = teamServices.GetTeams();
 
-            cbTeam.ItemsSource = teams;
-            cbTeam.DisplayMemberPath = "Name";
-            cbTeam.SelectedValuePath = "TeamID";
+                cbTeam.ItemsSource = teams;
+                cbTeam.DisplayMemberPath = "Name";
+                cbTeam.SelectedValuePath = "TeamID";
 
-            SelectTeam(training.TeamID);
+                SelectTeam(training.TeamID);
+            }
+           
         }
 
         private void SelectTeam(int teamID)
@@ -79,42 +88,103 @@ namespace PresentationLayer.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateData())
+            {
+                UpdateTraining();
+            }
+        }
+
+        private void UpdateTraining()
+        {
+            training.TrainingDate = dpDate.SelectedDate ?? DateTime.Today;
+            training.StartTime = TimeSpan.TryParse(tbStartTime.Text, out var startTime) ? startTime : TimeSpan.Zero;
+            training.EndTime = TimeSpan.TryParse(tbEndTime.Text, out var endTime) ? endTime : TimeSpan.Zero;
+
             if (cbTeam.SelectedItem is Team selectedTeam)
             {
-                training.TrainingDate = dpDate.SelectedDate ?? DateTime.Today;
-                training.StartTime = TimeSpan.TryParse(tbStartTime.Text, out var startTime) ? startTime : TimeSpan.Zero;
-                training.EndTime = TimeSpan.TryParse(tbEndTime.Text, out var endTime) ? endTime : TimeSpan.Zero;
                 training.TeamID = selectedTeam.TeamID;
-                var trainingService = new TrainingService();
-                bool isUpdated = trainingService.UpdateTraining(training);
+            }
+            else
+            {
+                training.TeamID = (int)CurrentUser.User.TeamID;
+            }
 
-                var userRole = CurrentUser.User.RoleID;
-                if (userRole == 1)
+            var trainingService = new TrainingService();
+            bool isUpdated = trainingService.UpdateTraining(training);
+
+            var userRole = CurrentUser.User.RoleID;
+
+            OpenUserControl(userRole, isUpdated);
+        }
+
+        private bool ValidateData()
+        {
+            bool IsValid = true;
+            if (dpDate.SelectedDate == null)
+            {
+                lblMessageDate.Content = "Please select a date!";
+                IsValid = false;
+            }
+            else lblTeam.Content = "";
+
+            if (!TimeSpan.TryParse(tbStartTime.Text, out var startTime))
+            {
+                lblMessageStartTime.Content = "Please enter a valid start time!";
+                IsValid = false;
+            }
+            else lblMessageStartTime.Content = "";
+
+            if (!TimeSpan.TryParse(tbEndTime.Text, out var endTime))
+            {
+                lblMessageEndTime.Content = "Please enter a valid end time!";
+                IsValid = false;
+            }
+            else lblMessageEndTime.Content = "";
+
+            if (startTime >= endTime)
+            {
+                lblMessageStartTime.Content = "Start time must be before end time!";
+                IsValid = false;
+            }
+            else lblMessageStartTime.Content = "";
+
+            if (CurrentUser.User.RoleID == 1 && cbTeam.SelectedItem == null)
+            {
+                lblMessageTeam.Content = "Please select a team!";
+                IsValid = false;
+            }
+            else lblMessageTeam.Content = "";
+
+            return IsValid;
+        }
+
+        private void OpenUserControl(int? userRole, bool isUpdated)
+        {
+            if (userRole == 1)
+            {
+                var trainingAdmin = new UcTrainingsAdmin();
+                if (isUpdated)
                 {
-                    var trainingAdmin = new UcTrainingsAdmin();
-                    if (isUpdated)
-                    {
-                        trainingAdmin.ShowMessage("Training successfully updated!", true);
-                    }
-                    else
-                    {
-                        trainingAdmin.ShowMessage("Failed to update training!", false);
-                    }
-                    GuiManager.OpenContent(trainingAdmin);
+                    trainingAdmin.ShowMessage("Training successfully updated!", true);
                 }
                 else
                 {
-                    var trainingCoach = new UcTrainingsCoach();
-                    if (isUpdated)
-                    {
-                        trainingCoach.ShowMessage("Training successfully updated!", true);
-                    }
-                    else
-                    {
-                        trainingCoach.ShowMessage("Failed to update training!", false);
-                    }
-                    GuiManager.OpenContent(trainingCoach);
+                    trainingAdmin.ShowMessage("Failed to update training!", false);
                 }
+                GuiManager.OpenContent(trainingAdmin);
+            }
+            else
+            {
+                var trainingCoach = new UcTrainingsCoach();
+                if (isUpdated)
+                {
+                    trainingCoach.ShowMessage("Training successfully updated!", true);
+                }
+                else
+                {
+                    trainingCoach.ShowMessage("Failed to update training!", false);
+                }
+                GuiManager.OpenContent(trainingCoach);
             }
         }
     }

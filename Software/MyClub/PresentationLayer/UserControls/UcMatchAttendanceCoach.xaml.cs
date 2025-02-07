@@ -20,7 +20,7 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchAttendanceCoach.xaml
     /// </summary>
-    
+
     //Valec kompletno
     public partial class UcMatchAttendanceCoach : UserControl
     {
@@ -50,11 +50,11 @@ namespace PresentationLayer.UserControls
             if (statusColumn != null)
             {
                 var statusItems = new List<KeyValuePair<int, string>>
-            {
-                new KeyValuePair<int, string>(4, "Present"),
-                new KeyValuePair<int, string>(5, "Absent"),
-                new KeyValuePair<int, string>(6, "Excused")
-            };
+                    {
+                        new KeyValuePair<int, string>(4, "Present"),
+                        new KeyValuePair<int, string>(5, "Absent"),
+                        new KeyValuePair<int, string>(6, "Excused")
+                    };
 
                 statusColumn.ItemsSource = statusItems;
                 statusColumn.SelectedValueBinding = new Binding("StatusID");
@@ -86,8 +86,10 @@ namespace PresentationLayer.UserControls
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccess = true;
             foreach (var attendance in _attendanceData)
             {
+                bool result = true;
                 if (attendance.IsExistingAttendance)
                 {
                     var existingAttendance = new EntitiesLayer.Entities.Attendance
@@ -98,7 +100,15 @@ namespace PresentationLayer.UserControls
                         StatusID = attendance.StatusID,
                         Notes = attendance.Notes
                     };
-                    _attendanceService.UpdateAttendance(existingAttendance);
+
+                    var originalAttendance = _attendanceService.GetAttendancesByMatchId(_match.MatchID)
+                        .FirstOrDefault(a => a.AttendanceID == attendance.AttendanceID);
+
+                    if (originalAttendance != null &&
+                        (originalAttendance.StatusID != existingAttendance.StatusID || originalAttendance.Notes != existingAttendance.Notes))
+                    {
+                        result = _attendanceService.UpdateAttendance(existingAttendance);
+                    }
                 }
                 else
                 {
@@ -109,12 +119,25 @@ namespace PresentationLayer.UserControls
                         StatusID = attendance.StatusID,
                         Notes = attendance.Notes
                     };
-                    _attendanceService.AddAttendance(newAttendance);
+                    result = _attendanceService.AddAttendance(newAttendance);
+                }
+
+                if (!result)
+                {
+                    isSuccess = false;
                 }
             }
 
-            MessageBox.Show("Attendance saved successfully!");
-            GuiManager.OpenContent(new UcMatchManagement());
+            var matchManagement = new UcMatchManagement();
+            if (isSuccess)
+            {
+                matchManagement.ShowToast("Attendance marked successfully!");
+            }
+            else
+            {
+                matchManagement.ShowToast("Failed to mark attendance!");
+            }
+            GuiManager.OpenContent(matchManagement);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

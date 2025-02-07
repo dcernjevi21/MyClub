@@ -99,7 +99,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetUsersByTeamId(teamId).ToList();
+                return repo.GetUsersByTeamId(teamId).Where(u => u.RoleID == 3).ToList();
             }
         }
     }
