@@ -105,9 +105,9 @@
                 HorizontalAlignment="Center"
                 Margin="10">
                 <Button x:Name="btnAddMatch" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
-                <Button x:Name="btnUpdateMatch" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
+                <Button x:Name="btnUpdateMatch" Content="Edit/Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnDeleteMatch" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
-                <Button x:Name="btnCancelMatch" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancelMatch_Click" Width="124"/>
+                <Button x:Name="btnCancelMatch" Content="Cancel match" Style="{StaticResource ButtonStyle}" Click="btnCancelMatch_Click" Width="124"/>
             </StackPanel>
         </Border>
 

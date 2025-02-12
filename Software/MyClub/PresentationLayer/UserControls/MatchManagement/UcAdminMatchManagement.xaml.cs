@@ -59,10 +59,9 @@ namespace PresentationLayer.UserControls
                 }
                 else if (match.MatchDate > DateTime.Now)
                 {
-                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
-
-                    return;
+                    GuiManager.OpenContent(new UcEditMatch(match));
                 }
+                //ako je utakmica prošla, otvori formu za unos rezultata
                 else
                 {
                     GuiManager.OpenContent(new UcUpdateMatch(match));

@@ -1,18 +1,7 @@
 ﻿using System;
 using BusinessLogicLayer;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using PresentationLayer.Helper;
 using System.Text.RegularExpressions;
 using BusinessLogicLayer.Services;
@@ -34,6 +23,7 @@ namespace PresentationLayer.UserControls
         public UcAddMatch()
         {
             InitializeComponent();
+            cmbTeams.IsEnabled = CurrentUser.User?.RoleID != 2;
         }
 
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -48,20 +38,13 @@ namespace PresentationLayer.UserControls
         {
             try
             {
-                var teams = await _teamService.GetTeamsAsync(); 
-                cmbTeams.ItemsSource = teams; 
+                var teams = await _teamService.GetTeamsAsync();
+                cmbTeams.ItemsSource = teams;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to load teams: " + ex.Message);
             }
-        }
-
-
-        private void ShowToast(string message)
-        {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
         }
 
         private void btnAddMatch_Click(object sender, RoutedEventArgs e)
@@ -119,9 +102,9 @@ namespace PresentationLayer.UserControls
                 ShowToast("Please fill in all fields.");
                 return;
             }
-            else if (matchDate < DateTime.Now)
+            else if (matchDate < DateTime.Now || matchDate == DateTime.Now)
             {
-                ShowToast("Match date cannot be in the past.");
+                ShowToast("Match date cannot be in the past or today.");
                 return;
             }
             else if (!Regex.IsMatch(startTime, timePattern))
@@ -156,6 +139,12 @@ namespace PresentationLayer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

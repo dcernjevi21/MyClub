@@ -10,11 +10,11 @@ namespace PresentationLayer.Helper
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int roleId && roleId == 1)
+            if (value is int roleId)
             {
-                return Visibility.Visible;
+                return roleId == 1;
             }
-            return Visibility.Collapsed;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

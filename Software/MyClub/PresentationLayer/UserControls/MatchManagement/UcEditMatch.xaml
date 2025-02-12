@@ -4,9 +4,107 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <helper:RoleVisibilityConverter x:Key="RoleVisibilityConverter"/>
+        
+        <!-- Gradient Background -->
+        <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0A234B" Offset="0.0"/>
+            <GradientStop Color="#1F3C88" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#1F3C88"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern Input Fields -->
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#1F3C88"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#1F3C88"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource GradientBackground}" Padding="15">
+            <TextBlock Text="Edit Match"
+                   Foreground="White"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"/>
+        </Border>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Label Content="Opponent:" FontWeight="Bold"/>
+            <TextBox x:Name="txtOpponent" Margin="2"/>
+            <Label Content="MatchDate:" Margin="2" FontWeight="Bold"/>
+            <DatePicker x:Name="dtMatchDate" Margin="2"/>
+            <Label Content="Start time:" Margin="2" FontWeight="Bold"/>
+            <TextBox x:Name="txtStartTime" Margin="2" />
+            <Label Content="Location:" Margin="2" FontWeight="Bold"/>
+            <TextBox x:Name="txtLocation" Margin="2"/>
+            <Label Content="Team:" Margin="2" FontWeight="Bold"/>
+            <ComboBox x:Name="cmbTeams" 
+                  IsEnabled="{Binding CurrentUser.User.RoleID, Converter={StaticResource RoleVisibilityConverter}, Mode=OneWay}"
+                  Margin="2" 
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="TeamID"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" Background="{StaticResource GradientBackground}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="btnEditMatch" Content="Edit Match" Style="{StaticResource ButtonStyle}" Click="btnEditMatch_Click"/>
+                <Button x:Name="btnCancel" Content="Cancel" Style="{StaticResource ButtonStyle}" Click="btnCancel_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
