@@ -128,23 +128,26 @@ namespace PresentationLayer.UserControls
                 }
             }
 
-            var matchManagement = new UcMatchManagement();
             if (isSuccess)
             {
-                matchManagement.ShowToast("Attendance marked successfully!");
+                ShowToast("Attendance marked successfully!");
             }
             else
             {
-                matchManagement.ShowToast("Failed to mark attendance!");
+                ShowToast("Failed to mark attendance!");
             }
-            GuiManager.OpenContent(matchManagement);
-            MessageBox.Show("Attendance saved successfully!");
             GuiManager.CloseContent();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

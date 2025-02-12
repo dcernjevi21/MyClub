@@ -20,7 +20,7 @@ namespace BusinessLogicLayer.Services
             }
         }
         //černjević
-        public async  Task<List<Team>> GetTeamsAsync()
+        public async Task<List<Team>> GetTeamsAsync()
         {
             using (var repo = new TeamRepository())
             {
