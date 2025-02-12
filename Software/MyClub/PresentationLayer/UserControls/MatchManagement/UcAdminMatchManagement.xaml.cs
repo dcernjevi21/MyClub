@@ -10,11 +10,11 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
-    public partial class UcCoachMatchManagement : UserControl
+    public partial class UcAdminMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcCoachMatchManagement()
+        public UcAdminMatchManagement()
         {
             InitializeComponent();
         }
@@ -24,23 +24,9 @@ namespace PresentationLayer.UserControls
             await LoadMatches();
         }
 
-        private void ShowToast(string message)
-        {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
-        }
-
         public async Task LoadMatches()
         {
-            if (!CurrentUser.User.TeamID.HasValue)
-            {
-                ShowToast("You aren't assigned to a team.");
-                return;
-            }
-
-            int teamId = (int)CurrentUser.User.TeamID;
-            
-            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+            var fetchedMatches = await _matchManagementService.GetMatches();
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
                 MessageBox.Show("There are no data to be shown.");
@@ -94,22 +80,19 @@ namespace PresentationLayer.UserControls
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                //prikaz poruke s potvrdom brisanja
+                // Prikaz poruke s potvrdom brisanja
                 MessageBoxResult result = MessageBox.Show(
                     "Are you sure you want to delete this match",
                     "Confirm delete",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
+                // Ako korisnik odabere 'Yes', izvršava se brisanje
                 if (result == MessageBoxResult.Yes)
                 {
                     MatchManagementService _matchManagementService = new MatchManagementService();
                     _matchManagementService.RemoveMatch(match);
                     _ = LoadMatches();
-                }
-                else
-                {
-                    ShowToast("Delete cancelled.");
                 }
             }
             else
@@ -143,16 +126,10 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        //Valec
-        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        private void ShowToast(string message)
         {
-            var button = sender as Button;
-            var match = button.DataContext as EntitiesLayer.Entities.Match;
-            if (match != null)
-            {
-                var attendanceControl = new UcMatchAttendanceCoach(match);
-                GuiManager.OpenContent(attendanceControl);
-            }
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

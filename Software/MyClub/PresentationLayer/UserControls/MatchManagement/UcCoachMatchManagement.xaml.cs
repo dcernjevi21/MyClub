@@ -10,11 +10,11 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
-    public partial class UcAdminMatchManagement : UserControl
+    public partial class UcCoachMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcAdminMatchManagement()
+        public UcCoachMatchManagement()
         {
             InitializeComponent();
         }
@@ -24,9 +24,23 @@ namespace PresentationLayer.UserControls
             await LoadMatches();
         }
 
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
+        }
+
         public async Task LoadMatches()
         {
-            var fetchedMatches = await _matchManagementService.GetMatches();
+            if (!CurrentUser.User.TeamID.HasValue)
+            {
+                ShowToast("You aren't assigned to a team.");
+                return;
+            }
+
+            int teamId = (int)CurrentUser.User.TeamID;
+            
+            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
                 MessageBox.Show("There are no data to be shown.");
@@ -59,10 +73,9 @@ namespace PresentationLayer.UserControls
                 }
                 else if (match.MatchDate > DateTime.Now)
                 {
-                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
-
-                    return;
+                    GuiManager.OpenContent(new UcEditMatch(match));
                 }
+                //ako je utakmica prošla, otvori formu za unos rezultata
                 else
                 {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
@@ -80,19 +93,22 @@ namespace PresentationLayer.UserControls
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                // Prikaz poruke s potvrdom brisanja
+                //prikaz poruke s potvrdom brisanja
                 MessageBoxResult result = MessageBox.Show(
                     "Are you sure you want to delete this match",
                     "Confirm delete",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
-                // Ako korisnik odabere 'Yes', izvršava se brisanje
                 if (result == MessageBoxResult.Yes)
                 {
                     MatchManagementService _matchManagementService = new MatchManagementService();
                     _matchManagementService.RemoveMatch(match);
-                    LoadMatches();
+                    _ = LoadMatches();
+                }
+                else
+                {
+                    ShowToast("Delete cancelled.");
                 }
             }
             else
@@ -126,10 +142,16 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        private void ShowToast(string message)
+        //Valec
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
         {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
+            var button = sender as Button;
+            var match = button.DataContext as EntitiesLayer.Entities.Match;
+            if (match != null)
+            {
+                var attendanceControl = new UcMatchAttendanceCoach(match);
+                GuiManager.OpenContent(attendanceControl);
+            }
         }
     }
 }
