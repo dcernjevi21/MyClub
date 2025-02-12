@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,32 +22,50 @@ namespace PresentationLayer.UserControls
 
         public async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if (CurrentUser.User.RoleID != 2)
+            {
+                var attendanceColumn = dgCoachGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Attendance");
+                if (attendanceColumn != null)
+                {
+                    attendanceColumn.Visibility = Visibility.Collapsed;
+                }
+            }
             await LoadMatches();
-        }
-
-        private void ShowToast(string message)
-        {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
         }
 
         public async Task LoadMatches()
         {
-            if (!CurrentUser.User.TeamID.HasValue)
+            if (!CurrentUser.User.TeamID.HasValue && CurrentUser.User.RoleID == 2)
             {
                 ShowToast("You aren't assigned to a team.");
                 return;
             }
 
-            int teamId = (int)CurrentUser.User.TeamID;
-            
-            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            if (CurrentUser.User.RoleID == 1)
             {
-                MessageBox.Show("There are no data to be shown.");
-                return;
+                var fetchedMatches = await _matchManagementService.GetMatches();
+                if (fetchedMatches == null || fetchedMatches.Count == 0)
+                {
+                    MessageBox.Show("There are no data to be shown.");
+                    return;
+                }
+                dgCoachGrid.ItemsSource = fetchedMatches;
             }
-            dgCoachGrid.ItemsSource = fetchedMatches;
+            else if (CurrentUser.User.RoleID == 2)
+            {
+                int teamId = (int)CurrentUser.User.TeamID;
+                var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+                if (fetchedMatches == null || fetchedMatches.Count == 0)
+                {
+                    MessageBox.Show("There are no data to be shown.");
+                    return;
+                }
+                dgCoachGrid.ItemsSource = fetchedMatches;
+            }
+            else
+            {
+                MessageBox.Show("You are not authorized to view this page.");
+            }
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
@@ -152,6 +171,12 @@ namespace PresentationLayer.UserControls
                 var attendanceControl = new UcMatchAttendanceCoach(match);
                 GuiManager.OpenContent(attendanceControl);
             }
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }
