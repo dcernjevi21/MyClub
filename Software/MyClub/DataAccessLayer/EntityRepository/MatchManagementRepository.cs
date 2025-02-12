@@ -3,6 +3,7 @@ using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,31 @@ namespace DataAccessLayer.EntityRepository
         {
             return Entities.Where(x => x.TeamID == teamId).Include("Team");
         }
+
+        public IQueryable<Match> GetMatchesByStatus(int? teamId, string status)
+        {
+            var query = Entities.Where(x => x.Status == status);
+            if (teamId.HasValue)
+            {
+                query = query.Where(x => x.TeamID == teamId.Value);
+            }
+
+            return query.Include("Team");
+        }
+
+        public IQueryable<Match> GetMatchesByDate(int? teamId, DateTime startDate, DateTime endDate)
+        {
+            var query = Entities.Where(x => x.MatchDate >= startDate && x.MatchDate <= endDate);
+
+            if (teamId.HasValue)
+            {
+                query = query.Where(x => x.TeamID == teamId.Value);
+            }
+
+            return query.Include("Team");
+        }
+
+
 
         public int DeleteMatch(Match match)
         {

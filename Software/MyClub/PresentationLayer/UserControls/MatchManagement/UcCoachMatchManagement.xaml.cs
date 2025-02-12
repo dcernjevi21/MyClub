@@ -2,6 +2,7 @@
 using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -76,6 +77,74 @@ namespace PresentationLayer.UserControls
                     }
                 }
             }
+        }
+
+        private async void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            List<Match> fetchedMatches = null;
+            int? teamId = (CurrentUser.User.RoleID == 1) ? null : CurrentUser.User.TeamID;
+
+            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+            {
+                // Ako je korisnik trener, filtriraj po njegovom TeamID-u, a ako je admin, ne filtriraj po TeamID-u
+                if (CurrentUser.User.RoleID == 1)
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value); // null za TeamID znači da se filtrira za sve timove
+                }
+                else
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
+                }
+            }
+            else if (cbFilterStatus.SelectedValue != null)
+            {
+                if (cbFilterStatus.SelectedValue.ToString() == "Scheduled")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Scheduled");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Cancelled")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Cancelled");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Win")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Win");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Draw")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Draw");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Lost")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Lost");
+                }
+                else
+                {
+                    ShowToast("Please select a valid status to filter the matches.");
+                    return;
+                }
+            }
+            else
+            {
+                ShowToast("Please select a date or status to filter the matches.");
+                return;
+            }
+
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
+            else
+            {
+                dgCoachGrid.ItemsSource = fetchedMatches;
+            }
+
+        }
+
+        private void btnReloadMatches_Click(object sender, RoutedEventArgs e)
+        {
+            _ = LoadMatches();
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)

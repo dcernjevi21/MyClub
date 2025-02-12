@@ -36,6 +36,22 @@ namespace BusinessLogicLayer.Services
             }
         }
 
+        public async Task<List<Match>> GetMatchesByStatus(int? teamId, string status)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return await repo.GetMatchesByStatus(teamId, status)?.ToListAsync() ?? new List<Match>();
+            }
+        }
+
+        public async Task<List<Match>> GetMatchesByDate(int? teamId, DateTime startDate, DateTime endDate)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return await repo.GetMatchesByDate(teamId, startDate, endDate)?.ToListAsync() ?? new List<Match>();
+            }
+        }
+
         public bool AddMatch(Match match)
         {
             bool isSuccessful = false;
