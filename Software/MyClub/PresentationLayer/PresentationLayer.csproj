@@ -168,8 +168,8 @@
     <Compile Include="UserControls\UcCoachMatchManagement.xaml.cs">
       <DependentUpon>UcCoachMatchManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcPostponeMatch.xaml.cs">
-      <DependentUpon>UcPostponeMatch.xaml</DependentUpon>
+    <Compile Include="UserControls\UcCancelMatch.xaml.cs">
+      <DependentUpon>UcCancelMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcTrainingsAdmin.xaml.cs">
       <DependentUpon>UcTrainingsAdmin.xaml</DependentUpon>
@@ -307,7 +307,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcPostponeMatch.xaml">
+    <Page Include="UserControls\UcCancelMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -68,6 +68,7 @@ namespace DataAccessLayer.EntityRepository
                 match.Result = entity.Result;
                 match.StartTime = entity.StartTime;
                 match.Summary = entity.Summary;
+                match.Status = entity.Status;
 
                 if (saveChanges)
                 {

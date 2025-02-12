@@ -14,12 +14,12 @@ namespace PresentationLayer.Helper
             {
                 return Visibility.Visible;
             }
-            return Visibility.Collapsed; // Hides for other RoleIDs
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value; // No need for ConvertBack here
+            return value;
         }
     }
 }

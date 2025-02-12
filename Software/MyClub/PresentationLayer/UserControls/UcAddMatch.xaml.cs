@@ -28,6 +28,7 @@ namespace PresentationLayer.UserControls
     public partial class UcAddMatch : UserControl
     {
         MatchManagementService _matchManagementService = new MatchManagementService();
+        TrainingService _trainingService = new TrainingService();
         TeamService _teamService = new TeamService();
 
         public UcAddMatch()
@@ -65,32 +66,52 @@ namespace PresentationLayer.UserControls
 
         private void btnAddMatch_Click(object sender, RoutedEventArgs e)
         {
+            DateTime? selectedDate = dtMatchDate.SelectedDate;
+            if (selectedDate == null)
+            {
+                ShowToast("Please select a match date.");
+                return;
+            }
+            DateTime matchDate = selectedDate.Value;
+
+
             string opponentTeam = txtOpponent.Text;
             string location = txtLocation.Text;
             string startTime = txtStartTime.Text;
-            TimeSpan startTimeParsed = TimeSpan.Parse(startTime);
-            DateTime matchDate = dtMatchDate.SelectedDate.Value;
-            int teamId;
-            if (CurrentUser.User.RoleID == 1) //ako admin
+
+            if (!TimeSpan.TryParse(startTime, out TimeSpan startTimeParsed))
             {
-                teamId = (int)cmbTeams.SelectedValue;
+                ShowToast("Invalid time format. Please enter time in HH:mm format.");
+                return;
             }
-            else //ako coach
+
+            int teamId = cmbTeams.SelectedValue as int? ?? 0;
+
+            if (teamId == 0 && CurrentUser.User.RoleID == 1) //ako admin dodaje
+            {
+                ShowToast("Please select a team.");
+                return;
+            }
+
+            if (CurrentUser.User.RoleID == 2) //ako coach dodaje 
             {
                 teamId = (int)CurrentUser.User.TeamID;
             }
 
             bool matchExists = _matchManagementService.DoesMatchExist(teamId, matchDate, startTimeParsed);
+            bool trainingExists = _trainingService.DoesTrainingExist(teamId, matchDate, startTimeParsed);
 
-
-            //dodati logiku ako se stavlja utakmica u isto vrijeme kada je trening
             //dodati slanje e maila korisnicima nakon sto se zakaze utakmica
-
 
             string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
             if (matchExists)
             {
                 ShowToast("Match already exists on this date and time.");
+                return;
+            }
+            else if (trainingExists)
+            {
+                ShowToast("A training already exists on this date and time.");
                 return;
             }
             else if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
@@ -110,18 +131,25 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                var match = new EntitiesLayer.Entities.Match
+                try
                 {
-                    TeamID = teamId,
-                    MatchDate = matchDate,
-                    OpponentTeam = opponentTeam,
-                    Location = location,
-                    StartTime = startTimeParsed,
-                    Status = "Scheduled" //tu upise scheduled u bazu
-                };
-                _matchManagementService.AddMatch(match);
+                    var match = new EntitiesLayer.Entities.Match
+                    {
+                        TeamID = teamId,
+                        MatchDate = matchDate,
+                        OpponentTeam = opponentTeam,
+                        Location = location,
+                        StartTime = startTimeParsed,
+                        Status = "Scheduled"
+                    };
+                    _matchManagementService.AddMatch(match);
+                }
+                catch (Exception ex)
+                {
+                    ShowToast("Failed to add match: " + ex.Message);
+                    return;
+                }
             }
-
             GuiManager.CloseContent();
         }
 
