@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
              xmlns:helper="clr-namespace:PresentationLayer.Helper"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
@@ -15,6 +16,22 @@
             <GradientStop Color="#0A234B" Offset="0.0"/>
             <GradientStop Color="#1F3C88" Offset="1.0"/>
         </LinearGradientBrush>
+
+        <Style x:Key="RowHighlightStyle" TargetType="DataGridRow">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}" Value="True"/>
+                        <Condition Binding="{Binding Status}" Value="Scheduled"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Foreground" Value="Red"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
 
         <!-- Modern Button Style -->
         <Style x:Key="ButtonStyle" TargetType="Button">
@@ -75,7 +92,8 @@
               AutoGenerateColumns="False"
               AlternatingRowBackground="#E3E8F1"
               BorderThickness="1"
-              BorderBrush="#1F3C88">
+              BorderBrush="#1F3C88"
+              RowStyle="{StaticResource RowHighlightStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Team name" Binding="{Binding Team.Name}" Width="150"/>
                 <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}" Width="120"/>

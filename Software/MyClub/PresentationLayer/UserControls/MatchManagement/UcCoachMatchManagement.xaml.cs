@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using EntitiesLayer.Entities;
 using PresentationLayer.Helper;
 using System;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace PresentationLayer.UserControls
     public partial class UcCoachMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
+
+        public DateTime TodayDate => DateTime.Today;
 
         public UcCoachMatchManagement()
         {
@@ -51,7 +54,7 @@ namespace PresentationLayer.UserControls
                 }
                 dgCoachGrid.ItemsSource = fetchedMatches;
             }
-            else if (CurrentUser.User.RoleID == 2)
+            else
             {
                 int teamId = (int)CurrentUser.User.TeamID;
                 var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
@@ -62,9 +65,16 @@ namespace PresentationLayer.UserControls
                 }
                 dgCoachGrid.ItemsSource = fetchedMatches;
             }
-            else
+            if (CurrentUser.User.RoleID == 2)
             {
-                MessageBox.Show("You are not authorized to view this page.");
+                foreach (var item in dgCoachGrid.Items)
+                {
+                    var match = item as Match;
+                    if (match != null && match.MatchDate < DateTime.Now && match.Status == "Scheduled")
+                    {
+                        ShowToast("You have matches that have already been played. Please update the results.");
+                    }
+                }
             }
         }
 
