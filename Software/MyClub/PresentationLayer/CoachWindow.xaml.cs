@@ -31,7 +31,7 @@ namespace PresentationLayer
 
         private void btnMatchManagement_Click(object sender, RoutedEventArgs e)
         {
-            UcMatchManagement ucMatchManagement = new UcMatchManagement();
+            UcCoachMatchManagement ucMatchManagement = new UcCoachMatchManagement();
             contentPanel.Content = ucMatchManagement;
         }
         //Valec

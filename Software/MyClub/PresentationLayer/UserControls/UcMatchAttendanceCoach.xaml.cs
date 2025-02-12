@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer.Services;
+using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
@@ -138,11 +138,13 @@ namespace PresentationLayer.UserControls
                 matchManagement.ShowToast("Failed to mark attendance!");
             }
             GuiManager.OpenContent(matchManagement);
+            MessageBox.Show("Attendance saved successfully!");
+            GuiManager.CloseContent();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UcMatchManagement());
+            GuiManager.CloseContent();
         }
     }
 }

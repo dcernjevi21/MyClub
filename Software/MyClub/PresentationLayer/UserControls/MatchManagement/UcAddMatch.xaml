@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200">
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
+        <helper:RoleVisibilityConverter x:Key="RoleVisibilityConverter"/>
 
         <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#0A234B" Offset="0.0"/>
@@ -67,6 +69,13 @@
             <TextBox x:Name="txtStartTime" Margin="2" />
             <Label Content="Location:" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtLocation" Margin="2"/>
+            <Label Content="Team:" Margin="2" FontWeight="Bold"/>
+            <ComboBox x:Name="cmbTeams" 
+                  Visibility="{Binding CurrentUser.User.RoleID, Converter={StaticResource RoleVisibilityConverter}}"
+                  Margin="2" 
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="TeamID"/>
+
         </StackPanel>
         <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btnAddMatch" Content="Add match" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>

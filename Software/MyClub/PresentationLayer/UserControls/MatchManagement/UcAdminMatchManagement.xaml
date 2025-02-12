@@ -1,15 +1,13 @@
-﻿<UserControl x:Class="PresentationLayer.UserControls.UcMatchManagement"
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcAdminMatchManagement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
-             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+                          d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
 
         <!-- Gradient Background Style -->
         <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
@@ -86,17 +84,6 @@
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="70"/>
                 <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="50"/>
                 <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="180"/>
-                <DataGridTemplateColumn Header="Attendance" Width="Auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="btnAttendance" Width="100" Height="40"
-                                Content="Attendance"
-                                Style="{StaticResource ButtonStyle}"
-                                Click="btnAttendance_Click"
-                                IsEnabled="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -106,12 +93,10 @@
                 HorizontalAlignment="Center"
                 Margin="10">
                 <Button x:Name="btnAddMatch" Content="Add" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>
-                <Button x:Name="btnUpdateMatch" Content="Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
+                <Button x:Name="btnUpdateMatch" Content="Edit/Update" Style="{StaticResource ButtonStyle}" Click="btnUpdateMatch_Click"/>
                 <Button x:Name="btnDeleteMatch" Content="Remove" Style="{StaticResource ButtonStyle}" Click="btnDeleteMatch_Click"/>
-                <Button x:Name="btnPostponeMatch" Content="Postpone" Style="{StaticResource ButtonStyle}" Click="btnPostponeMatch_Click" Width="124"/>
+                <Button x:Name="btnCancelMatch" Content="Cancel match" Style="{StaticResource ButtonStyle}" Click="btnCancelMatch_Click" Width="124"/>
             </StackPanel>
         </Border>
-
     </Grid>
-
 </UserControl>
