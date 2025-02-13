@@ -86,15 +86,7 @@ namespace PresentationLayer.UserControls
 
             if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
             {
-                // Ako je korisnik trener, filtriraj po njegovom TeamID-u, a ako je admin, ne filtriraj po TeamID-u
-                if (CurrentUser.User.RoleID == 1)
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value); // null za TeamID znači da se filtrira za sve timove
-                }
-                else
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
-                }
+                fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
             }
             else if (cbFilterStatus.SelectedValue != null)
             {

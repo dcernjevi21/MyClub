@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
+        
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
@@ -19,6 +22,20 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="RowHighlightStyle" TargetType="DataGridRow">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding MatchDate, Converter={StaticResource DateToPastConverter}}" Value="False"/>
+                        <Condition Binding="{Binding Status}" Value="Scheduled"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -125,7 +142,7 @@
                 <ComboBoxItem Content="Draw"/>
             </ComboBox>
 
-            <Button x:Name="btnFilterMatches" Content="Filtriraj" Style="{StaticResource ButtonStyle}" Click="btnFilterMatches_Click"/>
+            <Button x:Name="btnFilterMatches" Content="Filter" Style="{StaticResource ButtonStyle}" Click="btnFilterMatches_Click"/>
             <Button x:Name="btnReload" Content="Reload matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
         </StackPanel>
 
@@ -137,19 +154,26 @@
              Width="980"
              Grid.Row="1"
              FontSize="14"
-             AutoGenerateColumns="False">
+             AutoGenerateColumns="False"
+             RowStyle="{StaticResource RowHighlightStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="150"/>
                     <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}" Width="120"/>
                     <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
-                    <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="120"/>
+                    <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="80"/>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="100"/>
-                    <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="100"/>
-                    <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="150"/>
-                    <DataGridTextColumn Header="Summary" Binding="{Binding Status}" Width="150"/>
+                    <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="60"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+                    <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="290"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="btnMarkAttendance" Content="Mark attendance" Width="120" Margin="0,20,0,0" Style="{StaticResource ButtonStyle}" Click="btnMarkAttendance_Click"></Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <Button Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
+            <Label x:Name="lblCurrentMonth" Content="Month" FontSize="16" FontWeight="Bold" Margin="10,0,10,0"/>
+            <Button Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

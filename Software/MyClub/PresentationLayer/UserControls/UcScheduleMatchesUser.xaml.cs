@@ -27,8 +27,11 @@ namespace PresentationLayer.UserControls
     public partial class UcScheduleMatchesUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
-        private TrainingService _trainingService = new TrainingService();
         private int teamId = CurrentUser.User.TeamID.GetValueOrDefault();
+
+        private List<Match> allMatches = new List<Match>(); //Cache 
+        private int currentMonth = DateTime.Now.Month;
+        private int currentYear = DateTime.Now.Year;
 
         public UcScheduleMatchesUser()
         {
@@ -42,12 +45,79 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
-            dgMatchGrid.ItemsSource = await _matchManagementService.GetMatchesByTeamId(teamId);
+            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
+
+            allMatches = fetchedMatches;
+            FilterMatchesByMonth();
+        }
+        private void FilterMatchesByMonth()
+        {
+            var filteredMatches = allMatches
+                .Where(m => m.MatchDate.Year == currentYear && m.MatchDate.Month == currentMonth).OrderBy(t => t.MatchDate).ToList();
+
+            dgMatchGrid.ItemsSource = filteredMatches;
+
+            lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}"; // Postavljanje naslova
         }
 
-        private void btnFilterMatches_Click(object sender, RoutedEventArgs e)
-        {
 
+        private async void btnFilterMatches_Click(object sender, RoutedEventArgs e)
+        {
+            List<Match> fetchedMatches = null;
+            int teamId = CurrentUser.User.TeamID.Value;
+            //prepraviti da ne dohvaca svaki put novo
+            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+            {
+                fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
+            }
+            else if (cbFilterStatus.SelectedValue != null)
+            {
+                if (cbFilterStatus.SelectedValue.ToString() == "Scheduled")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Scheduled");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Cancelled")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Cancelled");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Win")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Win");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Draw")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Draw");
+                }
+                else if (cbFilterStatus.SelectedValue.ToString() == "Lost")
+                {
+                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Lost");
+                }
+                else
+                {
+                    ShowToast("Please select a valid status to filter the matches.");
+                    return;
+                }
+            }
+            else
+            {
+                ShowToast("Please select a date or status to filter the matches.");
+                return;
+            }
+
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
+            else
+            {
+                dgMatchGrid.ItemsSource = fetchedMatches;
+            }
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
@@ -73,6 +143,34 @@ namespace PresentationLayer.UserControls
             {
                 ShowToast("Please select a match to mark attendance for.");
             }
+        }
+
+        private void btnPreviousMonth_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentMonth == 1)
+            {
+                currentMonth = 12;
+                currentYear--;
+            }
+            else
+            {
+                currentMonth--;
+            }
+            FilterMatchesByMonth();
+        }
+
+        private void btnNextMonth_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentMonth == 12)
+            {
+                currentMonth = 1;
+                currentYear++;
+            }
+            else
+            {
+                currentMonth++;
+            }
+            FilterMatchesByMonth();
         }
 
         public Match GetMatchAttendance()

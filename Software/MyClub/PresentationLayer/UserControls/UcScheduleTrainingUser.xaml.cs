@@ -26,9 +26,12 @@ namespace PresentationLayer.UserControls
     ///Černjević kompletno
     public partial class UcScheduleTrainingUser : UserControl
     {
-        private MatchManagementService _matchManagementService = new MatchManagementService();
         private TrainingService _trainingService = new TrainingService();
         private int teamId = CurrentUser.User.TeamID.GetValueOrDefault();
+
+        private List<Training> allTrainings = new List<Training>(); //Cache 
+        private int currentMonth = DateTime.Now.Month;
+        private int currentYear = DateTime.Now.Year;
 
         public UcScheduleTrainingUser()
         {
@@ -42,12 +45,32 @@ namespace PresentationLayer.UserControls
 
         public void LoadTrainings()
         {
-            dgTrainingGrid.ItemsSource = _trainingService.GetTrainingsForTeam(teamId); 
+            var fetchedTrainings = _trainingService.GetTrainingsForTeam(teamId);
+            if (fetchedTrainings == null || fetchedTrainings.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
+
+            allTrainings = fetchedTrainings;
+            FilterTrainingsByMonth();
         }
-       
+        private void FilterTrainingsByMonth()
+        {
+            var filteredTrainings = allTrainings
+                .Where(m => m.TrainingDate.Year == currentYear && m.TrainingDate.Month == currentMonth).OrderBy(t => t.TrainingDate).ToList();
+
+            dgTrainingGrid.ItemsSource = filteredTrainings;
+
+            lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
+        }
+
         private void btnFilterTrainings_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+            {
+                //fetchedTrainings = _trainingService.GetTrainingsByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
+            }
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
@@ -78,6 +101,34 @@ namespace PresentationLayer.UserControls
         public Training GetTrainingAttendance()
         {
             return dgTrainingGrid.SelectedItem as Training;
+        }
+
+        private void btnPreviousMonth_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentMonth == 1)
+            {
+                currentMonth = 12;
+                currentYear--;
+            }
+            else
+            {
+                currentMonth--;
+            }
+            FilterTrainingsByMonth();
+        }
+
+        private void btnNextMonth_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentMonth == 12)
+            {
+                currentMonth = 1;
+                currentYear++;
+            }
+            else
+            {
+                currentMonth++;
+            }
+            FilterTrainingsByMonth();
         }
 
         private void ShowToast(string message)

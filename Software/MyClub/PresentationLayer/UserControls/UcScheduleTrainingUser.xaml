@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             xmlns:helper="clr-namespace:PresentationLayer.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <helper:DateToPastConverter x:Key="DateToPastConverter"/>
+
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
@@ -19,6 +22,19 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="RowHighlightStyle" TargetType="DataGridRow">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding TrainingDate, Converter={StaticResource DateToPastConverter}}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -42,92 +58,22 @@
 
         <!-- Filter Controls -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10" VerticalAlignment="Center">
-            <Label Content="Filter by:" VerticalAlignment="Center" 
+            <Label Content="Filter by date:" VerticalAlignment="Center" 
    Foreground="Black" FontWeight="Bold" Margin="0,0,10,0"/>
-            <ComboBox x:Name="cbFilterBy" Width="150" Margin="0,0,10,0" SelectedValuePath="Content" SelectedIndex="0" VerticalAlignment="Center">
-                <ComboBoxItem Content="date"/>
-                <ComboBoxItem Content="status"/>
-            </ComboBox>
-            <!-- Start date Label i DatePicker sa DataTrigger-om -->
             <Label Content="Start date:" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" Margin="0,0,10,0">
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Style.Triggers>
-                            <!-- Sakrij Labelu kad nije odabrano 'date' -->
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
             </Label>
             <DatePicker x:Name="dpFilterStartDate" Margin="0,0,10,0" VerticalAlignment="Center">
-                <DatePicker.Style>
-                    <Style TargetType="DatePicker">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DatePicker.Style>
-            </DatePicker>
+                         </DatePicker>
 
-            <!-- End date Label i DatePicker sa DataTrigger-om -->
             <Label Content="End date:" VerticalAlignment="Center"  Foreground="Black" FontWeight="Bold" Margin="0,0,10,0">
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Style.Triggers>
-                            <!-- Sakrij Labelu kad nije odabrano 'date' -->
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
+               
             </Label>
             <DatePicker x:Name="dpFilterEndDate" Margin="0,0,10,0" VerticalAlignment="Center">
-                <DatePicker.Style>
-                    <Style TargetType="DatePicker">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DatePicker.Style>
+
             </DatePicker>
 
-            <!-- ComboBox za status -->
-            <ComboBox x:Name="cbFilterStatus" Width="150" VerticalAlignment="Center" SelectedValuePath="Content">
-                <ComboBox.Style>
-                    <Style TargetType="ComboBox">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ComboBox.Style>
-                <ComboBoxItem Content="- Select a status -" IsSelected="True"/>
-                <ComboBoxItem Content="Scheduled"/>
-                <ComboBoxItem Content="Cancelled"/>
-                <ComboBoxItem Content="Win"/>
-                <ComboBoxItem Content="Lost"/>
-                <ComboBoxItem Content="Draw"/>
-            </ComboBox>
-
-            <Button x:Name="btnFilterTrainings" Content="Filtriraj" Style="{StaticResource ButtonStyle}" Click="btnFilterTrainings_Click"/>
-            <Button x:Name="btnReload" Content="Reload matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
+            <Button x:Name="btnFilterTrainings" Content="Filter" Style="{StaticResource ButtonStyle}" Click="btnFilterTrainings_Click"/>
+            <Button x:Name="btnReload" Content="Reload trainings" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
         </StackPanel>
 
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
@@ -138,7 +84,8 @@
                  Width="auto"
                  Grid.Row="1"
                  FontSize="14"
-                 AutoGenerateColumns="False">
+                 AutoGenerateColumns="False"
+                 RowStyle="{StaticResource RowHighlightStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date" 
                       Binding="{Binding TrainingDate}" 
@@ -156,6 +103,12 @@
             </DataGrid>
             
             <Button x:Name="btnMarkAttendance" Content="Mark attendance" Width="120" Margin="0,20,0,0" Style="{StaticResource ButtonStyle}" Click="btnMarkAttendance_Click"></Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <Button Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
+            <Label x:Name="lblCurrentMonth" Content="Month" FontSize="16" FontWeight="Bold" Margin="10,0,10,0"/>
+            <Button Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -44,7 +44,7 @@ namespace PresentationLayer
         private void btnTrainingSchedule_Click(object sender, RoutedEventArgs e)
         {
             //Černjević
-            if (CurrentUser.User.TeamID == null)
+            if (!CurrentUser.User.TeamID.HasValue)
             {
                 ShowToast("You aren't assigned to a team.");
                 GuiManager.CloseContent();
