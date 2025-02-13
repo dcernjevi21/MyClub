@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -165,7 +165,7 @@
     <Compile Include="UserControls\UcAddTraining.xaml.cs">
       <DependentUpon>UcAddTraining.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditTraining.xaml.cs">
+    <Compile Include="UserControls\Profile\UcEditTraining.xaml.cs">
       <DependentUpon>UcEditTraining.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MatchManagement\UcCoachMatchManagement.xaml.cs">
@@ -181,13 +181,13 @@
     <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditProfile.xaml.cs">
+    <Compile Include="UserControls\Profile\UcEditProfile.xaml.cs">
       <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcProfileAdmin.xaml.cs">
+    <Compile Include="UserControls\Profile\UcProfileAdmin.xaml.cs">
       <DependentUpon>UcProfileAdmin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcProfileUser.xaml.cs">
+    <Compile Include="UserControls\Profile\UcProfileUser.xaml.cs">
       <DependentUpon>UcProfileUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MatchManagement\UcAddMatch.xaml.cs">
@@ -302,11 +302,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditTraining.xaml">
+    <Page Include="UserControls\Profile\UcEditTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfile.xaml">
+    <Page Include="UserControls\Profile\UcEditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,11 +318,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfileAdmin.xaml">
+    <Page Include="UserControls\Profile\UcProfileAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfileUser.xaml">
+    <Page Include="UserControls\Profile\UcProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
