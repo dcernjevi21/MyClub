@@ -38,15 +38,64 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.104.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.104.2\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.Parser.1.2.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RBush.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -66,10 +115,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
+    <Compile Include="Helper\AthleteReportModel.cs" />
     <Compile Include="Helper\AttendanceViewModel.cs" />
     <Compile Include="Helper\DateToPastConverter.cs" />
+    <Compile Include="Helper\DocumentationHelper.cs" />
+    <Compile Include="Helper\RoleVisibilityConverter.cs" />
+    <Compile Include="UserControls\MatchManagement\UcAdminMatchManagement.xaml.cs">
+      <DependentUpon>UcAdminMatchManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCAthleteEvaluations.xaml.cs">
+      <DependentUpon>UCAthleteEvaluations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcAttendanceReport.xaml.cs">
+      <DependentUpon>UcAttendanceReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToastWindow.xaml.cs">
       <DependentUpon>ToastWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCCoachEvaluation.xaml.cs">
+      <DependentUpon>UCCoachEvaluation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcDeleteConfirmation.xaml.cs">
+      <DependentUpon>UcDeleteConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MatchManagement\UcEditMatch.xaml.cs">
+      <DependentUpon>UcEditMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
       <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
@@ -80,8 +150,8 @@
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcAttendancesUser.xaml.cs">
-      <DependentUpon>UcAttendancesUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcScheduleUser.xaml.cs">
+      <DependentUpon>UcScheduleUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
@@ -89,20 +159,20 @@
     <Compile Include="UserControls\UCManageMemberships.xaml.cs">
       <DependentUpon>UCManageMemberships.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcUpdateMatch.xaml.cs">
+    <Compile Include="UserControls\MatchManagement\UcUpdateMatch.xaml.cs">
       <DependentUpon>UcUpdateMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcAddTraining.xaml.cs">
       <DependentUpon>UcAddTraining.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditTraining.xaml.cs">
+    <Compile Include="UserControls\Profile\UcEditTraining.xaml.cs">
       <DependentUpon>UcEditTraining.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcMatchManagement.xaml.cs">
-      <DependentUpon>UcMatchManagement.xaml</DependentUpon>
+    <Compile Include="UserControls\MatchManagement\UcCoachMatchManagement.xaml.cs">
+      <DependentUpon>UcCoachMatchManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcPostponeMatch.xaml.cs">
-      <DependentUpon>UcPostponeMatch.xaml</DependentUpon>
+    <Compile Include="UserControls\MatchManagement\UcCancelMatch.xaml.cs">
+      <DependentUpon>UcCancelMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcTrainingsAdmin.xaml.cs">
       <DependentUpon>UcTrainingsAdmin.xaml</DependentUpon>
@@ -111,16 +181,16 @@
     <Compile Include="UserControls\UCRegistrationRequests.xaml.cs">
       <DependentUpon>UCRegistrationRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcEditProfile.xaml.cs">
+    <Compile Include="UserControls\Profile\UcEditProfile.xaml.cs">
       <DependentUpon>UcEditProfile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcProfileAdmin.xaml.cs">
+    <Compile Include="UserControls\Profile\UcProfileAdmin.xaml.cs">
       <DependentUpon>UcProfileAdmin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcProfileUser.xaml.cs">
+    <Compile Include="UserControls\Profile\UcProfileUser.xaml.cs">
       <DependentUpon>UcProfileUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcAddMatch.xaml.cs">
+    <Compile Include="UserControls\MatchManagement\UcAddMatch.xaml.cs">
       <DependentUpon>UcAddMatch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcUserMyAttendances.xaml.cs">
@@ -154,7 +224,6 @@
     <Compile Include="CoachWindow.xaml.cs">
       <DependentUpon>CoachWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GuiManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -177,11 +246,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\MatchManagement\UcAdminMatchManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCAthleteEvaluations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCCoachEvaluation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcDeleteConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MatchManagement\UcEditMatch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\UCManageMemberships.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcAttendancesUser.xaml">
+    <Page Include="UserControls\UcAttendanceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcScheduleUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,7 +294,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcUpdateMatch.xaml">
+    <Page Include="UserControls\MatchManagement\UcUpdateMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,27 +302,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditTraining.xaml">
+    <Page Include="UserControls\Profile\UcEditTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcEditProfile.xaml">
+    <Page Include="UserControls\Profile\UcEditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcMatchManagement.xaml">
+    <Page Include="UserControls\MatchManagement\UcCoachMatchManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcPostponeMatch.xaml">
+    <Page Include="UserControls\MatchManagement\UcCancelMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfileAdmin.xaml">
+    <Page Include="UserControls\Profile\UcProfileAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcProfileUser.xaml">
+    <Page Include="UserControls\Profile\UcProfileUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,7 +330,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcAddMatch.xaml">
+    <Page Include="UserControls\MatchManagement\UcAddMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -281,6 +374,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\MyClub-admin.pdf" />
+    <None Include="Resources\MyClub-coach.pdf" />
+    <None Include="Resources\MyClub-user.pdf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -289,10 +385,6 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
       <Project>{2a1de6db-81da-440c-9f47-01abbe39a566}</Project>
       <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{F45FE330-52B2-4488-8459-268DB5883BAF}</Project>
-      <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{138c4ad9-7ea3-41ab-830b-25aa7f80efe3}</Project>

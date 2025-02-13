@@ -8,18 +8,37 @@
              d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
     <UserControl.Resources>
 
+        <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0A234B" Offset="0.0"/>
+            <GradientStop Color="#1F3C88" Offset="1.0"/>
+        </LinearGradientBrush>
+
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Background" Value="#1F3C88"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="BorderBrush" Value="#041633"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -31,8 +50,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#0A234B" Grid.Row="0" Padding="15">
-            <TextBlock Text="Match management"
+        <Border Background="{StaticResource GradientBackground}" Grid.Row="0" Padding="15">
+            <TextBlock Text="Edit profile"
                Foreground="White"
                FontSize="26"
                FontWeight="Bold"
@@ -40,11 +59,15 @@
                VerticalAlignment="Center"/>
         </Border>
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2" Margin="0,50,0,0">
+            <Label Content="Ime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtFirstName" Grid.Column="1" Grid.Row="0" Margin="2"/>
+            <Label Content="Prezime:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
+            <TextBox x:Name="txtLastName" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="Email:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
             <TextBox x:Name="txtEmail" Grid.Column="1" Grid.Row="0" Margin="2"/>
             <Label Content="New password:" Grid.Column="0" Grid.Row="1" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtPassword" Grid.Column="1" Grid.Row="1" Margin="2"/>
-            <Label Content="Confirm password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
+            <Label Content="Confirm new password:" Grid.Column="0" Grid.Row="2" Margin="2" FontWeight="Bold"/>
             <TextBox x:Name="txtConfirmPassword" Grid.Column="1" Grid.Row="2" Margin="2"/>
             <Label Content="Drop profile picture:" x:Name="lblProfilePicture" Grid.Column="0" Grid.Row="3" Margin="2" VerticalAlignment="Center" FontWeight="Bold"/>
             <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5" Width="120" Height="100" Grid.Column="1" Grid.Row="3">

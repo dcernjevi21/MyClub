@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.EntityRepositories;
+using DataAccessLayer.EntityRepository;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Valec kompletno
 namespace BusinessLogicLayer
 {
     public class TrainingService
@@ -82,5 +84,16 @@ namespace BusinessLogicLayer
             }
         }
 
+        //Černjević
+        public bool DoesTrainingExist(int teamId, DateTime matchDate, TimeSpan startTime)
+        {
+            using (var repo = new TrainingRepository())
+            {
+                return repo.GetAll().Any(t =>
+                    t.TeamID == teamId &&
+                    t.TrainingDate == matchDate &&
+                    t.StartTime == startTime);
+            }
+        }
     }
 }

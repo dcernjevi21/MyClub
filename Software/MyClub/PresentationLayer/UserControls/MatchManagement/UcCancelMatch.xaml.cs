@@ -22,11 +22,11 @@ namespace PresentationLayer.UserControls
     /// </summary>
     ///
     ///Černjević kompletno
-    public partial class UcPostponeMatch : UserControl
+    public partial class UcCancelMatch : UserControl
     {
         private EntitiesLayer.Entities.Match match;
 
-        public UcPostponeMatch(EntitiesLayer.Entities.Match fetchedMatch)
+        public UcCancelMatch(EntitiesLayer.Entities.Match fetchedMatch)
         {
             InitializeComponent();
             match = fetchedMatch;
@@ -37,13 +37,13 @@ namespace PresentationLayer.UserControls
             toast.Show();
         }
 
-        private void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
+        private void btnCancelMatch_Click(object sender, RoutedEventArgs e)
         {
             var _matchService = new MatchManagementService();
             if (match == null)
             {
                 ShowToast("Match not found!");
-                return;
+                GuiManager.CloseContent();
             }
 
             string explanation = txtExplanation.Text;
@@ -54,24 +54,30 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                //ne upise cancelled u bazu
-                match.Status = "Cancelled";
-                match.Summary = explanation;
-                bool a = _matchService.UpdateMatch(match);
-                if (a)
-                {
-                    ShowToast("Match updated successfully!");
-                }
-                else
-                {
-                    ShowToast("Match update failed!");
-                }
-            }
+                MessageBoxResult result = MessageBox.Show(
+                    "Are you sure you want to cancel this match",
+                    "Confirm cancelation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
 
-            GuiManager.CloseContent();
+                if (result == MessageBoxResult.Yes)
+                {
+                    match.Status = "Cancelled";
+                    match.Summary = explanation;
+                    bool a = _matchService.UpdateMatch(match);
+                    if (a)
+                    {
+                        ShowToast("Match cancelled successfully!");
+                    }
+                    else
+                    {
+                        ShowToast("Match cancelation failed!");
+                    }
+                } 
+            }
         }
 
-            private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.CloseContent();
         }

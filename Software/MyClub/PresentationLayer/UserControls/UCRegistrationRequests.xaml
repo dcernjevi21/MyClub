@@ -44,10 +44,26 @@
         </Style>
     </UserControl.Resources>
 
+
     <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="Registration requests"
+            Foreground="White"
+            FontSize="26"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        </Border>
+
+
         <DataGrid Name="dataGridUsers" AutoGenerateColumns="False" CanUserSortColumns="False" SelectionMode="Single" 
                   Margin="10" CanUserReorderColumns="False" CanUserResizeColumns="False" Background="#FFF0F4FF" FontSize="14" 
-                  IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto">
+                  IsReadOnly="True"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="Auto" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="150"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="150"/>

@@ -2,6 +2,7 @@
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,12 @@ namespace BusinessLogicLayer.Services
 {
     public class MatchManagementService
     {
-        public List<Match> GetMatches()
+        public async Task<List<Match>> GetMatches()
         {
             using (var repo = new MatchManagementRepository())
             {
-                return repo.GetAllMatches().ToList();
+                var matches = await repo.GetAllMatches().ToListAsync();
+                return matches;
             }
         }
 
@@ -26,11 +28,27 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public List<Match> GetMatchesByTeamId(int teamId)
+        public async Task<List<Match>> GetMatchesByTeamId(int teamId)
         {
             using (var repo = new MatchManagementRepository())
             {
-                return repo.GetMatchesByTeamId(teamId).ToList();
+                return await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
+            }
+        }
+
+        public async Task<List<Match>> GetMatchesByStatus(int? teamId, string status)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return await repo.GetMatchesByStatus(teamId, status)?.ToListAsync() ?? new List<Match>();
+            }
+        }
+
+        public async Task<List<Match>> GetMatchesByDate(int? teamId, DateTime startDate, DateTime endDate)
+        {
+            using (var repo = new MatchManagementRepository())
+            {
+                return await repo.GetMatchesByDate(teamId, startDate, endDate)?.ToListAsync() ?? new List<Match>();
             }
         }
 

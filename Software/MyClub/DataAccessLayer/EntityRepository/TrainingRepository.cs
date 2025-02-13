@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Valec kompletno
 namespace DataAccessLayer.EntityRepositories
 {
     public class TrainingRepository : Repository<Training>
@@ -56,6 +57,7 @@ namespace DataAccessLayer.EntityRepositories
         public override IQueryable<Training> GetAll()
         {
             var query = from t in Entities.Include("Team")
+                        orderby t.TrainingDate ascending
                         select t;
             return query;
         }
