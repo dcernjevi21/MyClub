@@ -144,14 +144,17 @@
     <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
       <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcScheduleMatchesUser.xaml.cs">
+      <DependentUpon>UcScheduleMatchesUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UcTrainingAttendanceCoach.xaml.cs">
       <DependentUpon>UcTrainingAttendanceCoach.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcScheduleUser.xaml.cs">
-      <DependentUpon>UcScheduleUser.xaml</DependentUpon>
+    <Compile Include="UserControls\UcScheduleTrainingUser.xaml.cs">
+      <DependentUpon>UcScheduleTrainingUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
@@ -274,7 +277,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcScheduleUser.xaml">
+    <Page Include="UserControls\UcScheduleMatchesUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UcScheduleTrainingUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

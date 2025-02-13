@@ -24,44 +24,41 @@ namespace PresentationLayer.UserControls
     /// </summary>
     /// 
     ///Černjević kompletno
-    public partial class UcScheduleUser : UserControl
+    public partial class UcScheduleTrainingUser : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
         private TrainingService _trainingService = new TrainingService();
-        private int teamId = CurrentUser.User.TeamID.Value;
+        private int teamId = CurrentUser.User.TeamID.GetValueOrDefault();
 
-        public UcScheduleUser()
+        public UcScheduleTrainingUser()
         {
             InitializeComponent();
-        
-        }
-
-        private void ShowToast(string message)
-        {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
         }
 
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTrainings();
-            _ = LoadMatches(); //fire and forget
         }
 
         public void LoadTrainings()
         {
-            dgTrainingGrid.ItemsSource = _trainingService.GetTrainingsForTeam((int)CurrentUser.User.TeamID);
+            dgTrainingGrid.ItemsSource = _trainingService.GetTrainingsForTeam(teamId); 
         }
-        public async Task LoadMatches()
+       
+        private void btnFilterTrainings_Click(object sender, RoutedEventArgs e)
         {
-            dgMatchGrid.ItemsSource = await _matchManagementService.GetMatchesByTeamId((int)CurrentUser.User.TeamID);
+
+        }
+
+        private void btnReload_Click(object sender, RoutedEventArgs e)
+        {
+            LoadTrainings();
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)
         {
-            Match match = GetMatchAttendance();
             Training training = GetTrainingAttendance();
-            if (match == null && training != null)
+            if (training != null)
             {
                 if (DateTime.Now < training.TrainingDate)
                 {
@@ -72,30 +69,21 @@ namespace PresentationLayer.UserControls
                     MessageBox.Show("Cannot mark attendance for past training sessions.");
                 }
             }
-            else if (match != null && training == null)
-            {
-                if (DateTime.Now < match.MatchDate)
-                {
-                    GuiManager.OpenContent(new UcMarkAttendance(0, match.MatchID, null, match));
-                }
-                else
-                {
-                    MessageBox.Show("Cannot mark attendance for past matches.");
-                }
-            }
             else
             {
-                ShowToast("Please select a match or training to mark attendance for.");
+                ShowToast("Please select a training to mark attendance for.");
             }
         }
 
-        public Match GetMatchAttendance()
-        {
-            return dgMatchGrid.SelectedItem as Match;
-        }
         public Training GetTrainingAttendance()
         {
             return dgTrainingGrid.SelectedItem as Training;
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

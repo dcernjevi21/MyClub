@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="PresentationLayer.UserControls.UcScheduleMatchesUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A234B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A234B" Grid.Row="0" Padding="15">
+            <TextBlock Text="My Schedule"
+               Foreground="White"
+               FontSize="26"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Filter Controls -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10" VerticalAlignment="Center">
+            <Label Content="Filter by:" VerticalAlignment="Center" 
+   Foreground="Black" FontWeight="Bold" Margin="0,0,10,0"/>
+            <ComboBox x:Name="cbFilterBy" Width="150" Margin="0,0,10,0" SelectedValuePath="Content" SelectedIndex="0" VerticalAlignment="Center">
+                <ComboBoxItem Content="date"/>
+                <ComboBoxItem Content="status"/>
+            </ComboBox>
+            <!-- Start date Label i DatePicker sa DataTrigger-om -->
+            <Label Content="Start date:" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" Margin="0,0,10,0">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Style.Triggers>
+                            <!-- Sakrij Labelu kad nije odabrano 'date' -->
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <DatePicker x:Name="dpFilterStartDate" Margin="0,0,10,0" VerticalAlignment="Center">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+
+            <!-- End date Label i DatePicker sa DataTrigger-om -->
+            <Label Content="End date:" VerticalAlignment="Center"  Foreground="Black" FontWeight="Bold" Margin="0,0,10,0">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Style.Triggers>
+                            <!-- Sakrij Labelu kad nije odabrano 'date' -->
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <DatePicker x:Name="dpFilterEndDate" Margin="0,0,10,0" VerticalAlignment="Center">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="date">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+
+            <!-- ComboBox za status -->
+            <ComboBox x:Name="cbFilterStatus" Width="150" VerticalAlignment="Center" SelectedValuePath="Content">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedValue, ElementName=cbFilterBy}" Value="status">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+                <ComboBoxItem Content="- Select a status -" IsSelected="True"/>
+                <ComboBoxItem Content="Scheduled"/>
+                <ComboBoxItem Content="Cancelled"/>
+                <ComboBoxItem Content="Win"/>
+                <ComboBoxItem Content="Lost"/>
+                <ComboBoxItem Content="Draw"/>
+            </ComboBox>
+
+            <Button x:Name="btnFilterMatches" Content="Filtriraj" Style="{StaticResource ButtonStyle}" Click="btnFilterMatches_Click"/>
+            <Button x:Name="btnReload" Content="Reload matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
+        </StackPanel>
+
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
+            <Label Content="Matches" Grid.Column="2" Grid.Row="2" Margin="0,50,0,0" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+            <DataGrid x:Name="dgMatchGrid" HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+             Height="auto"
+             Width="980"
+             Grid.Row="1"
+             FontSize="14"
+             AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="150"/>
+                    <DataGridTextColumn Header="OpponentTeam" Binding="{Binding OpponentTeam}" Width="120"/>
+                    <DataGridTextColumn Header="MatchDate" Binding="{Binding MatchDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="100"/>
+                    <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}" Width="120"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="100"/>
+                    <DataGridTextColumn Header="Result" Binding="{Binding Result}" Width="100"/>
+                    <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="150"/>
+                    <DataGridTextColumn Header="Summary" Binding="{Binding Status}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="btnMarkAttendance" Content="Mark attendance" Width="120" Margin="0,20,0,0" Style="{StaticResource ButtonStyle}" Click="btnMarkAttendance_Click"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
