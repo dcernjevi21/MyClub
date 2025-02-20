@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
+using EntitiesLayer.Entities;
 
 namespace PresentationLayer
 {
@@ -29,20 +30,45 @@ namespace PresentationLayer
             GuiManager.SetMainWindow(this);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GuiManager.CurrentWindow = this;
+        }
+
         //černjević
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UcProfileUser());
         }
-        //Valec
-        private void btnAttendances_Click(object sender, RoutedEventArgs e)
-        {
-            GuiManager.OpenContent(new UcScheduleUser());
-        }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void btnTrainingSchedule_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.CurrentWindow = this;
+            //Černjević
+            if (!CurrentUser.User.TeamID.HasValue)
+            {
+                ShowToast("You aren't assigned to a team.");
+                GuiManager.CloseContent();
+                return;
+            }
+            //Valec
+            else
+            {
+                GuiManager.OpenContent(new UcScheduleTrainingUser());
+            } 
+        }
+        //Černjević
+        private void btnMatchSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentUser.User.TeamID == null)
+            {
+                ShowToast("You aren't assigned to a team.");
+                GuiManager.CloseContent();
+                return;
+            }
+            else
+            {
+                GuiManager.OpenContent(new UcScheduleMatchesUser());
+            }
         }
 
         private void btnMyMembership_Click(object sender, RoutedEventArgs e)
@@ -97,6 +123,12 @@ namespace PresentationLayer
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
+        }
+
+        private void ShowToast(string message)
+        {
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

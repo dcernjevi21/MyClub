@@ -12,6 +12,7 @@
         MinWidth="1200" 
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen"
         KeyDown="UserControl_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -14,19 +14,20 @@
         </LinearGradientBrush>
 
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#1F3C88"/>
+            <Setter Property="Background" Value="#0A234B"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Margin" Value="8"/>
-            <Setter Property="Width" Value="130"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="#041633"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="8" Color="Black" ShadowDepth="2"/>
+                    <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="2"/>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>

@@ -1,10 +1,10 @@
 ﻿using System;
-using BusinessLogicLayer;
 using System.Windows;
 using System.Windows.Controls;
 using PresentationLayer.Helper;
 using System.Text.RegularExpressions;
 using BusinessLogicLayer.Services;
+using BusinessLogicLayer;
 
 namespace PresentationLayer.UserControls
 {
@@ -32,6 +32,10 @@ namespace PresentationLayer.UserControls
             {
                 LoadTeams();
             }
+            else
+            {
+                cmbTeams.Text = CurrentUser.User.Team.Name; 
+            }
         }
 
         private async void LoadTeams()
@@ -57,10 +61,11 @@ namespace PresentationLayer.UserControls
             }
             DateTime matchDate = selectedDate.Value;
 
-
             string opponentTeam = txtOpponent.Text;
             string location = txtLocation.Text;
             string startTime = txtStartTime.Text;
+
+            string timePattern = @"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
 
             if (!TimeSpan.TryParse(startTime, out TimeSpan startTimeParsed))
             {
@@ -80,13 +85,23 @@ namespace PresentationLayer.UserControls
             {
                 teamId = (int)CurrentUser.User.TeamID;
             }
+            
+            if (matchDate < DateTime.Now || matchDate == DateTime.Now)
+            {
+                ShowToast("Match date cannot be in the past or today.");
+                return;
+            }
+            if (!Regex.IsMatch(startTime, timePattern))
+            {
+                ShowToast("Invalid time format. Please enter time in HH:mm format.");
+                return;
+            }
 
             bool matchExists = _matchManagementService.DoesMatchExist(teamId, matchDate, startTimeParsed);
             bool trainingExists = _trainingService.DoesTrainingExist(teamId, matchDate, startTimeParsed);
 
             //dodati slanje e maila korisnicima nakon sto se zakaze utakmica
 
-            string timePattern = @"^([01]\d|2[0-3]):[0-5]\d$"; // HH:mm format (24h)
             if (matchExists)
             {
                 ShowToast("Match already exists on this date and time.");
@@ -100,16 +115,6 @@ namespace PresentationLayer.UserControls
             else if (string.IsNullOrEmpty(opponentTeam) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(startTime) || dtMatchDate.SelectedDate == null)
             {
                 ShowToast("Please fill in all fields.");
-                return;
-            }
-            else if (matchDate < DateTime.Now || matchDate == DateTime.Now)
-            {
-                ShowToast("Match date cannot be in the past or today.");
-                return;
-            }
-            else if (!Regex.IsMatch(startTime, timePattern))
-            {
-                ShowToast("Invalid time format. Please enter time in HH:mm format.");
                 return;
             }
             else

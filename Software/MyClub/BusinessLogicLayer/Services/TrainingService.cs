@@ -12,6 +12,8 @@ namespace BusinessLogicLayer
 {
     public class TrainingService
     {
+        private List<Training> _cachedTrainings = new List<Training>();
+
         public List<Training> GetTrainings()
         {
             using (var repo = new TrainingRepository())
@@ -25,52 +27,81 @@ namespace BusinessLogicLayer
         {
             using (var repo = new TrainingRepository())
             {
-                List<Training> trainings = repo.GetAll()
+               
+                    _cachedTrainings = repo.GetAll()
                                                .Where(t => t.TeamID == teamId)
                                                .OrderBy(t => t.TrainingDate)
                                                .ToList();
-                return trainings;
+                return _cachedTrainings;
             }
         }
 
+        public List<Training> GetTrainingsForMonth(int year, int month)
+        {
+            return _cachedTrainings
+                .Where(t => t.TrainingDate.Year == year && t.TrainingDate.Month == month)
+                .OrderBy(t => t.TrainingDate)
+                .ToList();
+        }
+
+        public List<Training> FilterTrainings(DateTime? startDate, DateTime? endDate)
+        {
+            var filteredTrainigs = _cachedTrainings.AsQueryable();
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                filteredTrainigs = filteredTrainigs
+                    .Where(m => m.TrainingDate >= startDate.Value && m.TrainingDate <= endDate.Value)
+                    .OrderBy(m => m.TrainingDate);
+            }
+
+            var result = filteredTrainigs.ToList();
+
+            return result;
+        }
 
         public bool AddTraining(Training training)
         {
-            bool isSuccessful = false;
-
             using (var repo = new TrainingRepository())
             {
                 int affectedRows = repo.Add(training);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    _cachedTrainings = new List<Training>();
+                    return true;
+                }
+                return false;
             }
-
-            return isSuccessful;
         }
 
         public bool UpdateTraining(Training training)
         {
-            bool isSuccessful = false;
-
             using (var repo = new TrainingRepository())
             {
                 int affectedRows = repo.Update(training);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    _cachedTrainings = new List<Training>();
+                    return true;
+                }
+                return false;
             }
-
-            return isSuccessful;
         }
 
         public bool RemoveTraining(Training training)
         {
-            bool isSuccessful = false;
-
             using (var repo = new TrainingRepository())
             {
                 int affectedRows = repo.Remove(training);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    _cachedTrainings = new List<Training>();
+                    return true;
+                }
+                return false;
             }
-
-            return isSuccessful;
         }
 
         public List<Team> GetTeams()
