@@ -44,6 +44,7 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
+            var fetchedMatches = new List<Match>();
             if (!CurrentUser.User.TeamID.HasValue && CurrentUser.User.RoleID == 2)
             {
                 ShowToast("You aren't assigned to a team.");
@@ -52,7 +53,7 @@ namespace PresentationLayer.UserControls
 
             if (CurrentUser.User.RoleID == 1)
             {
-                var fetchedMatches = await _matchManagementService.GetMatches();
+                fetchedMatches = await _matchManagementService.GetMatches();
                 
                 if (fetchedMatches == null || fetchedMatches.Count == 0)
                 {
@@ -60,20 +61,12 @@ namespace PresentationLayer.UserControls
                     return;
                 }
 
-                foreach (var item in fetchedMatches)
-                {
-                    if (item.Status != "Scheduled" && item.Status != "Cancelled")
-                    {
-                        totalMatches++;
-                    }
-                }
-
                 UpdateMatchesDisplay();
             }
             else
             {
                 int teamId = (int)CurrentUser.User.TeamID;
-                var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+                fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
                 if (fetchedMatches == null || fetchedMatches.Count == 0)
                 {
                     MessageBox.Show("There are no data to be shown.");
@@ -88,6 +81,14 @@ namespace PresentationLayer.UserControls
                     }
                 }
                 UpdateMatchesDisplay();
+            }
+
+            foreach(var item in fetchedMatches)
+            {
+                if (item != null && item.Status != "Scheduled" && item.Status != "Cancelled")
+                {
+                    totalMatches++;
+                }
             }
         }
 
