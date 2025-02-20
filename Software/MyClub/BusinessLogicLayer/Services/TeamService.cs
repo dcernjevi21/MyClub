@@ -19,5 +19,14 @@ namespace BusinessLogicLayer.Services
                 return teams;
             }
         }
+        //černjević
+        public async Task<List<Team>> GetTeamsAsync()
+        {
+            using (var repo = new TeamRepository())
+            {
+                List<Team> teams = repo.GetAll().ToList();
+                return teams;
+            }
+        }
     }
 }

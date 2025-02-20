@@ -11,12 +11,14 @@
         MinWidth="1200"
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen"
         KeyDown="UserControl_KeyDown">
     <DockPanel>
         <StackPanel x:Name="navPanel" DockPanel.Dock="Left" Width="200" Background="#0A234B">
             <Image Source="./Assets/MyClub.jpg" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 -50" />
             <Label Content="MENU" FontWeight="Bold" FontSize="26" HorizontalContentAlignment="Center" Background="#0A234B" Foreground="White" Margin="10"></Label>
-            <Button x:Name="btnAttendances" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="Schedule" Background="#0A234B" Foreground="White" Padding="10" Click="btnAttendances_Click"></Button>
+            <Button x:Name="btnTrainingSchedule" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="My Training Schedule" Background="#0A234B" Foreground="White" Padding="10" Click="btnTrainingSchedule_Click"></Button>
+            <Button x:Name="btnMatchSchedule" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="My Match Schedule" Background="#0A234B" Foreground="White" Padding="10" Click="btnMatchSchedule_Click"></Button>
             <Button x:Name="btnMyMembership" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="My Memberships" Background="#0A234B" Foreground="White" Padding="10" Click="btnMyMembership_Click"></Button>
             <Button x:Name="btnEditProfile" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="My profile" Background="#0A234B" Foreground="White" Padding="10" Click="btnEditProfile_Click"></Button>
             <Button x:Name="btnMyEvaluation" BorderBrush="#041633" BorderThickness="0 0 6 6" Margin="0 0 0 0" FontSize="18" Content="My Evaluations" Background="#0A234B" Foreground="White" Padding="10" Click="btnMyEvaluations_Click"></Button>

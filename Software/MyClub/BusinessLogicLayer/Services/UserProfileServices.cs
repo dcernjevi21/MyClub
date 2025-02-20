@@ -13,6 +13,16 @@ namespace BusinessLogicLayer
 {
     public class UserProfileServices
     {
+        public bool ValidateName(string name)
+        {
+            string namePattern = @"^[A-Z][a-z]+(?: [A-Z][a-z]+)?$";
+
+            bool isNameValid = string.IsNullOrEmpty(name) || Regex.IsMatch(name, namePattern);
+
+            return isNameValid;
+        }
+
+
         public bool ValidateEmail(string email)
         {
             string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
@@ -42,11 +52,11 @@ namespace BusinessLogicLayer
             return isSuccessful;
         }
 
-        public List<User> GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetUserByEmail(email).ToList();
+                return repo.GetUserByEmail(email).FirstOrDefault();
             }
         }
 

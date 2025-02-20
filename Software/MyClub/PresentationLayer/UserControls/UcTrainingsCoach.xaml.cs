@@ -116,11 +116,6 @@ namespace PresentationLayer.UserControls
             dgTrainings.ItemsSource = trainings;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAttendance_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;

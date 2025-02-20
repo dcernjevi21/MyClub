@@ -3,26 +3,12 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Paragraph = iTextSharp.text.Paragraph;
 using Rectangle = iTextSharp.text.Rectangle;
-using Org.BouncyCastle.Crypto.Utilities;
-using System.Diagnostics;
-
 namespace PresentationLayer.UserControls
 {
     /// <summary>

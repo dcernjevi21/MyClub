@@ -77,5 +77,30 @@ namespace BusinessLogicLayer.Services
                 return repo.GetTeamAttendancesForPeriod(teamId, startDate, endDate).ToList();
             }
         }
+
+        public List<Attendance> FilterAttendancesByEventType(List<Attendance> attendances, int eventType)
+        {
+            if (eventType == 1)
+                return attendances.Where(a => a.TrainingID != null).ToList();
+            else if (eventType == 2)
+                return attendances.Where(a => a.MatchId != null).ToList();
+            return attendances;
+        }
+
+        public List<Attendance> GetAttendancesForUser(List<Attendance> attendances, int userId)
+        {
+            return attendances.Where(a => a.UserID == userId).ToList();
+        }
+
+        public int CountAttendancesByStatus(List<Attendance> attendances, int statusId)
+        {
+            return attendances.Count(a => a.StatusID == statusId);
+        }
+        public List<Attendance> GetExistingTrainingAttendances(int trainingId, int teamId)
+        {
+            return GetTrainingAttendanceById(teamId)
+                .Where(a => a.TrainingID == trainingId)
+                .ToList();
+        }
     }
 }

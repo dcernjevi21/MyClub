@@ -21,7 +21,7 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcTrainingAttendanceCoach.xaml
     /// </summary>
-    
+
     //Valec kompletno
     public partial class UcTrainingAttendanceCoach : UserControl
     {
@@ -50,11 +50,11 @@ namespace PresentationLayer.UserControls
             if (statusColumn != null)
             {
                 var statusItems = new List<KeyValuePair<int, string>>
-            {
-                new KeyValuePair<int, string>(4, "Present"),
-                new KeyValuePair<int, string>(5, "Absent"),
-                new KeyValuePair<int, string>(6, "Excused")
-            };
+                {
+                    new KeyValuePair<int, string>(4, "Present"),
+                    new KeyValuePair<int, string>(5, "Absent"),
+                    new KeyValuePair<int, string>(6, "Excused")
+                };
 
                 statusColumn.ItemsSource = statusItems;
                 statusColumn.SelectedValueBinding = new Binding("StatusID");
@@ -66,10 +66,7 @@ namespace PresentationLayer.UserControls
         private void LoadAttendanceData()
         {
             var teamUsers = _userService.GetUsersFromTeam(_training.TeamID);
-
-            var existingAttendances = _attendanceService.GetTrainingAttendanceById(_training.TeamID)
-                .Where(a => a.TrainingID == _training.TrainingID)
-                .ToList();
+            var existingAttendances = _attendanceService.GetExistingTrainingAttendances(_training.TrainingID, _training.TeamID);
 
             _attendanceData = teamUsers.Select(user =>
             {
@@ -86,10 +83,13 @@ namespace PresentationLayer.UserControls
 
             dgAttendance.ItemsSource = _attendanceData;
         }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccess = true;
             foreach (var attendance in _attendanceData)
             {
+                bool result = true;
                 if (attendance.IsExistingAttendance)
                 {
                     var existingAttendance = new Attendance
@@ -100,7 +100,15 @@ namespace PresentationLayer.UserControls
                         StatusID = attendance.StatusID,
                         Notes = attendance.Notes
                     };
-                    _attendanceService.UpdateAttendance(existingAttendance);
+
+                    var originalAttendance = _attendanceService.GetExistingTrainingAttendances(_training.TrainingID, _training.TeamID)
+                        .FirstOrDefault(a => a.AttendanceID == attendance.AttendanceID);
+
+                    if (originalAttendance != null &&
+                        (originalAttendance.StatusID != existingAttendance.StatusID || originalAttendance.Notes != existingAttendance.Notes))
+                    {
+                        result = _attendanceService.UpdateAttendance(existingAttendance);
+                    }
                 }
                 else
                 {
@@ -111,13 +119,25 @@ namespace PresentationLayer.UserControls
                         StatusID = attendance.StatusID,
                         Notes = attendance.Notes
                     };
-                    _attendanceService.AddAttendance(newAttendance);
+                    result = _attendanceService.AddAttendance(newAttendance);
+                }
+
+                if (!result)
+                {
+                    isSuccess = false;
                 }
             }
 
-            MessageBox.Show("Attendance saved successfully!");
-            GuiManager.OpenContent(new UcTrainingsCoach());
-
+            var trainingsCoach = new UcTrainingsCoach();
+            if (isSuccess)
+            {
+                trainingsCoach.ShowMessage("Attendance marked successfully!", true);
+            }
+            else
+            {
+                trainingsCoach.ShowMessage("Failed to mark attendance!", false);
+            }
+            GuiManager.OpenContent(trainingsCoach);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

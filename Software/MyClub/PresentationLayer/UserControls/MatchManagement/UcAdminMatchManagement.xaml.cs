@@ -1,32 +1,20 @@
 ﻿using BusinessLogicLayer.Services;
 using PresentationLayer.Helper;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PresentationLayer.UserControls
 {
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
-    public partial class UcMatchManagement : UserControl
+    public partial class UcAdminMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
-        public UcMatchManagement()
+        public UcAdminMatchManagement()
         {
             InitializeComponent();
         }
@@ -36,27 +24,12 @@ namespace PresentationLayer.UserControls
             await LoadMatches();
         }
 
-        public void ShowToast(string message)
-        {
-            ToastWindow toast = new ToastWindow(message);
-            toast.Show();
-        }
-
         public async Task LoadMatches()
         {
-            if (!CurrentUser.User.TeamID.HasValue)
-            {
-                ShowToast("You aren't assigned to a team.");
-                return;
-            }
-
-
-            int teamId = (int)CurrentUser.User.TeamID;
-            
-            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+            var fetchedMatches = await _matchManagementService.GetMatches();
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
-                MessageBox.Show("Nema dostupnih podataka za prikaz.");
+                MessageBox.Show("There are no data to be shown.");
                 return;
             }
             dgCoachGrid.ItemsSource = fetchedMatches;
@@ -70,7 +43,7 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                ShowToast("Ne mozete dodati utakmicu jer niste dio nekog tima");
+                ShowToast("You cannot add matches if you're not party of a team");
             }
         }
         //Černjević
@@ -81,15 +54,14 @@ namespace PresentationLayer.UserControls
             {
                 if (match.Status == "Cancelled")
                 {
-                    ShowToast("Cannot update postponed matches! Only matches that have already been played can be updated.");
+                    ShowToast("Cannot update cancelled matches! Only matches that have already been played can be updated.");
                     return;
                 }
                 else if (match.MatchDate > DateTime.Now)
                 {
-                    ShowToast("Cannot update future matches! Only matches that have already been played can be updated.");
-
-                    return;
+                    GuiManager.OpenContent(new UcEditMatch(match));
                 }
+                //ako je utakmica prošla, otvori formu za unos rezultata
                 else
                 {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
@@ -119,7 +91,7 @@ namespace PresentationLayer.UserControls
                 {
                     MatchManagementService _matchManagementService = new MatchManagementService();
                     _matchManagementService.RemoveMatch(match);
-                    LoadMatches();
+                    _ = LoadMatches();
                 }
             }
             else
@@ -128,12 +100,12 @@ namespace PresentationLayer.UserControls
             }
         }
         //Černjević
-        public void btnPostponeMatch_Click(object sender, RoutedEventArgs e)
+        public void btnCancelMatch_Click(object sender, RoutedEventArgs e)
         {
             EntitiesLayer.Entities.Match match = GetMatch();
             if (match != null)
             {
-                GuiManager.OpenContent(new UcPostponeMatch(match));
+                GuiManager.OpenContent(new UcCancelMatch(match));
             }
             else
             {
@@ -153,16 +125,10 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        //Valec
-        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        private void ShowToast(string message)
         {
-            var button = sender as Button;
-            var match = button.DataContext as EntitiesLayer.Entities.Match;
-            if (match != null)
-            {
-                var attendanceControl = new UcMatchAttendanceCoach(match);
-                GuiManager.OpenContent(attendanceControl);
-            }
+            ToastWindow toast = new ToastWindow(message);
+            toast.Show();
         }
     }
 }

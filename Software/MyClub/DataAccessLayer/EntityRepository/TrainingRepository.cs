@@ -57,6 +57,7 @@ namespace DataAccessLayer.EntityRepositories
         public override IQueryable<Training> GetAll()
         {
             var query = from t in Entities.Include("Team")
+                        orderby t.TrainingDate ascending
                         select t;
             return query;
         }
