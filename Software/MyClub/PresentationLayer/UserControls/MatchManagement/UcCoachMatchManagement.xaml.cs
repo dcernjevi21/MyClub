@@ -18,6 +18,8 @@ namespace PresentationLayer.UserControls
         private MatchManagementService _matchManagementService = new MatchManagementService();
 
         public DateTime TodayDate => DateTime.Today;
+        private int currentMonth = DateTime.Now.Month;
+        private int currentYear = DateTime.Now.Year;
 
         public UcCoachMatchManagement()
         {
@@ -28,7 +30,7 @@ namespace PresentationLayer.UserControls
         {
             if (CurrentUser.User.RoleID != 2)
             {
-                var attendanceColumn = dgCoachGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Attendance");
+                var attendanceColumn = dgMatchGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Attendance");
                 if (attendanceColumn != null)
                 {
                     attendanceColumn.Visibility = Visibility.Collapsed;
@@ -53,7 +55,7 @@ namespace PresentationLayer.UserControls
                     MessageBox.Show("There are no data to be shown.");
                     return;
                 }
-                dgCoachGrid.ItemsSource = fetchedMatches;
+                dgMatchGrid.ItemsSource = fetchedMatches;
             }
             else
             {
@@ -64,79 +66,101 @@ namespace PresentationLayer.UserControls
                     MessageBox.Show("There are no data to be shown.");
                     return;
                 }
-                dgCoachGrid.ItemsSource = fetchedMatches;
-            }
-            if (CurrentUser.User.RoleID == 2)
-            {
-                foreach (var item in dgCoachGrid.Items)
+                foreach (var item in fetchedMatches)
                 {
-                    var match = item as Match;
+                    var match = item;
                     if (match != null && match.MatchDate < DateTime.Now && match.Status == "Scheduled")
                     {
-                        ShowToast("You have matches that have already been played. Please update the results.");
+                        ShowToast("You have matches that have already been played. Please update the RED MARKED matches.");
                     }
                 }
+                UpdateMatchesDisplay();
             }
         }
 
-        private async void btnFilter_Click(object sender, RoutedEventArgs e)
+        private void UpdateMatchesDisplay()
         {
-            List<Match> fetchedMatches = null;
-            int? teamId = (CurrentUser.User.RoleID == 1) ? null : CurrentUser.User.TeamID;
+            var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
+            dgMatchGrid.ItemsSource = matches;
+            lblCurrentMonth.Visibility = Visibility.Visible;
+            lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
+            btnPreviousMonth.Visibility = Visibility.Visible;
+            btnNextMonth.Visibility = Visibility.Visible;
+            lblDgHeader.Content = "";
+        }
 
-            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+
+            private void UpdateMatchesDisplayAdmin()
             {
-                fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
+                var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
+                dgMatchGrid.ItemsSource = matches;
+                lblCurrentMonth.Visibility = Visibility.Visible;
+                lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
+                btnPreviousMonth.Visibility = Visibility.Visible;
+                btnNextMonth.Visibility = Visibility.Visible;
+                lblDgHeader.Content = "";
             }
-            else if (cbFilterStatus.SelectedValue != null)
+
+            private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime? startDate = dpFilterStartDate.SelectedDate;
+            DateTime? endDate = dpFilterEndDate.SelectedDate;
+            string selectedStatus = cbFilterStatus.SelectedValue.ToString();
+
+            if ((startDate.HasValue && endDate.HasValue) || (selectedStatus != "- Select a status -"))
             {
-                if (cbFilterStatus.SelectedValue.ToString() == "Scheduled")
+                var filteredMatches = _matchManagementService.FilterMatches(startDate, endDate, selectedStatus);
+
+                if (filteredMatches.Count == 0)
                 {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Scheduled");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Cancelled")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Cancelled");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Win")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Win");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Draw")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Draw");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Lost")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Lost");
-                }
-                else
-                {
-                    ShowToast("Please select a valid status to filter the matches.");
+                    ShowToast("There are no data to be shown.");
                     return;
                 }
-            }
-            else
-            {
-                ShowToast("Please select a date or status to filter the matches.");
-                return;
-            }
 
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
-            {
-                MessageBox.Show("There are no data to be shown.");
-                return;
+                lblCurrentMonth.Visibility = Visibility.Collapsed;
+                btnPreviousMonth.Visibility = Visibility.Collapsed;
+                btnNextMonth.Visibility = Visibility.Collapsed;
+
+                if (startDate.HasValue && endDate.HasValue)
+                {
+                    lblDgHeader.Content = $"Filtered matches from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                }
+                else if (selectedStatus != "- Select a status -")
+                {
+                    lblDgHeader.Content = $"Filtered matches with status: {selectedStatus}";
+                }
+
+                dpFilterStartDate.SelectedDate = null;
+                dpFilterEndDate.SelectedDate = null;
+                cbFilterStatus.SelectedIndex = 0;
+
+                dgMatchGrid.ItemsSource = filteredMatches;
             }
             else
             {
-                dgCoachGrid.ItemsSource = fetchedMatches;
+                ShowToast("Please select a date range or status to filter matches.");
+                return;
             }
 
         }
 
         private void btnReloadMatches_Click(object sender, RoutedEventArgs e)
         {
-            _ = LoadMatches();
+            UpdateMatchesDisplay();
+        }
+
+        private void btnPreviousMonth_Click(object sender, RoutedEventArgs e)
+        {
+            currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
+            if (currentMonth == 12) currentYear--;
+            UpdateMatchesDisplay();
+        }
+
+        private void btnNextMonth_Click(object sender, RoutedEventArgs e)
+        {
+            currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
+            if (currentMonth == 1) currentYear++;
+            UpdateMatchesDisplay();
         }
 
         public void btnAddMatch_Click(object sender, RoutedEventArgs e)
@@ -222,13 +246,13 @@ namespace PresentationLayer.UserControls
 
         public EntitiesLayer.Entities.Match GetMatch()
         {
-            if (dgCoachGrid.SelectedItem == null)
+            if (dgMatchGrid.SelectedItem == null)
             {
                 return null;
             }
             else
             {
-                return dgCoachGrid.SelectedItem as EntitiesLayer.Entities.Match;
+                return dgMatchGrid.SelectedItem as EntitiesLayer.Entities.Match;
             }
         }
 

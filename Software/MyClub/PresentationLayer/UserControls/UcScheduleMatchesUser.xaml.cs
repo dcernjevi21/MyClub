@@ -44,7 +44,12 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
-            await _matchManagementService.GetMatchesByTeamId(teamId);
+            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
             UpdateMatchesDisplay();
         }
 

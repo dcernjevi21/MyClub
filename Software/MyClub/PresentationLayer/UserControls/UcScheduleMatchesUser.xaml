@@ -22,6 +22,21 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="2"/>
+            </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D5AAA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="15" Color="Black" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="RowHighlightStyle" TargetType="DataGridRow">
@@ -143,7 +158,7 @@
             </ComboBox>
 
             <Button x:Name="btnFilterMatches" Content="Filter" Style="{StaticResource ButtonStyle}" Click="btnFilterMatches_Click"/>
-            <Button x:Name="btnReload" Content="Reset table" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
+            <Button x:Name="btnReload" Content="Reset matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
         </StackPanel>
 
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
@@ -155,6 +170,9 @@
              Grid.Row="1"
              FontSize="14"
              AutoGenerateColumns="False"
+             BorderThickness="1"
+             BorderBrush="#1F3C88"
+             IsReadOnly="True"
              RowStyle="{StaticResource RowHighlightStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Team" Binding="{Binding Team.Name}" Width="150"/>
