@@ -72,11 +72,10 @@
             <TextBox x:Name="txtLocation" Margin="2"/>
             <Label Content="Team:" Margin="2" FontWeight="Bold"/>
             <ComboBox x:Name="cmbTeams" 
-                  Visibility="{Binding CurrentUser.User.RoleID, Converter={StaticResource RoleVisibilityConverter}}"
                   Margin="2" 
+                      IsEditable="True"
                   DisplayMemberPath="Name" 
                   SelectedValuePath="TeamID"/>
-
         </StackPanel>
         <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btnAddMatch" Content="Add match" Style="{StaticResource ButtonStyle}" Click="btnAddMatch_Click"/>

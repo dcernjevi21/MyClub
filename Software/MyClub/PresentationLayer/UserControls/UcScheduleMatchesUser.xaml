@@ -60,6 +60,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Background="#0A234B" Grid.Row="0" Padding="15">
@@ -161,7 +162,7 @@
             <Button x:Name="btnReload" Content="Reset matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
         </StackPanel>
 
-        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,0,0,0">
             <Label x:Name="lblDgHeader" Content="Matches" Grid.Column="2" Grid.Row="2" Margin="0,50,0,0" FontWeight="Bold" HorizontalAlignment="Center"></Label>
             <DataGrid x:Name="dgMatchGrid" HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -193,5 +194,35 @@
             <Label x:Name="lblCurrentMonth" Content="Month" FontSize="16" FontWeight="Bold" Margin="10,0,10,0"/>
             <Button x:Name="btnNextMonth" Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
         </StackPanel>
+
+        <Grid x:Name="statsGrid" Grid.Row="4" Margin="40" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" Margin="5" Padding="15" BorderBrush="#0A234B" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Total Events" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtTotalEvents" Text="0" FontSize="24" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Background="White" Margin="5" Padding="15" BorderBrush="#0A234B" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock x:Name="txtFilterStatus" Text="Total filtered events" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtTotalFilteredEvents" Text="0" FontSize="24" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Background="White" Margin="5" Padding="15" BorderBrush="#0A234B" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Ratio" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtAverageRate" Text="0%" FontSize="24" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
     </Grid>
 </UserControl>

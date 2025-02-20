@@ -1,10 +1,10 @@
 ﻿using System;
-using BusinessLogicLayer;
 using System.Windows;
 using System.Windows.Controls;
 using PresentationLayer.Helper;
 using System.Text.RegularExpressions;
 using BusinessLogicLayer.Services;
+using BusinessLogicLayer;
 
 namespace PresentationLayer.UserControls
 {
@@ -31,6 +31,10 @@ namespace PresentationLayer.UserControls
             if(CurrentUser.User.RoleID == 1)
             {
                 LoadTeams();
+            }
+            else
+            {
+                cmbTeams.Text = CurrentUser.User.Team.Name; 
             }
         }
 

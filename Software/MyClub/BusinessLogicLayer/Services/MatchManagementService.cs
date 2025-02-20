@@ -18,7 +18,9 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                    return await repo.GetAllMatches().ToListAsync();
+                _cachedMatches = await repo.GetAllMatches().ToListAsync();
+
+                return _cachedMatches;
             }
         }
 

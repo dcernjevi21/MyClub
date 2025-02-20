@@ -20,6 +20,7 @@ namespace PresentationLayer.UserControls
 
         private int currentMonth = DateTime.Now.Month;
         private int currentYear = DateTime.Now.Year;
+        private int totalMatches = 0;
 
         public UcScheduleMatchesUser()
         {
@@ -28,12 +29,21 @@ namespace PresentationLayer.UserControls
 
         public void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            statsGrid.Visibility = Visibility.Collapsed;
             _ = LoadMatches(); //fire and forget
         }
 
         public async Task LoadMatches()
         {
             var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
+            foreach(var item in fetchedMatches)
+            {
+                if (item.Status != "Scheduled" && item.Status != "Cancelled")
+                {
+                    totalMatches++;
+                }
+            }
+
             if (fetchedMatches == null || fetchedMatches.Count == 0)
             {
                 MessageBox.Show("There are no data to be shown.");
@@ -76,10 +86,20 @@ namespace PresentationLayer.UserControls
                 if(startDate.HasValue && endDate.HasValue)
                 {
                     lblDgHeader.Content = $"Filtered matches from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                    statsGrid.Visibility = Visibility.Collapsed;
                 }
                 else if (selectedStatus != "- Select a status -")
                 {
                     lblDgHeader.Content = $"Filtered matches with status: {selectedStatus}";
+                    if(selectedStatus != "Scheduled" || selectedStatus != "Cancelled")
+                    {
+                        statsGrid.Visibility = Visibility.Visible;
+                        txtTotalEvents.Text = totalMatches.ToString();
+                        txtFilterStatus.Text = "Number of " + selectedStatus + "s";
+                        txtTotalFilteredEvents.Text = filteredMatches.Count.ToString();
+                        double result = (double)filteredMatches.Count / totalMatches * 100;
+                        txtAverageRate.Text = result.ToString() + "%";
+                    }
                 }
 
                 dpFilterStartDate.SelectedDate = null;
@@ -131,6 +151,7 @@ namespace PresentationLayer.UserControls
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
+            statsGrid.Visibility = Visibility.Collapsed;
             _ = LoadMatches();
         }
 

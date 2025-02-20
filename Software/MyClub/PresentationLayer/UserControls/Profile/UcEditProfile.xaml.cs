@@ -67,19 +67,29 @@ namespace PresentationLayer.UserControls
                     return;
                 }
             }
+            else if(string.IsNullOrEmpty(firstName))
+            {
+                ShowToast("Please fill in all mandatory fields.");
+                return;
+            }
 
             if(!string.IsNullOrEmpty(lastName) && lastName != user.LastName)
             {
                 if(userService.ValidateName(lastName))
                 {
                     user.LastName = lastName;
-                    isUpdated |= true;
+                    isUpdated = true;
                 }
                 else
                 {
                     ShowToast($"{lastName} is not valid.");
                     return;
                 }
+            }
+            else if(string.IsNullOrEmpty(lastName))
+            {
+                ShowToast("Please fill in all mandatory fields.");
+                return;
             }
 
             if (!string.IsNullOrEmpty(newEmail) && newEmail != user.Email)
@@ -99,6 +109,11 @@ namespace PresentationLayer.UserControls
                     user.Email = newEmail;
                     isUpdated = true;
                 }
+            }
+            else if (string.IsNullOrEmpty(newEmail))
+            {
+                ShowToast("Please fill in all mandatory fields.");
+                return;
             }
 
             if (!string.IsNullOrEmpty(newPassword))
@@ -128,13 +143,13 @@ namespace PresentationLayer.UserControls
             {
                 bool updateSuccess = userService.UpdateUser(user);
                 ShowToast(updateSuccess ? "Profile updated successfully!" : "Error updating profile!");
+                GuiManager.CloseContent();
             }
             else
             {
-                ShowToast("No changes made.");
+                ShowToast("No changes detected.");
+                GuiManager.CloseContent();
             }
-
-            GuiManager.CloseContent();
         }
 
         private void btnChooseImage_Click(object sender, RoutedEventArgs e)

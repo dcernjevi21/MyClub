@@ -83,8 +83,8 @@
         </Border>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-            <Label Content="Match Result:" FontWeight="Bold" FontSize="16"/>
-                <ComboBox Name="cmbStatus">
+            <Label Content="Status:" FontWeight="Bold" FontSize="16"/>
+            <ComboBox Name="cmbStatus" SelectedValuePath="Content">
                     <ComboBoxItem Content="Win"/>
                     <ComboBoxItem Content="Lost"/>
                     <ComboBoxItem Content="Draw"/>
