@@ -29,7 +29,6 @@ namespace PresentationLayer.UserControls
         private MatchManagementService _matchManagementService = new MatchManagementService();
         private int teamId = CurrentUser.User.TeamID.GetValueOrDefault();
 
-        private List<Match> allMatches = new List<Match>(); //Cache 
         private int currentMonth = DateTime.Now.Month;
         private int currentYear = DateTime.Now.Year;
 
@@ -45,94 +44,84 @@ namespace PresentationLayer.UserControls
 
         public async Task LoadMatches()
         {
-            var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
-            {
-                MessageBox.Show("There are no data to be shown.");
-                return;
-            }
-
-            allMatches = fetchedMatches;
-            FilterMatchesByMonth();
-        }
-        private void FilterMatchesByMonth()
-        {
-            var filteredMatches = allMatches
-                .Where(m => m.MatchDate.Year == currentYear && m.MatchDate.Month == currentMonth).OrderBy(t => t.MatchDate).ToList();
-
-            dgMatchGrid.ItemsSource = filteredMatches;
-
-            lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}"; // Postavljanje naslova
+            await _matchManagementService.GetMatchesByTeamId(teamId);
+            UpdateMatchesDisplay();
         }
 
-
-        private async void btnFilterMatches_Click(object sender, RoutedEventArgs e)
+        private void UpdateMatchesDisplay()
         {
-            List<Match> fetchedMatches = null;
-            int teamId = CurrentUser.User.TeamID.Value;
-            //prepraviti da ne dohvaca svaki put novo
-            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+            var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
+            dgMatchGrid.ItemsSource = matches;
+            lblCurrentMonth.Visibility = Visibility.Visible;
+            lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
+            btnPreviousMonth.Visibility = Visibility.Visible;
+            btnNextMonth.Visibility = Visibility.Visible;
+            lblDgHeader.Content = "";
+        }
+
+        private void btnFilterMatches_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime? startDate = dpFilterStartDate.SelectedDate;
+            DateTime? endDate = dpFilterEndDate.SelectedDate;
+            string selectedStatus = cbFilterStatus.SelectedValue.ToString();
+
+            if((startDate.HasValue && endDate.HasValue) || (selectedStatus != "- Select a status -"))
             {
-                fetchedMatches = await _matchManagementService.GetMatchesByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
-            }
-            else if (cbFilterStatus.SelectedValue != null)
-            {
-                if (cbFilterStatus.SelectedValue.ToString() == "Scheduled")
+                var filteredMatches = _matchManagementService.FilterMatches(startDate, endDate, selectedStatus);
+
+                if (filteredMatches.Count == 0)
                 {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Scheduled");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Cancelled")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Cancelled");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Win")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Win");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Draw")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Draw");
-                }
-                else if (cbFilterStatus.SelectedValue.ToString() == "Lost")
-                {
-                    fetchedMatches = await _matchManagementService.GetMatchesByStatus(teamId, "Lost");
-                }
-                else
-                {
-                    ShowToast("Please select a valid status to filter the matches.");
+                    ShowToast("There are no data to be shown.");
                     return;
                 }
-            }
-            else
-            {
-                ShowToast("Please select a date or status to filter the matches.");
-                return;
-            }
 
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
-            {
-                MessageBox.Show("There are no data to be shown.");
-                return;
+                lblCurrentMonth.Visibility = Visibility.Collapsed;
+                btnPreviousMonth.Visibility = Visibility.Collapsed;
+                btnNextMonth.Visibility = Visibility.Collapsed;
+
+                if(startDate.HasValue && endDate.HasValue)
+                {
+                    lblDgHeader.Content = $"Filtered matches from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                }
+                else if (selectedStatus != "- Select a status -")
+                {
+                    lblDgHeader.Content = $"Filtered matches with status: {selectedStatus}";
+                }
+
+                dpFilterStartDate.SelectedDate = null;
+                dpFilterEndDate.SelectedDate = null;
+                cbFilterStatus.SelectedIndex = 0;
+
+                dgMatchGrid.ItemsSource = filteredMatches;
             }
             else
             {
-                dgMatchGrid.ItemsSource = fetchedMatches;
+                ShowToast("Please select a date range or status to filter matches.");
+                return;
             }
         }
 
-        private void btnReload_Click(object sender, RoutedEventArgs e)
+        private void btnPreviousMonth_Click(object sender, RoutedEventArgs e)
         {
-            _ = LoadMatches();
+            currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
+            if (currentMonth == 12) currentYear--;
+            UpdateMatchesDisplay();
+        }
+
+        private void btnNextMonth_Click(object sender, RoutedEventArgs e)
+        {
+            currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
+            if (currentMonth == 1) currentYear++;
+            UpdateMatchesDisplay();
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)
         {
-            Match match = GetMatchAttendance();
-            if (match != null)
+            if (dgMatchGrid.SelectedItem is Match selectedMatch)
             {
-                if (DateTime.Now < match.MatchDate)
+                if (DateTime.Now < selectedMatch.MatchDate)
                 {
-                    GuiManager.OpenContent(new UcMarkAttendance(0, match.MatchID, null, match));
+                    GuiManager.OpenContent(new UcMarkAttendance(0, selectedMatch.MatchID, null, selectedMatch));
                 }
                 else
                 {
@@ -145,32 +134,10 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        private void btnPreviousMonth_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentMonth == 1)
-            {
-                currentMonth = 12;
-                currentYear--;
-            }
-            else
-            {
-                currentMonth--;
-            }
-            FilterMatchesByMonth();
-        }
 
-        private void btnNextMonth_Click(object sender, RoutedEventArgs e)
+        private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            if (currentMonth == 12)
-            {
-                currentMonth = 1;
-                currentYear++;
-            }
-            else
-            {
-                currentMonth++;
-            }
-            FilterMatchesByMonth();
+            _ = LoadMatches();
         }
 
         public Match GetMatchAttendance()

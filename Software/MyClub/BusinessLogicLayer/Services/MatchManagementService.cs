@@ -11,6 +11,8 @@ namespace BusinessLogicLayer.Services
 {
     public class MatchManagementService
     {
+        private List<Match> _cachedMatches = new List<Match>();
+
         public async Task<List<Match>> GetMatches()
         {
             using (var repo = new MatchManagementRepository())
@@ -32,8 +34,45 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                return await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
+                if(_cachedMatches.Count == 0)
+                {
+                    _cachedMatches = await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
+                }
+                return _cachedMatches;
             }
+        }
+
+        public List<Match> FilterMatches(DateTime? startDate, DateTime? endDate, string status)
+        {
+            var filteredMatches = _cachedMatches.AsQueryable(); // Početni set podataka
+
+            Console.WriteLine($"Filtering Matches - Start: {startDate}, End: {endDate}, Status: {status}");
+
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                filteredMatches = filteredMatches.Where(m => m.MatchDate >= startDate.Value && m.MatchDate <= endDate.Value);
+                Console.WriteLine($"After Date Filter: {filteredMatches.Count()} matches found.");
+            }
+
+            if (!string.IsNullOrEmpty(status) && status != "- Select a status -")
+            {
+                filteredMatches = filteredMatches.Where(m => m.Status.Trim().ToLower() == status.Trim().ToLower());
+                Console.WriteLine($"After Status Filter: {filteredMatches.Count()} matches found.");
+            }
+
+            var result = filteredMatches.OrderBy(m => m.MatchDate).ToList();
+            Console.WriteLine($"Final Count: {result.Count} matches");
+
+            return result;
+        }
+
+
+        public List<Match> GetMatchesForMonth(int year, int month)
+        {
+            return _cachedMatches
+                .Where(m => m.MatchDate.Year == year && m.MatchDate.Month == month)
+                .OrderBy(m => m.MatchDate)
+                .ToList();
         }
 
         public async Task<List<Match>> GetMatchesByStatus(int? teamId, string status)

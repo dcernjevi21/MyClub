@@ -143,11 +143,11 @@
             </ComboBox>
 
             <Button x:Name="btnFilterMatches" Content="Filter" Style="{StaticResource ButtonStyle}" Click="btnFilterMatches_Click"/>
-            <Button x:Name="btnReload" Content="Reload matches" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
+            <Button x:Name="btnReload" Content="Reset table" Style="{StaticResource ButtonStyle}" Click="btnReload_Click" Width="130"/>
         </StackPanel>
 
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
-            <Label Content="Matches" Grid.Column="2" Grid.Row="2" Margin="0,50,0,0" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+            <Label x:Name="lblDgHeader" Content="Matches" Grid.Column="2" Grid.Row="2" Margin="0,50,0,0" FontWeight="Bold" HorizontalAlignment="Center"></Label>
             <DataGrid x:Name="dgMatchGrid" HorizontalAlignment="Center"
             VerticalAlignment="Top"
              Height="auto"
@@ -171,9 +171,9 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
-            <Button Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
+            <Button x:Name="btnPreviousMonth" Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
             <Label x:Name="lblCurrentMonth" Content="Month" FontSize="16" FontWeight="Bold" Margin="10,0,10,0"/>
-            <Button Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
+            <Button x:Name="btnNextMonth" Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
