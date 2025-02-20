@@ -20,6 +20,7 @@ namespace PresentationLayer.UserControls
         public DateTime TodayDate => DateTime.Today;
         private int currentMonth = DateTime.Now.Month;
         private int currentYear = DateTime.Now.Year;
+        private int totalMatches = 0;
 
         public UcCoachMatchManagement()
         {
@@ -28,6 +29,8 @@ namespace PresentationLayer.UserControls
 
         public async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            statsGrid.Visibility = Visibility.Collapsed;
+
             if (CurrentUser.User.RoleID != 2)
             {
                 var attendanceColumn = dgMatchGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Attendance");
@@ -50,11 +53,21 @@ namespace PresentationLayer.UserControls
             if (CurrentUser.User.RoleID == 1)
             {
                 var fetchedMatches = await _matchManagementService.GetMatches();
+                
                 if (fetchedMatches == null || fetchedMatches.Count == 0)
                 {
                     MessageBox.Show("There are no data to be shown.");
                     return;
                 }
+
+                foreach (var item in fetchedMatches)
+                {
+                    if (item.Status != "Scheduled" && item.Status != "Cancelled")
+                    {
+                        totalMatches++;
+                    }
+                }
+
                 UpdateMatchesDisplay();
             }
             else
@@ -112,10 +125,20 @@ namespace PresentationLayer.UserControls
                 if (startDate.HasValue && endDate.HasValue)
                 {
                     lblDgHeader.Content = $"Filtered matches from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                    statsGrid.Visibility = Visibility.Collapsed;
                 }
                 else if (selectedStatus != "- Select a status -")
                 {
-                    lblDgHeader.Content = $"Filtered matches with status: {selectedStatus}";
+                    lblDgHeader.Content = $"Filtered trainings with status: {selectedStatus}";
+                    if (selectedStatus != "Scheduled" || selectedStatus != "Cancelled")
+                    {
+                        statsGrid.Visibility = Visibility.Visible;
+                        txtTotalEvents.Text = totalMatches.ToString();
+                        txtFilterStatus.Text = "Number of " + selectedStatus + "s";
+                        txtTotalFilteredEvents.Text = filteredMatches.Count.ToString();
+                        double result = (double)filteredMatches.Count / totalMatches * 100;
+                        txtAverageRate.Text = result.ToString() + "%";
+                    }
                 }
 
                 dpFilterStartDate.SelectedDate = null;
@@ -133,6 +156,7 @@ namespace PresentationLayer.UserControls
 
         private void btnReloadMatches_Click(object sender, RoutedEventArgs e)
         {
+            statsGrid.Visibility = Visibility.Collapsed;
             UpdateMatchesDisplay();
         }
 

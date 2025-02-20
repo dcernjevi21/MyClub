@@ -36,7 +36,14 @@ namespace PresentationLayer.UserControls
         public async Task LoadMatches()
         {
             var fetchedMatches = await _matchManagementService.GetMatchesByTeamId(teamId);
-            foreach(var item in fetchedMatches)
+            
+            if (fetchedMatches == null || fetchedMatches.Count == 0)
+            {
+                MessageBox.Show("There are no data to be shown.");
+                return;
+            }
+
+            foreach (var item in fetchedMatches)
             {
                 if (item.Status != "Scheduled" && item.Status != "Cancelled")
                 {
@@ -44,11 +51,6 @@ namespace PresentationLayer.UserControls
                 }
             }
 
-            if (fetchedMatches == null || fetchedMatches.Count == 0)
-            {
-                MessageBox.Show("There are no data to be shown.");
-                return;
-            }
             UpdateMatchesDisplay();
         }
 
