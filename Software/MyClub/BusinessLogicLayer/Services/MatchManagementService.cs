@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Services
 {
+    //Černjević kompletno
     public class MatchManagementService
     {
         private List<Match> _cachedMatches = new List<Match>();
@@ -44,24 +45,26 @@ namespace BusinessLogicLayer.Services
 
         public List<Match> FilterMatches(DateTime? startDate, DateTime? endDate, string status)
         {
-            var filteredMatches = _cachedMatches.AsQueryable(); // Početni set podataka
-
-            Console.WriteLine($"Filtering Matches - Start: {startDate}, End: {endDate}, Status: {status}");
+            var filteredMatches = _cachedMatches.AsQueryable();
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
 
             if (startDate.HasValue && endDate.HasValue)
             {
-                filteredMatches = filteredMatches.Where(m => m.MatchDate >= startDate.Value && m.MatchDate <= endDate.Value);
-                Console.WriteLine($"After Date Filter: {filteredMatches.Count()} matches found.");
+                filteredMatches = filteredMatches
+                    .Where(m => m.MatchDate >= startDate.Value && m.MatchDate <= endDate.Value)
+                    .OrderBy(m => m.MatchDate);
             }
 
             if (!string.IsNullOrEmpty(status) && status != "- Select a status -")
             {
-                filteredMatches = filteredMatches.Where(m => m.Status.Trim().ToLower() == status.Trim().ToLower());
-                Console.WriteLine($"After Status Filter: {filteredMatches.Count()} matches found.");
+                filteredMatches = filteredMatches
+                    .Where(m => m.Status.Trim().ToLower() == status.Trim().ToLower())
+                    .OrderByDescending(m => m.MatchDate.Year == currentYear && m.MatchDate.Month == currentMonth)
+                    .ThenBy(m => m.MatchDate);
             }
 
-            var result = filteredMatches.OrderBy(m => m.MatchDate).ToList();
-            Console.WriteLine($"Final Count: {result.Count} matches");
+            var result = filteredMatches.ToList();
 
             return result;
         }
