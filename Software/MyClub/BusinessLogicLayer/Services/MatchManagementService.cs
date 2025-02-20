@@ -18,11 +18,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                if (_cachedMatches.Count == 0)
-                {
-                    _cachedMatches = await repo.GetAllMatches().ToListAsync();
-                }
-                return _cachedMatches;
+                    return await repo.GetAllMatches().ToListAsync();
             }
         }
 
@@ -38,10 +34,8 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new MatchManagementRepository())
             {
-                if(_cachedMatches.Count == 0)
-                {
-                    _cachedMatches = await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
-                }
+                _cachedMatches = await repo.GetMatchesByTeamId(teamId)?.ToListAsync() ?? new List<Match>();
+
                 return _cachedMatches;
             }
         }
@@ -73,7 +67,7 @@ namespace BusinessLogicLayer.Services
         }
 
 
-        public List<Match> GetMatchesForMonth(int year, int month)
+        public List<Match> FilterMatchesForMonth(int year, int month)
         {
             return _cachedMatches
                 .Where(m => m.MatchDate.Year == year && m.MatchDate.Month == month)
@@ -99,36 +93,52 @@ namespace BusinessLogicLayer.Services
 
         public bool AddMatch(Match match)
         {
-            bool isSuccessful = false;
             using (var repo = new MatchManagementRepository())
             {
                 int affectedRows = repo.AddNewMatch(match);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    _cachedMatches.Add(match);
+                    return true;
+                }
+                return false;
             }
-            return isSuccessful;
         }
 
-        public bool RemoveMatch(Match match) 
+        public bool RemoveMatch(Match match)
         {
-            bool isSuccessful = false;
             using (var repo = new MatchManagementRepository())
             {
                 int affectedRows = repo.DeleteMatch(match);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    var matchToRemove = _cachedMatches.FirstOrDefault(m => m.MatchID == match.MatchID);
+                    if (matchToRemove != null)
+                    {
+                        _cachedMatches.Remove(matchToRemove);
+                    }
+                    return true;
+                }
+                return false;
             }
-            return isSuccessful;
         }
 
         public bool UpdateMatch(Match match)
         {
-            bool isSuccessful = false;
             using (var repo = new MatchManagementRepository())
             {
                 int affectedRows = repo.Update(match);
-                isSuccessful = affectedRows > 0;
+                if (affectedRows > 0)
+                {
+                    _cachedMatches.Add(match);
+                    return true;
+                }
+                return false;
             }
-            return isSuccessful;
         }
+
+
+
 
         public bool DoesMatchExist(int teamId, DateTime matchDate, TimeSpan startTime)
         {

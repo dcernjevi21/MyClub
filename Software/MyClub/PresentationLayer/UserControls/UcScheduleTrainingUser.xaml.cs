@@ -5,17 +5,9 @@ using PresentationLayer.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PresentationLayer.UserControls
 {
@@ -29,7 +21,6 @@ namespace PresentationLayer.UserControls
         private TrainingService _trainingService = new TrainingService();
         private int teamId = CurrentUser.User.TeamID.GetValueOrDefault();
 
-        private List<Training> allTrainings = new List<Training>(); //Cache 
         private int currentMonth = DateTime.Now.Month;
         private int currentYear = DateTime.Now.Year;
 
@@ -52,30 +43,61 @@ namespace PresentationLayer.UserControls
                 return;
             }
 
-            allTrainings = fetchedTrainings;
             FilterTrainingsByMonth();
         }
         private void FilterTrainingsByMonth()
         {
-            var filteredTrainings = allTrainings
-                .Where(m => m.TrainingDate.Year == currentYear && m.TrainingDate.Month == currentMonth).OrderBy(t => t.TrainingDate).ToList();
-
-            dgTrainingGrid.ItemsSource = filteredTrainings;
+            var trainings = _trainingService.GetTrainingsForMonth(currentYear, currentMonth);
+            dgTrainingGrid.ItemsSource = trainings;
 
             lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
+
+            lblCurrentMonth.Visibility = Visibility.Visible;
+            btnPreviousMonth.Visibility = Visibility.Visible;
+            btnNextMonth.Visibility = Visibility.Visible;
+            lblDgHeader.Content = "Trainings in " + currentMonth + "." + currentYear + ".";
         }
 
         private void btnFilterTrainings_Click(object sender, RoutedEventArgs e)
         {
-            if (dpFilterStartDate.SelectedDate != null && dpFilterEndDate.SelectedDate != null)
+            DateTime? startDate = dpFilterStartDate.SelectedDate;
+            DateTime? endDate = dpFilterEndDate.SelectedDate;
+            //string selectedStatus = cbFilterStatus.SelectedValue.ToString();
+
+            if (startDate.HasValue && endDate.HasValue)
             {
-                //fetchedTrainings = _trainingService.GetTrainingsByDate(teamId, dpFilterStartDate.SelectedDate.Value, dpFilterEndDate.SelectedDate.Value);
+                var filteredMatches = _trainingService.FilterTrainings(startDate, endDate);
+
+                if (filteredMatches.Count == 0)
+                {
+                    ShowToast("There are no data to be shown.");
+                    return;
+                }
+
+                lblCurrentMonth.Visibility = Visibility.Collapsed;
+                btnPreviousMonth.Visibility = Visibility.Collapsed;
+                btnNextMonth.Visibility = Visibility.Collapsed;
+
+                if (startDate.HasValue && endDate.HasValue)
+                {
+                    lblDgHeader.Content = $"Filtered trainings from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                }
+
+                dpFilterStartDate.SelectedDate = null;
+                dpFilterEndDate.SelectedDate = null;
+
+                dgTrainingGrid.ItemsSource = filteredMatches;
+            }
+            else
+            {
+                ShowToast("Please select a date range or status to filter matches.");
+                return;
             }
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            LoadTrainings();
+            FilterTrainingsByMonth();
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)

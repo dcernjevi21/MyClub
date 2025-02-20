@@ -1,20 +1,9 @@
 ﻿using BusinessLogicLayer.Services;
-using BusinessLogicLayer;
 using PresentationLayer.Helper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EntitiesLayer.Entities;
 
 namespace PresentationLayer.UserControls
@@ -55,13 +44,13 @@ namespace PresentationLayer.UserControls
 
         private void UpdateMatchesDisplay()
         {
-            var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
+            var matches = _matchManagementService.FilterMatchesForMonth(currentYear, currentMonth);
             dgMatchGrid.ItemsSource = matches;
             lblCurrentMonth.Visibility = Visibility.Visible;
             lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
             btnPreviousMonth.Visibility = Visibility.Visible;
             btnNextMonth.Visibility = Visibility.Visible;
-            lblDgHeader.Content = "";
+            lblDgHeader.Content = "Matches in " + currentMonth + "." + currentYear + ".";
         }
 
         private void btnFilterMatches_Click(object sender, RoutedEventArgs e)

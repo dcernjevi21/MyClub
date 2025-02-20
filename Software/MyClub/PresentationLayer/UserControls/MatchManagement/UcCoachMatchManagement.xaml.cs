@@ -55,7 +55,7 @@ namespace PresentationLayer.UserControls
                     MessageBox.Show("There are no data to be shown.");
                     return;
                 }
-                dgMatchGrid.ItemsSource = fetchedMatches;
+                UpdateMatchesDisplay();
             }
             else
             {
@@ -80,7 +80,7 @@ namespace PresentationLayer.UserControls
 
         private void UpdateMatchesDisplay()
         {
-            var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
+            var matches = _matchManagementService.FilterMatchesForMonth(currentYear, currentMonth);
             dgMatchGrid.ItemsSource = matches;
             lblCurrentMonth.Visibility = Visibility.Visible;
             lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
@@ -89,19 +89,7 @@ namespace PresentationLayer.UserControls
             lblDgHeader.Content = "";
         }
 
-
-            private void UpdateMatchesDisplayAdmin()
-            {
-                var matches = _matchManagementService.GetMatchesForMonth(currentYear, currentMonth);
-                dgMatchGrid.ItemsSource = matches;
-                lblCurrentMonth.Visibility = Visibility.Visible;
-                lblCurrentMonth.Content = $"{new DateTime(currentYear, currentMonth, 1):MMMM yyyy}";
-                btnPreviousMonth.Visibility = Visibility.Visible;
-                btnNextMonth.Visibility = Visibility.Visible;
-                lblDgHeader.Content = "";
-            }
-
-            private void btnFilter_Click(object sender, RoutedEventArgs e)
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
             DateTime? startDate = dpFilterStartDate.SelectedDate;
             DateTime? endDate = dpFilterEndDate.SelectedDate;
@@ -141,7 +129,6 @@ namespace PresentationLayer.UserControls
                 ShowToast("Please select a date range or status to filter matches.");
                 return;
             }
-
         }
 
         private void btnReloadMatches_Click(object sender, RoutedEventArgs e)
@@ -173,11 +160,13 @@ namespace PresentationLayer.UserControls
             {
                 ShowToast("You cannot add matches if you're not party of a team");
             }
+
+            UpdateMatchesDisplay();
         }
         //Černjević
         public void btnUpdateMatch_Click(object sender, RoutedEventArgs e)
         {
-            EntitiesLayer.Entities.Match match = GetMatch();
+            Match match = GetMatch();
             if (match != null)
             {
                 if (match.Status == "Cancelled")
@@ -194,6 +183,7 @@ namespace PresentationLayer.UserControls
                 {
                     GuiManager.OpenContent(new UcUpdateMatch(match));
                 }
+                UpdateMatchesDisplay();
             }
             else
             {
@@ -204,7 +194,7 @@ namespace PresentationLayer.UserControls
         //Černjević
         public void btnDeleteMatch_Click(object sender, RoutedEventArgs e)
         {
-            EntitiesLayer.Entities.Match match = GetMatch();
+            Match match = GetMatch();
             if (match != null)
             {
                 //prikaz poruke s potvrdom brisanja
@@ -218,12 +208,12 @@ namespace PresentationLayer.UserControls
                 {
                     MatchManagementService _matchManagementService = new MatchManagementService();
                     _matchManagementService.RemoveMatch(match);
-                    _ = LoadMatches();
+                    UpdateMatchesDisplay();
                 }
                 else
                 {
                     ShowToast("Delete cancelled.");
-                }
+                }   
             }
             else
             {
@@ -233,7 +223,7 @@ namespace PresentationLayer.UserControls
         //Černjević
         public void btnCancelMatch_Click(object sender, RoutedEventArgs e)
         {
-            EntitiesLayer.Entities.Match match = GetMatch();
+            Match match = GetMatch();
             if (match != null)
             {
                 GuiManager.OpenContent(new UcCancelMatch(match));
@@ -244,7 +234,7 @@ namespace PresentationLayer.UserControls
             }
         }
 
-        public EntitiesLayer.Entities.Match GetMatch()
+        public Match GetMatch()
         {
             if (dgMatchGrid.SelectedItem == null)
             {
@@ -252,7 +242,7 @@ namespace PresentationLayer.UserControls
             }
             else
             {
-                return dgMatchGrid.SelectedItem as EntitiesLayer.Entities.Match;
+                return dgMatchGrid.SelectedItem as Match;
             }
         }
 
@@ -260,7 +250,7 @@ namespace PresentationLayer.UserControls
         private void btnAttendance_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            var match = button.DataContext as EntitiesLayer.Entities.Match;
+            var match = button.DataContext as Match;
             if (match != null)
             {
                 var attendanceControl = new UcMatchAttendanceCoach(match);

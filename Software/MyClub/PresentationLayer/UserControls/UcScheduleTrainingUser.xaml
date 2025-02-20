@@ -77,7 +77,7 @@
         </StackPanel>
 
         <StackPanel x:Name="stackPanel" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="2"  Width="1000" Margin="0,50,0,0">
-            <Label Content="Trainings" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold"></Label>
+            <Label x:Name="lblDgHeader" Content="Trainings" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold"></Label>
             <DataGrid x:Name="dgTrainingGrid" HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="auto"
@@ -106,9 +106,9 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
-            <Button Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
+            <Button x:Name="btnPreviousMonth" Content="←" Width="30" Height="30" Click="btnPreviousMonth_Click"/>
             <Label x:Name="lblCurrentMonth" Content="Month" FontSize="16" FontWeight="Bold" Margin="10,0,10,0"/>
-            <Button Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
+            <Button x:Name="btnNextMonth" Content="→" Width="30" Height="30" Click="btnNextMonth_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
