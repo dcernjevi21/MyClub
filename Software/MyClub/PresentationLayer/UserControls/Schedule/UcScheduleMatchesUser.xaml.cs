@@ -51,10 +51,10 @@ namespace PresentationLayer.UserControls
                 }
             }
 
-            UpdateMatchesDisplay();
+            FilterMatchesByMonth();
         }
 
-        private void UpdateMatchesDisplay()
+        private void FilterMatchesByMonth()
         {
             var matches = _matchManagementService.FilterMatchesForMonth(currentYear, currentMonth);
             dgMatchGrid.ItemsSource = matches;
@@ -73,6 +73,13 @@ namespace PresentationLayer.UserControls
 
             if((startDate.HasValue && endDate.HasValue) || (selectedStatus != "- Select a status -"))
             {
+                if (startDate.HasValue && startDate.Value > endDate.Value)
+                {
+                    ShowToast("Start date cannot be greater than end date.");
+                    return;
+                }
+
+
                 var filteredMatches = _matchManagementService.FilterMatches(startDate, endDate, selectedStatus);
 
                 if (filteredMatches.Count == 0)
@@ -93,7 +100,7 @@ namespace PresentationLayer.UserControls
                 else if (selectedStatus != "- Select a status -")
                 {
                     lblDgHeader.Content = $"Filtered matches with status: {selectedStatus}";
-                    if(selectedStatus != "Scheduled" || selectedStatus != "Cancelled")
+                    if(selectedStatus != "Scheduled" && selectedStatus != "Cancelled")
                     {
                         statsGrid.Visibility = Visibility.Visible;
                         txtTotalEvents.Text = totalMatches.ToString();
@@ -101,6 +108,10 @@ namespace PresentationLayer.UserControls
                         txtTotalFilteredEvents.Text = filteredMatches.Count.ToString();
                         double result = (double)filteredMatches.Count / totalMatches * 100;
                         txtAverageRate.Text = result.ToString() + "%";
+                    }
+                    else
+                    {
+                        statsGrid.Visibility = Visibility.Collapsed;
                     }
                 }
 
@@ -121,14 +132,14 @@ namespace PresentationLayer.UserControls
         {
             currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
             if (currentMonth == 12) currentYear--;
-            UpdateMatchesDisplay();
+            FilterMatchesByMonth();
         }
 
         private void btnNextMonth_Click(object sender, RoutedEventArgs e)
         {
             currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
             if (currentMonth == 1) currentYear++;
-            UpdateMatchesDisplay();
+            FilterMatchesByMonth();
         }
 
         public void btnMarkAttendance_Click(object sender, RoutedEventArgs e)
@@ -154,7 +165,9 @@ namespace PresentationLayer.UserControls
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
             statsGrid.Visibility = Visibility.Collapsed;
-            _ = LoadMatches();
+            currentMonth = DateTime.Now.Month;
+            currentYear = DateTime.Now.Year;
+            FilterMatchesByMonth();
         }
 
         public Match GetMatchAttendance()

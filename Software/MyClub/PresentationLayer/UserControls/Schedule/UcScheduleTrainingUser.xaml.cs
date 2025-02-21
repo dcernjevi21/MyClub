@@ -66,27 +66,35 @@ namespace PresentationLayer.UserControls
 
             if (startDate.HasValue && endDate.HasValue)
             {
-                var filteredMatches = _trainingService.FilterTrainings(startDate, endDate);
-
-                if (filteredMatches.Count == 0)
+                if (startDate.Value > endDate.Value)
                 {
-                    ShowToast("There are no data to be shown.");
+                    ShowToast("Start date cannot be greater than end date.");
                     return;
                 }
-
-                lblCurrentMonth.Visibility = Visibility.Collapsed;
-                btnPreviousMonth.Visibility = Visibility.Collapsed;
-                btnNextMonth.Visibility = Visibility.Collapsed;
-
-                if (startDate.HasValue && endDate.HasValue)
+                else
                 {
-                    lblDgHeader.Content = $"Filtered trainings from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                    var filteredMatches = _trainingService.FilterTrainings(startDate, endDate);
+
+                    if (filteredMatches.Count == 0)
+                    {
+                        ShowToast("There are no data to be shown.");
+                        return;
+                    }
+
+                    lblCurrentMonth.Visibility = Visibility.Collapsed;
+                    btnPreviousMonth.Visibility = Visibility.Collapsed;
+                    btnNextMonth.Visibility = Visibility.Collapsed;
+
+                    if (startDate.HasValue && endDate.HasValue)
+                    {
+                        lblDgHeader.Content = $"Filtered trainings from {startDate.Value:dd.MM.yyyy} to {endDate.Value:dd.MM.yyyy}";
+                    }
+
+                    dpFilterStartDate.SelectedDate = null;
+                    dpFilterEndDate.SelectedDate = null;
+
+                    dgTrainingGrid.ItemsSource = filteredMatches;
                 }
-
-                dpFilterStartDate.SelectedDate = null;
-                dpFilterEndDate.SelectedDate = null;
-
-                dgTrainingGrid.ItemsSource = filteredMatches;
             }
             else
             {
@@ -97,6 +105,8 @@ namespace PresentationLayer.UserControls
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
+            currentMonth = DateTime.Now.Month;
+            currentYear = DateTime.Now.Year;
             FilterTrainingsByMonth();
         }
 
@@ -111,7 +121,7 @@ namespace PresentationLayer.UserControls
                 }
                 else
                 {
-                    MessageBox.Show("Cannot mark attendance for past training sessions.");
+                    ShowToast("Cannot mark attendance for past training sessions.");
                 }
             }
             else
