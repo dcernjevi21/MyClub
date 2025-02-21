@@ -13,6 +13,7 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
+    /// Černjević
     public partial class UcCoachMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
@@ -138,6 +139,7 @@ namespace PresentationLayer.UserControls
                         txtFilterStatus.Text = "Number of " + selectedStatus + "s";
                         txtTotalFilteredEvents.Text = filteredMatches.Count.ToString();
                         double result = (double)filteredMatches.Count / totalMatches * 100;
+                        result = Math.Round(result, 2);
                         txtAverageRate.Text = result.ToString() + "%";
                     }
                 }

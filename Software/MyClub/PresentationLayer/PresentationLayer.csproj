@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -144,7 +144,7 @@
     <Compile Include="UserControls\UcMatchAttendanceCoach.xaml.cs">
       <DependentUpon>UcMatchAttendanceCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcScheduleMatchesUser.xaml.cs">
+    <Compile Include="UserControls\Schedule\UcScheduleMatchesUser.xaml.cs">
       <DependentUpon>UcScheduleMatchesUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UcTrainingAttendanceCoach.xaml.cs">
@@ -153,10 +153,10 @@
     <Compile Include="UserControls\UcTrainingsCoach.xaml.cs">
       <DependentUpon>UcTrainingsCoach.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcScheduleTrainingUser.xaml.cs">
+    <Compile Include="UserControls\Schedule\UcScheduleTrainingUser.xaml.cs">
       <DependentUpon>UcScheduleTrainingUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UcMarkAttendance.xaml.cs">
+    <Compile Include="UserControls\Schedule\UcMarkAttendance.xaml.cs">
       <DependentUpon>UcMarkAttendance.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCManageMemberships.xaml.cs">
@@ -277,15 +277,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcScheduleMatchesUser.xaml">
+    <Page Include="UserControls\Schedule\UcScheduleMatchesUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcScheduleTrainingUser.xaml">
+    <Page Include="UserControls\Schedule\UcScheduleTrainingUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UcMarkAttendance.xaml">
+    <Page Include="UserControls\Schedule\UcMarkAttendance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
