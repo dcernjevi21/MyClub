@@ -2,6 +2,13 @@
 
 # MyClub
 
+Testni korisnički podaci:
+User | Email | Password
+------  | --- | ---
+Admin | a | a
+Coach | c | c
+User | u | u
+
 ## Projektni tim
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
