@@ -13,6 +13,7 @@ namespace PresentationLayer.UserControls
     /// <summary>
     /// Interaction logic for UcMatchManagement.xaml
     /// </summary>
+    /// Černjević
     public partial class UcCoachMatchManagement : UserControl
     {
         private MatchManagementService _matchManagementService = new MatchManagementService();
@@ -111,6 +112,12 @@ namespace PresentationLayer.UserControls
 
             if ((startDate.HasValue && endDate.HasValue) || (selectedStatus != "- Select a status -"))
             {
+                if(startDate.Value > endDate.Value)
+                {
+                    ShowToast("Start date can't be greater than end date");
+                    return;
+                }
+
                 var filteredMatches = _matchManagementService.FilterMatches(startDate, endDate, selectedStatus);
 
                 if (filteredMatches.Count == 0)
@@ -131,14 +138,19 @@ namespace PresentationLayer.UserControls
                 else if (selectedStatus != "- Select a status -")
                 {
                     lblDgHeader.Content = $"Filtered trainings with status: {selectedStatus}";
-                    if (selectedStatus != "Scheduled" || selectedStatus != "Cancelled")
+                    if (selectedStatus != "Scheduled" && selectedStatus != "Cancelled")
                     {
                         statsGrid.Visibility = Visibility.Visible;
                         txtTotalEvents.Text = totalMatches.ToString();
                         txtFilterStatus.Text = "Number of " + selectedStatus + "s";
                         txtTotalFilteredEvents.Text = filteredMatches.Count.ToString();
                         double result = (double)filteredMatches.Count / totalMatches * 100;
+                        result = Math.Round(result, 2);
                         txtAverageRate.Text = result.ToString() + "%";
+                    }
+                    else
+                    {
+                        statsGrid.Visibility = Visibility.Collapsed;
                     }
                 }
 

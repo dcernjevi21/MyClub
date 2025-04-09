@@ -2,6 +2,7 @@
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new TeamRepository())
             {
-                List<Team> teams = repo.GetAll().ToList();
+                List<Team> teams = await repo.GetAll().ToListAsync();
                 return teams;
             }
         }
