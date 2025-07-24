@@ -13,9 +13,9 @@ User | u | u
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Dominik Černjević | dcernjevi21@student.foi.hr | 0016155459 | dcernjevi21
-Emanuel Valec | evalec21@student.foi.hr | 0016156391 | evalec21
-Fran Kundih | fkundih21@student.foi.hr | 0016153545  | fkundih21
+Dominik Černjević | dcernjevi21@student.foi.hr |  | dcernjevi21
+Emanuel Valec | evalec21@student.foi.hr |  | evalec21
+Fran Kundih | fkundih21@student.foi.hr |  | fkundih21
 
 
 ## Opis domene
